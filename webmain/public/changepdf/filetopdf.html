@@ -1,0 +1,47 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>文件预览</title>
+<link rel="stylesheet" type="text/css" href="webmain/css/css.css"/>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/js.js"></script>
+<script>
+$(function(){ 
+
+　　zhuang(<?=$da['frs']['id']?>,$('.webbtn'));
+}); 
+function zhuang(id,o){
+	var o1 = $(o).parent();
+	o1.html(js.getmsg('发送转化中...'));
+	var url = js.getajaxurl('changetopdf','public')+'&id='+id+'';
+
+	$.get(url,function(s){
+	
+		if(s=='ok'){
+		
+			location.reload();
+		
+		}else{
+			
+			o1.html(js.getmsg(s, 'red'));
+		}
+	});
+}
+function timeshow(s){
+	$('#times').html(s);
+	if(s==0)location.reload();
+	setTimeout('timeshow('+(s-1)+')',1000);
+}
+</script>
+</head>
+<body style="padding:0px;margin:0px;">
+
+<div align="center"  style="font-size:16px;margin-top:40px">
+	<div>文档未转化，系统自动转码</div>
+	<div style="margin-top:15px">转码成功会重新加载页面</div>
+	<div style="margin-top:15px"><button type="button" style="padding:15px" onClick="zhuang(<?=$da['frs']['id']?>, this)" class="webbtn">开始转pdf</button>&nbsp; <a class="zhu" href="javascript:;" onClick="location.reload()">[刷新]</a></div>
+</div>
+
+</body>
+</html>

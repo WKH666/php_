@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+<title>提醒</title>
+<link rel="stylesheet" type="text/css" href="mode/weui/weui.min.css"/>
+<link rel="shortcut icon" href="favicon.ico" />
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/js.js"></script>
+<script type="text/javascript" src="js/jswx.js"></script>
+<script type="text/javascript" src="js/base64-min.js"></script>
+<script type="text/javascript" src="mode/layer/layer.js"></script>
+<style>
+body,html{overflow:hidden;}
+body{background-color:#fbf9fe}
+.page_desc{text-align:center;color:#888;font-size:14px}
+.hd{padding:2em 0; text-align:center}
+.hd img{height:100px;width:100px;border-radius:50px}
+.weui_label{width:80px;}
+</style>
+<script>
+	
+function layerTip(state){
+	var st = state != 0 ? false:true;
+	if(st){
+		$('.LayerCe').fadeIn(800);return;
+	}else{
+		$('.LayerCe').fadeOut(400);return;
+	}
+}
+$(document).ready(function(){
+	
+	layerTip(0);
+});
+//$(function(){ 
+//　layer.confirm('当前微信账户非企业号成员，登录可能无法收到消息提醒，请联系管理员录入企业号成员', {
+//btn: [] //按钮
+//});
+//}); 
+
+
+</script>
+<style type="text/css">
+	.LayerCe{
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color:rgba(0,0,0,.5);
+		display: none;
+	}
+	.layer{
+		display: table;	
+		width: 100%;
+		height: 100%;
+	}
+	.layerBody{
+		display: table-cell;
+		vertical-align: middle;
+		text-align: center;
+	}
+	.layerCont{
+	    display: inline-block;
+	    background-color: #FFFFFF;
+	    width: 80%;
+	    border-radius: 5px;
+	}
+	.layerCont .closeBtn{
+	    text-align: right;
+	    padding: 5.3% 5.3%;
+	}
+ 	.contInfor .imgPanel{
+ 		padding: 0% 32%;
+ 		text-align: center;
+ 	}
+ 	.contInfor .imgPanel img{
+ 		width: auto;
+ 		max-width: 100%;
+ 		display: block;
+ 		margin: auto;
+ 	}
+ 	.contInfor .contSpan{
+ 		text-align: center;
+ 		color: #eaa0b9;
+ 		font-size: 17px;
+ 		letter-spacing: 1px;
+ 		margin-top: 4%;
+ 	}
+ 	.contInfor .contSpan2{
+ 		text-align: center;
+ 		color: #6d6a6b;
+ 		font-size: 24px;
+ 		letter-spacing: 2px;
+ 		margin-top: 16%;
+ 	}
+ 	.contInfor .contSpan3{
+ 		text-align: center;
+ 		color: #a4a4a4;
+ 		font-size: 13px;
+ 		margin-top: 1%;
+ 		margin-bottom: 18%;
+ 		
+ 	}
+</style>
+</head>
+
+
+<body>
+
+
+<div class="LayerCe">
+	<div class="layer">
+		<div class="layerBody">
+			<div class="layerCont">
+				<div class="closeBtn">
+					
+				</div>
+				<div class="contInfor">
+					<div class="imgPanel">
+						<img src="images/tipLogo.png" alt="" />
+					</div>
+					<div class="contSpan">
+						<p>您还未成为系统成员</p>
+					</div>
+					<div class="contSpan2">
+						<p>成为企业成员</p>
+					</div>
+					<div class="contSpan3">
+						<p>第一时间了解项目进度状态</p>
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
+</div>
+
+</body>
+</html>

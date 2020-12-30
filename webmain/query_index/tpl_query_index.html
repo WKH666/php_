@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<!--<meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><?=$da['title']?></title>
+<link rel="stylesheet" type="text/css" href="mine_style.css"/>
+<link rel="stylesheet" type="text/css" href="webmain/css/app.css"/>
+<link rel="stylesheet" type="text/css" href="mode/bootstrap3.3/css/bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" href="web/res/fontawesome/css/font-awesome.min.css">
+<!--[if IE 7 ]><link rel="stylesheet" type="text/css" href="web/res/fontawesome/css/font-awesome-ie7.min.css"><![endif]-->
+<link rel="stylesheet" type="text/css" href="<?=$da['p']?>/css/webmain.css"/>
+<link rel="stylesheet" type="text/css" href="<?=$da['p']?>/css/style<?=$da['style']?>.css" id="mainstylecss"/>
+<link rel="stylesheet" type="text/css" href="web/res/mode/menu/jquery-rockmenu.css"/>
+<link rel="stylesheet" type="text/css" href="mode/plugin/css/jquery-rockdatepicker.css"/>
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="stylesheet" href="mode/laydate/theme/default/laydate.css">
+<script type="text/javascript" src="mode/laydate/laydate.js"></script>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery.1.9.1.min.js"></script>
+<script type="text/javascript" src="js/js.js"></script>
+<script type="text/javascript" src="js/base64-min.js"></script>
+<script type="text/javascript" src="<?=$da['p']?>/<?=$da['p']?>Script.js"></script>
+<script type="text/javascript" src="<?=$da['p']?>/<?=$da['d']?><?=$da['m']?>/<?=$da['m']?>public.js"></script>
+<script type="text/javascript" src="mode/bootstrap3.3/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<?=$da['p']?>/<?=$da['d']?><?=$da['m']?>/<?=$da['m']?>script.js"></script>
+<script type="text/javascript" src="web/res/mode/menu/jquery-rockmenu.js"></script>
+<script type="text/javascript" src="mode/layer/layer.js"></script>
+<script type="text/javascript">
+js.servernow	= '<?=$da['now']?>';
+PROJECT			= '<?=$da['p']?>';
+VERSION			= '<?=VERSION?>';
+var show_key 	= '<?=$da['showkey']?>',homeurl = '<?=$da['homeurl']?>',homename='<?=$da['homename']?>';
+function globalbody(){
+	adminid		= '<?=$da['adminid']?>';
+	adminname	= '<?=$da['adminname']?>';
+	adminuser	= '<?=$da['adminuser']?>';
+	adminstyle	= '<?=$da['style']?>';
+}
+</script>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		html,body{
+			width: 100%;
+			height: 100%;
+		}
+	</style>
+</head>
+<body style="padding:0px;margin:0px; overflow:hidden;" scroll="no">
+<?php if(isempt($da['homeurl'])){?>
+<div class="topheader" id="topheaderid">
+	<table border="0" width="100%" cellspacing="0" cellpadding="0">
+	<tr>	
+		<td height="50" nowrap>
+			<table  border="0" cellspacing="0" cellpadding="0"><tr>	
+				<td style="padding:0px 10px;" nowrap><img src="images/logo.png" height="34" width="34"></td>
+				<td style="font-size:18px;padding-right:20px" nowrap><b><?=TITLE?></b></td>
+			</tr>
+			</table>
+		</td>
+		<td width="80%" >
+			<div class="topmenubg">
+				<span id="span_xinxiku" onclick="clickhome()">信息库首页</span>
+				<span id="span_chengguo" onclick="openresults()">成果信息</span>
+				<span id="span_zongheng" onclick="opencross()">纵/横项目信息</span>
+				<span id="span_lunwen" onclick="openreport()">论文发表信息</span>
+				<span id="span_huojiang" onclick="openprize()">获奖信息</span>
+			</div>
+		</td>
+	</tr>
+	</table>
+</div>
+
+<div class="topcenter"  align="right">
+	<span id="indexuserl" >你好，<?=$da['adminname']?>&nbsp; <i class="icon-caret-down"></i></span>
+</div>
+<?php }?>
+<table border="0" cellspacing="0" cellpadding="0" style="height: 100%;width: 100%;">
+<tr style="height: 100%;width: 100%;">
+	<td style="display:flex;justify-content: flex-start;height: 100%;width: 100%;">
+		<div style="height: 100%;width: 100%;">
+			<div id="indexcontent" style="height: 90%;width: 100%;">
+				<div id="content_allmainview" style="padding:10px;height: 100%;width: 100%;"></div>
+			</div>
+		</div>
+	</td>
+</tr>
+</table>
+
+<script type="text/javascript" src="mode/bootstrapplugin/jquery-bootstable.js"></script>
+</body>
+</html>

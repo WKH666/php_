@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>项目网评管理-网评项目</title>
+	<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+	<style type="text/css">
+		.xmk-table{
+			width: 100%;
+			border: none;
+			border-collapse: collapse;
+			text-align: center;
+			color: #666;
+			font-size: 14px;
+		}
+		.xmk-table a{
+			text-decoration: none;
+			color: #000;
+		}
+		.xmk-table a:visited{
+			color: #000;
+		}
+		button{
+			width: 78px;
+			height: 22px;
+			background-color: #ccc;
+			border: none;
+			border-radius: 5px;
+			margin-left: 30px;
+		}
+		input,select{
+			box-sizing: border-box;
+			width: 120px;
+			height: 26px;
+			border-radius: 5px;
+			outline: none;
+			border:solid #ccc 1px;
+		}
+		.search-container{
+			display: block;
+			width: 100%;
+			min-width: 1000px;
+			padding-bottom: 40px;
+			margin-bottom: 60px;
+			border-bottom: solid #ccc 3px;
+		}
+		.sub-item{
+			display: block;
+			width: 100%;
+			line-height: 38px;
+		}
+		.sub-item>div{
+			display: inline-block;
+			width: 246px;
+		}
+		.sub-item>div>span{
+			display: inline-block;
+			width: 100px;
+		}
+		.search-container>div:last-child{
+			display: block;
+			width: 978px;
+			text-align: right;
+		}
+		td{
+			border: solid #D6DED3 1px;
+			height: 36px;
+			padding: 0 10px;
+		}
+		thead{
+			background-color: #F1F9EC;
+
+		}
+		
+		
+	</style>
+</head>
+<body>
+	<div class="search-container">
+		<div class="sub-item">
+			<div>
+				<span>项目类别</span>
+				<select>
+					<option value="0">请选择</option>
+					<option value="1">实训类项目</option>
+					<option value="2">非实训类项目</option>
+				</select>
+			</div>
+			<div>
+				<span>申报单位</span>
+				<select>
+					<option value="0">请选择</option>			
+				</select>
+			</div>
+			<div>
+				<span>业务主管部门</span>
+				<select>
+					<option value="0">请选择</option>
+				</select>
+			</div>
+			<div>
+				<span>申报时间</span>
+				<select>
+					<option value="0">请选择</option>
+				</select>
+			</div>
+		</div>	
+		<div class="sub-item">
+			<div>
+				<span>网评状态</span>
+				<select>
+					<option value="0">请选择</option>
+					<option value="1">待网评</option>
+					<option value="2">已网评</option>
+				</select>
+			</div>
+			<div>
+				<span>所属批次</span>
+				<input type="text"></input>
+			</div>
+			<div>
+				<span>项目名称</span>
+				<input type="text"></input>
+			</div>
+			<div>
+				<span>负责人</span>
+				<input type="text"></input>
+			</div>
+		</div>
+		<div class="sub-item">	
+			<button>查询</button>
+			<button>重置</button>
+		</div>
+	</div>
+
+	<div>
+		<table class="xmk-table">
+			<thead>
+				<tr>
+					<td>序号</td>
+					<td>网评项目</td>
+					<td>项目类别</td>
+					<td>申报单位</td>
+					<td>项目负责人</td>
+					<td>项目概算(万元)</td>
+					<td>申报时间</td>
+					<td>所属批次</td>
+					<td>网评分数</td>
+					<td>操作</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1</td>
+					<td>实训室智慧监控系统</td>
+					<td>实训项目</td>
+					<td>计算机学院</td>
+					<td>东方蒂</td>
+					<td>12</td>
+					<td>2017-09-03</td>
+					<td>2017年一期申报</td>
+					<td></td>
+					<td><a href="#">查看</a></td>					
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>在线翻译软件</td>
+					<td>实训项目</td>
+					<td>外国语学院</td>
+					<td>李圣德</td>
+					<td>32</td>
+					<td>2017-05-03</td>
+					<td>2017年一期申报</td>
+					<td></td>
+					<td><a href="#">查看</a></td>					
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>自动化生产线实训室</td>
+					<td>实训项目</td>
+					<td>人文学院</td>
+					<td>欧克</td>
+					<td>212</td>
+					<td>2017-01-03</td>
+					<td>2017年一期申报</td>
+					<td></td>
+					<td><a href="#">查看</a></tr>
+			</tbody>
+
+		</table>
+
+
+	</div>
+	
+
+</body>
+</html>

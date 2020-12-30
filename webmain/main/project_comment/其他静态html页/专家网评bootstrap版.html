@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>专家网评</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<style type="text/css">
+		.h5{
+			margin:0;
+		}
+		.row .form-inline span{
+			display: inline-block;
+			width: 90px;
+		}
+		select,input{
+			display: inline-block;padding:0;
+			width: 180px!important;
+		}
+		.btn-row{
+			text-align: right;
+			
+		}
+		.btn-row button{
+			width: 70px;
+			margin-right: 30px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-3 form-group form-inline">
+				<label class="h5"><span>项目类别</span>
+				    <select class="form-control input-sm">
+				    	<option value="0">请选择</option>
+				    	<option value="1" selected="selected">实训类项目</option>
+				    	<option value="2">非实训类项目</option>
+				    </select>
+				</label>				 
+			</div>
+			<div class="col-md-3 form-group form-inline">		
+				<label class="h5"><span>申报单位</span>
+				    <select class="form-control input-sm">
+				    	<option value="0">请选择</option>			   
+				    </select>
+				</label>	
+
+			</div>			
+			<div class="col-md-3 form-group form-inline">
+				<label class="h5"><span>业务主管部门</span>  
+				   <select class="form-control input-sm">
+				    	<option value="0">请选择</option>			   
+				    </select>
+				</label>
+			</div>		
+			<div class="col-md-3 btn-group form-inline">
+				<label class="h5"><span>申报时间</span>  
+				   <select class="form-control input-sm">
+				    	<option value="0">请选择</option>			   
+				    </select>
+				</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3 form-group form-inline">
+				<label class="h5"><span>网评状态</span>
+				    <select class="form-control input-sm">
+				    	<option value="0">请选择</option>
+				    	<option value="1" selected="selected">待网评</option>
+				    	<option value="2">已网评</option>
+				    </select>
+				</label>				 
+			</div>
+			<div class="col-md-3 form-group form-inline">		
+				<label class="h5"><span>所属批次</span>
+				    <input class="form-control input-sm" type="text"></input>
+				</label>	
+
+			</div>			
+			<div class="col-md-3 form-group form-inline">
+				<label class="h5"><span>项目名称</span>   
+				   <input class="form-control input-sm" type="text"></input>
+				</label>
+			</div>		
+			<div class="col-md-3 btn-group form-inline">
+				<label class="h5"><span>负责人</span>   
+				   <input class="form-control input-sm" type="text"></input>
+				</label>
+
+			</div>
+		</div>
+		<div class="row btn-row">
+			<div class="col-md-3"></div><div class="col-md-3"></div><div class="col-md-2"></div>
+			<div class="col-md-3">
+				<label class="h5"><button class="btn btn-default btn-sm">查询</button></label>			
+				<label class="h5"><button class="btn btn-default btn-sm">重置</button></label>	
+			</div><div class="col-md-1"></div>
+			
+		</div>
+
+		<div class="row">
+			<div style="border-top: solid #ccc 3px;margin-top: 20px;margin-bottom: 30px;"></div>
+		</div>
+		<div class="row">
+			<table class="table table-bordered table-hover table-responsive text-center">
+				<thead>
+					<tr class="active">
+						<td>序号</td>
+						<td>网评项目</td>
+						<td>项目类别</td>
+						<td>申报单位</td>
+						<td>项目负责人</td>
+						<td>项目概算(万元)</td>
+						<td>申报时间</td>
+						<td>所属批次</td>
+						<td>网评分数</td>
+						<td>操作</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>实训室智慧监控系统</td>
+						<td>实训项目</td>
+						<td>计算机学院</td>
+						<td>东方蒂</td>
+						<td>12</td>
+						<td>2017-09-03</td>
+						<td>2017年一期申报</td>
+						<td></td>
+						<td><a href="#">查看</a></td>					
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>在线翻译软件</td>
+						<td>实训项目</td>
+						<td>外国语学院</td>
+						<td>李圣德</td>
+						<td>32</td>
+						<td>2017-05-03</td>
+						<td>2017年一期申报</td>
+						<td></td>
+						<td><a href="#">查看</a></td>					
+					</tr>
+					<tr>
+						<td>3</td>
+						<td>自动化生产线实训室</td>
+						<td>实训项目</td>
+						<td>人文学院</td>
+						<td>欧克</td>
+						<td>212</td>
+						<td>2017-01-03</td>
+						<td>2017年一期申报</td>
+						<td></td>
+						<td><a href="#">查看</a></tr>
+				</tbody>
+
+			</table>
+		</div>
+		
+	</div>
+
+</body>
+</html>

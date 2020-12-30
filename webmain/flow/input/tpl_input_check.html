@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="mode/bootstrap3.3/css/bootstrap.min.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/js.js"></script>
+    <script type="text/javascript" src="webmain/webmainScript.js"></script>
+
+
+
+    <script>
+        $(document).ready(function () {
+            $('#picture').on('change', function(){
+                var imgFiles = $(this)[0].files;
+                for (i=0;i<imgFiles.length;i++){
+                    filePath = imgFiles[i].name;
+                    fileFormat = filePath.split('.')[1].toLowerCase();
+                    src = window.URL.createObjectURL(imgFiles[i]);
+                    if( !fileFormat.match(/png|jpg|jpeg/) ) {
+                        alert('上传错误,文件格式必须为：png/jpg/jpeg');
+                        return
+                    }
+                    var preview = document.getElementById("previewImg");
+                    var img = document.createElement('img');
+                    img.width = 200;
+                    img.height = 200;
+                    img.src = src;
+                    img.name='tp';
+                    preview.appendChild(img)
+                }
+            });
+
+
+
+
+            var c='';
+            sessionStorage.removeItem('filearr');
+                c={
+                    addFiles:function(){
+                    sessionStorage.removeItem('upload_type');
+                    sessionStorage.setItem('upload_type','活动总结文档');
+                    js.upload('file_excel',{maxup:'1','title':'选择活动总结文档',uptype:'doc|docx','urlparams':'noasyn:yes'});
+                },
+            };
+            js.initbtn(c);
+            file_excel=function(a,xid){
+                var f = a[0];
+                console.log(f);
+                console.log(a[0].id);
+                sessionStorage.setItem('filearr',JSON.stringify(f));
+                $("#td02").text(a[0].filename);
+                $("#td03").text('已上传');
+            }
+        });
+
+        function sub() {
+            var from1=new FormData($('#form1')[0]);
+
+            js.ajax(js.getajaxurl('tp', 'input', 'flow'), {tp:from1}, function (data) {
+                // if (data){
+                //     closenowtabs();
+                //     try {
+                //         assessmentList.reload();
+                //     }catch (e) {
+                //
+                //     }
+                // }else {
+                //     alert("文件上传失败");
+                // }
+            }, 'post,json');
+        }
+        function ba() {
+            $('#winiframe_spancancel', window.parent.document).click();
+        }
+
+
+    </script>
+    <style>
+        .header_title{
+            background: #CDE3F1;
+            border-radius: 5px;
+        }
+        .header_title p{
+            padding: 2px 0;
+        }
+        .header_title:nth-of-type(2) p{
+            margin: 0;
+        }
+        #results_table{
+            width:98%;
+        }
+        #results_table thead,tbody tr td{
+            height: 30px;
+        }
+        #results_table thead tr td{
+            text-align: center;
+            background: #F2F2F2;
+        }
+        #results_table tbody{}
+        #results_table tbody tr td{
+            text-align: center;
+            border: 1px solid #d1d1d1;
+            box-sizing: border-box;
+        }
+        #results_table tbody tr td:nth-of-type(1){
+            text-align: center;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        p {
+            margin: 0 0 0;
+        }
+        .one_columns .form-group label {
+            width: 11rem;
+        }
+
+        .one_columns .form-group textarea {
+            height: 10rem;
+        }
+        #td03{
+            color: orange
+        }
+
+
+
+
+    </style>
+</head>
+<body>
+        <div class="header_title" style="margin-top: 20px">
+                <p>基础信息</p>
+        </div>
+        <form class="form-inline" style="margin: 20px">
+            <div class="form-group">
+                <label for="xmName">项目名称:</label>
+                <input class="form-control" size="15" readonly type="text" id="xmName" value="<?php echo $da['activity'];?>">
+            </div>
+            <div class="form-group">
+                <label for="actType">活动形式:</label>
+                <input class="form-control" readonly  size="50" type="text" id="actType" value="<?php echo $da['activity2'];?>">
+            </div>
+        </form>
+        <div class="header_title">
+            <p>附件资料</p>
+        </div>
+        <table id="results_table" cellpadding="0" cellspacing="0" >
+            <thead>
+            <tr>
+                <td>附件类型</td>
+                <td>文件名称</td>
+                <td>上传状态</td>
+                <td>操作</td>
+            </tr>
+            </thead>
+            <tbody id="results_tbody">
+            <tr>
+                <td id="td01">活动总结文档</td>
+                <td id="td02">支持扩展名：.doc.docx等文件格式</td>
+                <td id="td03">未上传</td>
+                <td>
+                    <a href="#" id="upexcelbtn{rand}" click="addFiles" style="color: #3D8EDB;text-decoration: none" >上传</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="header_title" style="margin-top: 25px">
+            <p>活动图片</p>
+        </div>
+
+        <form class="one_columns" id="form1" method="post" enctype="multipart/form-data">
+        <div style="margin: 8px">
+
+            <input type="file" id="picture" name="pictures" multiple/>
+        </div>
+        <div id="previewImg">
+        </div>
+            <div class="form-group" style="margin-left: 8px">
+                <button class="btn btn-primary btn-sm" type="button" onclick="draft();" id="s" style="margin: 25px" >保存草稿</button>
+                <button class="btn btn-success btn-sm" type="button" onclick="sub();" >提交</button>
+                <button class="btn-sm" type="button" style="margin-left: 20px" onclick="ba();">取消</button>
+            </div>
+        </form>
+
+
+
+
+
+
+
+</body>
+</html>

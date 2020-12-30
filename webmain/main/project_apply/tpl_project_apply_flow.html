@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="yes" />
+</head>
+<?php
+if (!defined('HOST'))
+	die('not access');
+?>
+<script>
+	{params}
+	console.log(params);
+	js.ajax(js.getajaxurl('getflowdetail','project_apply','main'),{},function(da){
+		var html = '';//html内容
+		data = js.decode(da);
+		html += '<dl>';
+		$.each(data, function(k,v) {
+			html += '<dt>'+v.library_state+'</dt>';
+			$.each(v.process_state, function(kk,vv) {
+				html += '<dd>'+vv.name+'</dd>';
+			});
+		});
+		html += '</dl>';
+		$('#showdiv').html(html);
+	});
+});
+
+</script>
+<body>
+<div>
+<section id="showdiv">
+</section>
+</div>
+</body>
+</html>

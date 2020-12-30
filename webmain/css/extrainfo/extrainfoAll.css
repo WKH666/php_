@@ -1,0 +1,40 @@
+.mancalTime ul li ,.mancal ul li{
+	list-style: none;
+	float: left;
+	font-size: 16px;
+}
+.mancalList2 ul .list2{
+	height: 100px;
+	line-height: 100px;
+	margin-right: 4.5%;
+	text-align: left;
+    margin-left: 15%;
+}
+.mancalList2 ul .list2+li {
+	width: 66% ;
+}
+.mancalList ul .list1{
+	height: 26px;
+	line-height: 26px;
+	margin-right: 3%;
+    margin-left: 15%;
+}
+.mancalList2{
+	margin-top: 2%;
+}
+.mancalTime  ul .list1{
+		height: 26px;
+	line-height: 26px;
+	margin-right: 4.5%;
+    margin-left: 15%;
+    font-size: 16px;
+}
+.btnConfirm,.btnCancel{
+	margin: 0% 1%;
+}
+.marBot2{
+	margin-bottom: 2%;
+}
+.w2d{
+	width: 70px;
+}

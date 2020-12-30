@@ -1,0 +1,401 @@
+<?php if(!defined('HOST'))die('not access');?>
+<script >
+$(document).ready(function(){
+	{params}
+	var atype=params.atype,zt=params.zt,bdt=params.bdt;
+	if(!zt)zt='';
+	/**
+	 * 获取统计的个数
+	 */
+	$.get(js.getajaxurl('project_apply_count','project_apply','main'),function(da){
+		var data = js.decode(da);
+		//console.log(data);
+		$('#all').html(data.all);
+		$('#clz').html(data.clz);
+		$('#ysh').html(data.ysh);
+		$('#wtg').html(data.wtg);
+	});
+	
+	var a = $('#view_{rand}').bootstable({
+		tablename:'project_apply',params:{'atype':atype,'zt':zt,'bdt':bdt},fanye:true,modenum:'project_apply',modename:'项目申报',
+		celleditor:true,storeafteraction:'project_applyafter',modedir:'project_apply:main',
+		columns:[{
+			text:'分类',dataIndex:'project_select',align:'left'
+		},{
+			text:'申报单位',dataIndex:'deptname'
+		},{
+			text:'项目名称',dataIndex:'project_name'
+		},{
+			text:'负责人',dataIndex:'project_head'
+		},{
+			text:'申报时间',dataIndex:'applydt',sortable:true
+		},{
+			text:'申报人',dataIndex:'optname'
+		},{
+			text:'状态',dataIndex:'statustext'
+		}],
+//		itemdblclick:function(){
+//			c.view();
+//		},
+
+	});
+	
+	xing{rand}=function(oi){
+		a.changedata = a.getData(oi);
+		c.view();
+	}
+	var c = {
+		del:function(){
+			a.del();
+		},
+		reload:function(){
+			a.reload();
+		},
+		view:function(){
+			var d=a.changedata;
+			openxiangs('项目申报','project_apply',d.id);
+		},
+		search:function(){
+			a.setparams({dt1:get('dt1_{rand}').value},true);
+		},
+		daochu:function(){
+			a.exceldown(nowtabs.name);
+		},
+		clickwin:function(o1,lx){
+			var id=0;
+			if(lx==1)id=a.changeid;
+			openinput('项目申报', 'project_apply',id);
+		},
+		clickdt:function(o1, lx){
+			$(o1).rockdatepicker({initshow:true,view:'date',inputid:'dt'+lx+'_{rand}'});
+		},
+		changlx:function(o1,lx){
+			//$("button[id^='state{rand}']").removeClass('active');
+			//$('#state{rand}_'+lx+'').addClass('active');
+			a.setparams({zt:lx});
+			this.search();
+		},
+		betweendt:function(o1,lx){
+			a.setparams({bdt:lx});
+			this.search();
+		}
+	};
+	js.initbtn(c);
+	
+	if(atype=='wwc'){
+		$('#wense_{rand}').remove();
+		$('#btngroup{rand}').hide();
+	}
+	if(atype!='my' && atype!='wcj')$('#wense_{rand}').remove();
+});
+</script>
+<style type="text/css">
+.queryReview {
+	display: block;
+}
+/*按钮 start*/
+.review .btnPanel {
+	margin: 2%;
+}
+.review .btnPanel .panelSearch {
+	text-align: right;
+}
+.review .btnPanel .panelOutput {
+	text-align: center;
+}
+/*按钮 end*/
+/*查询条件 start*/
+.review {}
+.review .reviewInput {
+	text-align: left;
+	padding-left: 8%;
+	margin: 3% 0%;
+}
+/*选择文字*/
+.review .reviewInput .stateContent {
+	display: inline-block;
+	width: 95px;
+	text-align: right;
+}
+/*选择框*/
+.review .reviewInput .dropPanel {
+	display: inline-block;
+}
+.review .reviewInput .dropPanel button {
+	width: 170px;
+}
+.retimeker{
+	margin-top: 2%;
+    margin-right: 2%;
+    float: left;
+}
+.mybtn{
+	text-align: center;
+}
+/*查询条件 end */
+</style>
+<!--<div>-->
+	<!--<div>
+       <ul class="homelishow"> 
+        <li click="changlx,"> 
+         <div  class="homeiconss">
+          <div class="div00">
+           <span id="all" style="display: inline;" class="badge red"></span>
+          </div> 
+          <div style="background-color:#3BBDDB" class="homeiconss2"> 
+           <div class="div01">
+            <i class="icon-bookmark-empty"></i>
+           </div> 
+           <div id="daiban_text">
+           全部任务
+            <div> 
+            </div>
+           </div>
+          </div>
+         </div></li>
+        <li click="changlx,0">
+         <div  class="homeiconss">
+          <div class="div00">
+           <span id="clz" style="display: inline;" class="badge red"></span>
+          </div> 
+          <div style="background-color:#EFBB62" class="homeiconss2"> 
+           <div class="div01">
+            <i class="icon-wrench"></i>
+           </div> 
+           <div id="todo_text">
+            处理中
+            <div> 
+            </div>
+           </div>
+          </div>
+         </div></li>
+        <li click="changlx,1">
+         <div  class="homeiconss">
+          <div class="div00">
+           <span id="ysh" style="display:inline" class="badge red"></span>
+          </div> 
+          <div style="background-color:#5AAAE2" class="homeiconss2"> 
+           <div class="div01">
+            <i class="icon-paperclip"></i>
+           </div> 
+           <div id="user_text">
+            已审核
+            <div> 
+            </div>
+           </div>
+          </div>
+         </div></li>
+        <li click="changlx,2">
+         <div  class="homeiconss">
+          <div class="div00">
+           <span id="wtg" style="display:inline" class="badge red"></span>
+          </div> 
+          <div style="background-color:#888888" class="homeiconss2"> 
+           <div class="div01">
+            <i class="icon-briefcase"></i>
+           </div> 
+           <div id="refresh_text2">
+            未通过
+           </div>
+          </div>
+         </div></li>
+       </ul>
+  </div>-->
+  <!--<div>-->
+<div class="selCondition">
+	<div class="headerTitle">
+			<div>
+				<span class="titleContent">统计条件</span>
+			</div>
+	</div>
+	
+	
+<section class="queryReview">
+	
+		<div class="container review">
+			<div class="row">
+				<table width="91.5%" style="margin:1% auto; ">
+	<tr>
+	<!--<td id="wense_{rand}" style="padding-right:10px">
+		<button class="btn btn-primary" click="clickwin,0" type="button"><i class="icon-plus"></i> 创建任务</button>
+	</td>-->
+	<!--<td  style="padding-left:10px">
+		<div style="width:140px"  class="input-group">
+			<input placeholder="申请日期" readonly class="form-control" id="dt1_{rand}" >
+			<span class="input-group-btn">
+				<button class="btn btn-default" click="clickdt,1" type="button"><i class="icon-calendar"></i></button>
+			</span>
+		</div>
+	</td>-->
+	<td width="90px">
+		<!--<button class="btn btn-default" click="search" type="button">查询</button>--> 
+		<span >按时间段统计</span>
+	</td>
+	<td width="40%"><div class="timepicker">
+		<div style="display: inline-block;">
+			
+			<div  class="input-group txtPanel">
+								 <input placeholder="开始" readonly class="form-control" id="dt1_{rand}" >
+								<span class="input-group-btn">
+									<button class="btn btn-default" click="clickdt,1" type="button"><i class="icon-calendar"></i></button>
+								</span>
+							</div>
+		</div>
+		<div style="display: inline-block;">
+			<div  class="input-group txtPanel">
+								<input placeholder="结束" readonly class="form-control" id="dt1_{rand}" >
+								<span class="input-group-btn">
+									<button class="btn btn-default" click="clickdt,1" type="button"><i class="icon-calendar"></i></button>
+								</span>
+							</div>
+						</div>	
+							
+							</td>
+	
+	<td  style="padding-left:10px;">
+		<a click="betweendt,1" style="padding-left:10px;">最近一个月</a>
+		<a click="betweendt,3" style="padding-left:10px;">最近三个月</a>
+		<a click="betweendt,6" style="padding-left:10px;">最近半年</a>
+		<a click="betweendt,12" style="padding-left:10px;">最近一年</a>
+	</td>
+	
+	<!--<td  width="90%" style="padding-left:10px">
+		
+		<div class="btn-group" id="btngroup{rand}">
+		<button class="btn btn-default active" id="state{rand}_" click="changlx," type="button">全部任务</button>
+		<button class="btn btn-default" id="state{rand}_0" click="changlx,0" type="button">已审核</button>
+		<button class="btn btn-default" id="state{rand}_1" click="changlx,1" type="button">处理中</button>
+		<button class="btn btn-default" id="state{rand}_2" click="changlx,2" type="button">未通过</button>
+
+		</div>	
+	</td>-->
+
+	
+<!--	
+	<td align="right" nowrap>
+		<button class="btn btn-default" id="xiang_{rand}" click="view" disabled type="button">详情</button> &nbsp; 
+	</td>-->
+	</tr>
+	</table>
+				<div class="col-lg-4 col-md-4 col-sm-4">
+					<div class="reviewCategory reviewInput">
+						<span class="reviewContent stateContent">项目类别</span>
+						<div class="dropdown dropPanel">
+							<select id="project_select_{rand}" click="selfl" name="project_select" class="selSearch selAuditState">
+								<option value="">-请选择-</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-4 col-sm-4">
+					<div class="reportingUnit reviewInput">
+						<span class="reviewContent stateContent">申报单位</span>
+						<div class="dropdown dropPanel">
+							<select id="dept_{rand}" name="deptaname" class="selSearch selAuditState">
+								<option value="">请选择</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-4 col-sm-4">
+					<div class="businessDepartment reviewInput">
+						<span class="reviewContent stateContent">业务主管部门</span>
+						<select name="" class="selSearch selBusinessDepartment">
+							<option value="">请选择</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-4 col-md-4 col-sm-4">
+					<div class="reviewAuditStatus reviewInput">
+						<span class="reviewContent stateContent">审核状态</span>
+						<div class="dropdown dropPanel">
+							<select id="status_{rand}" name="status" class="selSearch selAuditStatus">
+								<option value="">请选择</option>
+								<option value="1">待审核</option>
+								<option value="2">已完成</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-4 col-sm-4">
+					<div class="emergencyDegree reviewInput">
+						<span class="reviewContent stateContent">紧急程度</span>
+						<div class="dropdown dropPanel">
+							<select id="exigence_status_{rand}" name="exigence_status" class="selSearch selEmergencyDegree">
+								<option value="">请选择</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-4 col-sm-4">
+					<div class="reportingTime reviewInput">
+						<span class="reviewContent stateContent retimeker">申报时间</span>
+							<div class="timepicker">
+								<div  class="input-group txtPanel">
+								<input placeholder="验收日期" readonly class="form-control" id="dt1_{rand}" >
+								<span class="input-group-btn">
+									<button class="btn btn-default" click="clickdt,1" type="button"><i class="icon-calendar"></i></button>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-4 col-md-4 col-sm-4">
+					<div class="projectNum reviewInput">
+						<span class="reviewContent stateContent">项目编号</span>
+						<input type="text" id="project_number_{rand}" name="project_number" class="form-control txtPanel">
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-4 col-sm-4">
+					<div class="projectName reviewInput">
+						<span class="reviewContent stateContent">项目名称</span>
+						<input type="text" id="project_name_{rand}" name="project_name" class="form-control txtPanel">
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-4 col-sm-4">
+					<div class="projectPerson reviewInput">
+						<span class="reviewContent stateContent">负责人</span>
+						<input type="text" id="project_head_{rand}" name="project_head" class="form-control txtPanel">
+					</div>
+				</div>
+			</div>
+
+			<div class="row btnPanel">
+				<div class="col-lg-3 col-md-4 col-sm-4 col-xs-4 mybtn">
+					<button class="btn_ btn_search" click="search">
+					查询
+					</button>
+				</div>
+				<div class="col-lg-3 col-md-4 col-sm-4 col-xs-4 mybtn">
+					<button class="btn_ btn_reset">
+					重置
+					</button>
+				</div>
+				<div class="col-lg-3 col-md-4 col-sm-4 col-xs-4 mybtn">
+					<button click="exceldown" class="btn_ btn_output">
+					导出
+					</button>
+				</div>
+				<div class="col-lg-3 col-md-4 col-sm-4 col-xs-4 mybtn">
+					<button class="btn_ btn_reset" onclick="inputfk()">
+					录入非库项目
+					</button>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>
+<div class="headerTitle">
+		<div>
+			<span class="titleContent">统计信息</span>
+		</div>
+</div>
+<div class="blank10"></div>
+<div id="view_{rand}"></div>

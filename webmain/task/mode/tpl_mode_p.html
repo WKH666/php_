@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="yes"/>
+    <title>项目信息</title>
+    <!--<?//=$da['pagetitle']?>-->
+    <link rel="shortcut icon" href="favicon.ico"/>
+    <?php if($stype==''){?>
+    <link rel="stylesheet" type="text/css" href="mode/bootstrap3.3/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="webmain/css/app.css">
+    <link rel="stylesheet" type="text/css" href="webmain/css/task_tpl_mode_p.css">
+    <link rel="stylesheet" type="text/css" href="<?=$da['p']?>/css/css.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/js.js"></script>
+    <script type="text/javascript" src="<?=$da['p']?>/task/mode/modeview.js"></script>
+    <script type="text/javascript" src="mode/layer/layer.js"></script>
+    <script type="text/javascript" src="web/res/js/jquery-imgview.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+    <script>
+        var mid = '<?=$da['arr']['mid']?>', modenum = '<?=$da['arr']['modenum']?>', ismobile = 0, btntype = '<?=$btntype?>';
+        //判端流程是否通过，如已通过，则无nowcourseId
+        var nowCourseId = <?php if($da['arr']['status'] !=1) {echo $da['arr']['flowinfor']['nowcourse']['id'];}else{echo 0;}?>;
+        var modenum = '<?=$da['arr']['modenum']?>';
+        var mids = '<?=$da['arr']['mid']?>';
+        var ischeck = '<?=isset($da['arr']['flowinfor']['ischeck'])?>';
+        var ischeck2 = '<?=$da['arr']['flowinfor']['ischeck']?>';
+        var status = '<?=$da['arr']['status']?>';
+        var bill_id = 0;
+        //0不显示归档操作页面1显示归档操作页面
+        var showgds = <?php if(isset($da['arr']['flowinfor']['showgd'])) {echo $da['arr']['flowinfor']['showgd'];}else{echo 0;}?>;
+        //提交结项成果
+        $(document).ready(function () {
+            pageinit(nowCourseId);
+            //课题结项成果环节
+            getAchievementData(nowCourseId);
+            getUploadFilesData(mids,modenum);
+        });
+
+
+    </script>
+    <?php
+}
+$cheikbo = false;
+?>
+    <style>
+        .courseClsCheck{
+            display: none;
+        }
+        .courseClsFooter{
+            width:100%;
+            height: 60px;
+            margin-top: 50px;
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+        }
+        .courseClsFooter button{
+            margin-left: 15px;
+            width: 55px;
+        }
+        .courseClsFooter button:first-child{
+            background-color: #009966;
+            color: white;
+        }
+        .courseClsFooter button:last-child{
+            background-color: #f3f3f3;
+        }
+        .results_table{
+            width:100%;
+            margin-bottom: 30px;
+        }
+        .results_table thead tr td{
+            text-align: center;
+            background: #F2F2F2;
+            line-height: 30px;
+        }
+        .results_table tbody tr td{
+            text-align: center;
+            border: 1px solid #d1d1d1;
+            box-sizing: border-box;
+        }
+        .results_table tbody tr td:nth-child(2){
+            text-align: left;
+        }
+        .results_table tbody tr td:nth-child(2) input{
+            width: 95%;
+            border: none;
+        }
+        .results_table tbody tr td:nth-child(2) span{
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .results_table tbody tr td:nth-child(3){
+            color: #ffc552;
+        }
+
+        .results_table tbody tr td:nth-of-type(1){
+            text-align: center;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        p {
+            margin: 0 0 0;
+        }
+        .one_columns .form-group label {
+            width: 11rem;
+        }
+
+        .one_columns .form-group textarea {
+            height: 10rem;
+        }
+        #td03{
+            color: orange
+        }
+
+        .checkHeader {
+            width: 100%;
+            height: 35px;
+            line-height: 35px;
+            background-color: #CDE3F1;
+            font-size: 14px;
+            border-radius: 5px;
+            padding-left: 5px;
+        }
+
+        .serachPanel{
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        .searchAc1{
+            width: 30%;
+            margin-top: 20px;
+            margin-left: 15px;
+        }
+
+        .searchAc1 ul{
+            display: flex;
+        }
+
+        .searchAc1 ul li:first-child{
+            width: 80px;
+            height: 34px;
+            line-height: 34px;
+            text-align: right;
+        }
+
+        .serachPanel .searchAc1:nth-child(7){
+            width: 100%;
+        }
+        .serachPanel .searchAc1:nth-child(8){
+            width: 100%;
+        }
+
+        .serachPanel .searchAc1:nth-child(7)  ul li:last-child{
+            width: 86.5%;
+        }
+        .serachPanel .searchAc1:nth-child(8)  ul li:last-child{
+            width: 86.5%;
+        }
+
+        .ke-zeroborder img{
+            max-width: 650px;
+        }
+        td{
+            height: 20px!important;
+        }
+        .stitle{padding:5px;border-bottom:1px #dddddd solid;font-size:14px;}
+        .ydullist{display:inline-block;width:100%;}
+        .ydullist li{float:left;width:10%;text-align:center;padding:5px 0px;font-size:12px;display:block;line-height:25px;padding-top:10px}
+        .ydullist li:active{ background-color:#eeeeee}
+        .ydullist li img,.faces{height:30px;width:30px;border-radius:15px}
+        .ydullist li span{font-size:12px;color:#888888;}
+
+        .faces{margin-right:10px}
+        .ptitle{ text-align:center;font-size:20px;padding-top:60px;}
+        .tabled2 td{padding:5px;border:1px #e5e5e5 solid;text-align:center}
+        td.tdys1{border:1px #e5e5e5 solid;text-align:center;padding:0px 5px}
+        .createtable{width:90%}
+        .menulls{position:absolute;left:1px;top:10px}
+        .menulls{position:absolute;}
+        .menullss{position:absolute;left:1px;top:32px; background-color:white; border:1px #cccccc solid;border-bottom:0px;display:none}
+        .menullss li{padding:5px 10px;border-bottom:1px #dddddd solid;cursor:pointer}
+        .menullss li:hover{ background-color:#f1f1f1}
+        .pcont{line-height:27px;}
+        /*.pcont p{text-indent:24pt;margin:10px 10px}*/
+        .status{position: absolute;right:20px;top:10px;display:}
+        .uploadLimited{font-size: 14px;margin-top: 2%;color: #848484;}
+        .ke-zeroborder{border-spacing: 0;border-collapse: collapse;}
+        .ys0{border:1px #888888 solid}
+        .ys1{padding:5px 5px; border:1px #888888 solid;color:#5a5a5a;}
+        .ys2{padding:5px 5px; border:1px #888888 solid;color:#5a5a5a;}
+        .ys3{padding:5px 5px; border:1px #E5E5E5 solid;color:#5a5a5a;}
+        .datesss{background:url(mode/icons/date.png) no-repeat right;cursor:pointer;width:50%}
+        .inputs{width:95%}
+        .statustext{position: absolute;right:40px;top:10px;width:80px;height:80px;overflow:hidden; border:3px red solid;border-radius:50%;font-size:20px;text-align:center;line-height:80px;color:red;transform:rotate(-45deg);-o-transform:rotate(-45deg);-ms-transform:rotate(-45deg);-webkit-transform:rotate(-45deg);filter:progid:DXImagetransform.Microsoft.Matrix(M11=0.707,M12=-0.707,M21=0.707,M22=0.707,SizingMethod='auto expand');}
+
+        .m_left{margin-left: 8px;}
+        .ply{text-indent:24pt;margin:5px 5px}
+        .ply_left_top{margin-left:35px}
+        .table_all{
+            border: 1px #000000 solid;
+
+        }
+        .table_all_p_l{
+            border: 1px #000000 solid;
+            margin-left: 8px;
+        }
+        .table_top{
+            border-top: 1px #000000 solid;
+
+        }
+
+        .table_left{
+            border-left: 1px #000000 solid;
+        }
+        .table_left_right{
+            border-left: 1px #000000 solid;
+            border-right: 1px #000000 solid;
+        }
+        .table_right{
+            border-right: 1px #000000 solid;
+        }
+        .table_right_bottom{
+            border-right: 1px #000000 solid;
+            border-bottom: 1px #000000 solid;
+        }
+        .table_leftt_bottom{
+            border-left: 1px #000000 solid;
+            border-bottom: 1px #000000 solid;
+        }
+        .table_no_top{
+            border-left: 1px #000000 solid;
+            border-right: 1px #000000 solid;
+            border-bottom: 1px #000000 solid;
+        }
+        .table_no_bottom{
+            border-left: 1px #000000 solid;
+            border-right: 1px #000000 solid;
+            border-top: 1px #000000 solid;
+        }
+        .table_top_right{
+            border-top: 1px #000000 solid;
+            border-right: 1px #000000 solid;
+        }
+        .table_top_left{
+            border-top: 1px #000000 solid;
+
+            border-left: 1px #000000 solid;
+        }
+
+        .no_all{
+            border: 1px #000000 solid;
+            padding:0px;
+        }
+        .no_left{
+            border-left: 1px #000000 solid;
+            padding:0px;
+        }
+
+        .no_left_right{
+            border-left: 1px #000000 solid;
+            border-right: 1px #000000 solid;
+            padding:0px;
+        }
+
+        .createrows {
+            border: 1px solid #000000!important;
+        }
+        /*修改*/
+
+
+
+
+        /*.table_pat{
+            padding-left:5px;
+            padding-top:2px;
+            padding-bottom:2px;
+            padding-right:5px;
+            }
+        .table_top{
+            border-top: 1px #000000 solid;
+
+            }
+        .table_top_bottom {
+            border-top: 1px #000000 solid;
+            border-bottom: 1px #000000 solid;
+        }
+        .table_left{
+            border-left: 1px #000000 solid;
+            }
+        .table_right{
+            border-right: 1px #000000 solid;
+            }
+        .table_left_right{
+            border-left: 1px #000000 solid;
+            border-right: 1px #000000 solid;
+            }
+        .table_top_right{
+            border-top: 1px #000000 solid;
+            border-right: 1px #000000 solid;
+            }
+        .table_no_top{
+            border-left: 1px #000000 solid;
+            border-right: 1px #000000 solid;
+            border-bottom: 1px #000000 solid;
+            }
+        .table_bottom{
+            border-bottom: 1px #000000 solid;
+            /*padding: 5px;*/
+        }
+        /*.table_all{
+            border: 1px #000000 solid;
+        }
+            td{
+                padding-left:8px;
+            }
+            .no {
+            padding:0px;
+        }
+        .no_left{
+            border-left: 1px #000000 solid;
+            padding:0px;
+        }
+        .no_right {
+            border-right: 1px #000000 solid;
+            padding:0px;
+        }
+        .no_left_right {
+            border-left: 1px #000000 solid;
+            border-right: 1px #000000 solid;
+            padding:0px;
+        }
+        .no_top__right {
+            border-top: 1px #000000 solid;
+            border-right: 1px #000000 solid;
+            padding:0px;
+        }
+        .no_top_bottom {
+            border-top: 1px #000000 solid;
+            border-bottom: 1px #000000 solid;
+            padding:0px;
+        }
+        .no_all{
+            border: 1px #000000 solid;
+            padding:0px;
+        }
+        .jianju{
+            padding: 10px;
+        }*/
+
+        /*状态信息列表样式start*/
+
+        /*状态信息列表样式end*/
+        <?php
+        if($stype!=''){
+        ?>
+         *{font-size:14px}
+        .tabled2 td{border-color:#000000}
+        <?php }?>
+    </style>
+</head>
+<body style="background:white">
+
+<div align="center">
+    <div style="width:820px;position:relative" align="left">
+        <!--
+            作者：MP
+            时间：2017-04-06
+            描述：
+            <?php if($stype==''){?>
+            <div class="menulls"><a href="javascript:;" id="showmenu" style="font-size: 16px;padding: 6px 38px;margin-left: 38px;margin-top: 22px;" class="webbtn">操作V</a></div>
+            <div class="menullss"><ul><li lx="0">打印全部...</li><li lx="6">只打印内容...</li>
+                    <li lx="5">另存为word...</li>
+                    <?php
+                    if($da['arr']['isedit']==1)echo '<li lx="1">编辑</li>';
+                    if($da['arr']['isdel']==1)echo '<li lx="2">删除...</li>';
+                    ?>
+                    <li lx="3">关闭</li>
+                    <li lx="4">刷新</li>
+                    <?php
+                    if($btnstyle==1)echo '<li lx="1">审核信息</li>';
+                    if($btnstyle==1)echo '<li lx="2">状态信息</li>';
+                    ?>
+                </ul>
+            </div>
+            <?php }?>
+
+        -->
+        <!--描述：修改操作按钮-->
+        <?php
+		//项目状态不为作废时，显示出按钮
+		if($stype=='' && $da['arr']['status']!=5){
+	?>
+        <div class="menulls">
+            <?php
+			//判断可审核单据
+			if($da['arr']['isflow']==1 && $stype=='' && $da['arr']['flowinfor']['ischeck']==1){
+		?>
+            <!--  <button onclick="c.mencc(this)" class="btn_" lx="shcl">处理</button>-->
+            <?php } ?>
+            <!--描述：项目归档    当库进程状态为出库和当前项目已经付款才能进行归档     并且项目还没归档-->
+            <?php
+			if($btntype=='gd' && $da['arr']['project_is_guidang']!=1 && $da['arr']['is_evaluation']==1 && $stype==''){
+		?>
+            <button onclick="c.mencc(this)" class="btn_" lx="gd">归档</button>
+            <?php } ?>
+            <!--<button onclick="c.mencc(this)" lx="dy">打印</button>-->
+            <button onclick="c.mencc(this)" class="btn_" lx="shxx">流程信息</button>
+            <?php
+			if(count($da['arr']['status_log']) != 0){
+		?>
+            <button onclick="c.mencc(this)" class="btn_" lx="ztxx">状态信息</button>
+            <?php } ?>
+            <?php if($pinshen==''){?>
+            <!--     <button onclick="c.mencc(this)" class="btn_" lx="dcw">导出word文档</button>
+                 <button onclick="c.mencc(this)" class="btn_" lx="dcp">导出pdf文件</button>-->
+            <?php } ?>
+        </div>
+        <?php }?>
+
+
+        <?php
+	//显示状态
+	if($da['arr']['isflow']==1 && $stype==''){
+		echo '<div class="statustext" style="color:'.$da['arr']['statuscolor'].';border-color:'.$da['arr']['statuscolor'].'">
+        '.$da['arr']['statustext'].'
+    </div>'; }
+
+    if(!isempt($da['title'])){ echo '<div class="ptitle">'.$da['title'].'</div>'; }?>
+
+    <!--查看详情时申报内容表格start-->
+    <div class="padding10 pcont" align="left" style="padding-top: 20px;">
+        <?php
+		$contview = $da['arr']['contview'];
+		if($stype!='')$contview=str_replace('cccccc','000000', $contview);
+		//归档环节审核人的页面隐藏申报书详情
+		//if($da['arr']['flowinfor']['showgd'] ==1){ $contview =''; }
+		echo $contview;
+	?></div>
+    <!--查看详情时申报内容表格end-->
+
+    <div class="padding10">
+        <!--审核时申报内容表格start-->
+        <?php
+		//显示其他页面
+		if($da['spagepath']!='' && $stype==''){
+			include_once($da['spagepath']);
+		}
+
+		$logarr = $da['arr']['logarr'];
+		$statusarr = $da['arr']['status_log'];
+		if($logarr && $da['arr']['isgbjl']==0){
+		?>
+        <!--申报内容表格end-->
+        <!--处理信息start-->
+            <div id="recordss">
+                <div class="stitle zhu" onclick="c.changeshow(0)" style="cursor:pointer">处理信息(<?=count($logarr)?>)
+                    <?php if($stype==''){?>
+                    <img align="absmiddle" height="16" width="16" src="images/xiangyou1.png"> <a temp="clo"
+                                                                                                 href="javascript:;"
+                                                                                                 onclick="$('#recordss').remove();">×</a>
+                    <?php }?>
+                </div>
+                <div id="showrecord0" style="display:none">
+                    <table border="0" class="tabled2" style="border-collapse:collapse;" width="100%" cellspacing="0"
+                           cellpadding="0">
+                        <tr bgcolor="#EFEFEF">
+                            <td>序号</td>
+                            <td>动作</td>
+                            <td>处理人</td>
+                            <td>状态</td>
+                            <td>说明</td>
+                            <td>时间</td>
+                        </tr>
+                        <?php
+
+
+				foreach($logarr as $k=>$rs){
+                        ?>
+                        <tr>
+                            <td><?=$k+1?></td>
+                            <td><?=$rs['actname']?></td>
+                            <td><?=$rs['name']?></td>
+                            <td style="color:<?=$rs['color']?>"><?=$rs['statusname']?></td>
+                            <td>
+                                <div align="left"><?=$rs['explain']?></div>
+                            </td>
+                            <td><?=$rs['optdt']?></td>
+                        </tr>
+                        <?php }
+				unset($k,$rs);
+				?>
+                    </table>
+                </div>
+                <!--处理信息end-->
+                <!--状态更改记录信息start-->
+                <?php
+			if(count($da['arr']['status_log']) != 0){
+		?>
+                <div class="stitle zhu" onclick="c.changeshow(1)" style="cursor:pointer">状态信息(<?=count($statusarr)?>)
+                    <?php if($stype==''){?>
+                    <img align="absmiddle" height="16" width="16" src="images/xiangyou1.png"> <a temp="clo"
+                                                                                                 href="javascript:;"
+                                                                                                 onclick="$('#recordss').remove();">×</a>
+                    <?php }?>
+                </div>
+                <div id="showrecord1" style="display:none">
+                    <table border="0" class="tabled2" style="border-collapse:collapse;" width="100%" cellspacing="0"
+                           cellpadding="0">
+                        <tr bgcolor="#FFFFFF">
+                            <td colspan="4" style="text-align: left;">当前状态:<?=$da['arr']['now_status_log']?></td>
+                        </tr>
+                        <tr bgcolor="#FFFFFF">
+                            <td colspan="4" style="text-align: left;">项目年份:<?=$da['arr']['carryover_yeas']?></td>
+                        </tr>
+                        <tr bgcolor="#E1F4F0">
+                            <td colspan="4" align="center">状态更改记录</td>
+                        </tr>
+                        <?php
+				foreach($statusarr as $k=>$rs){
+                        ?>
+                        <tr>
+                            <td colspan="1" style="text-align: left;">更改时间:<?=$rs['update_time']?></td>
+                            <td colspan="1" style="text-align: left;" width="80">更改状态:</td>
+                            <td colspan="1" style="text-align: left;"><?=$rs['update_status']?></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" style="text-align: left;">备注说明:<?=$rs['remark']?></td>
+                        </tr>
+                        <tr bgcolor="#E1F4F0">
+                            <td colspan="4" align="center">文件预览</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" style="text-align: left;">
+                                <ul class="">
+                                    <?php
+					foreach($rs['files'] as $kk=>$rss){
+                                    ?>
+                                    <!--描述：显示文件名-->
+                                    <li><label><?=$rss['filename']?><label><span style="padding: 5px;"><a
+                                            onclick="c.downshow(<?=$rss['id']?>)">预览</a></span><span
+                                            style="padding: 5px;"><a
+                                            onclick="c.downloadone(<?=$rss['id']?>)">下载</a></span></li>
+                                    <?php } ?>
+                                </ul>
+                            </td>
+                        </tr>
+                        <?php } unset($k,$rs,$kk,$rss);?>
+                    </table>
+                </div>
+                <?php }?>
+                <div class="blank10"></div>
+            </div>
+            <!--状态更改记录信息end-->
+            <!--审核处理start-->
+            <?php }
+			//判断是否是作废单据和是否是可审核单据
+			if(isset($da['arr']['flowinfor']['ischeck'])){
+				if($da['arr']['status']!=5 && $da['arr']['flowinfor']['ischeck']==1){
+				if($da['arr']['isflow']==1 && $stype==''){
+				$flowinfor = $da['arr']['flowinfor'];
+			}
+		?>
+        <div class="courseCls">
+            <div id="checktablediv">
+                <div align="center" style="padding-bottom:5px;display: none;"><b>审核处理</b> <a temp="clo"
+                                                                                             href="javascript:;"
+                                                                                             onclick="$('#checktablediv').remove();">×</a>
+                </div>
+                <div align="center">
+                    <form name="myform">
+                        <table border="0" width="100%" class="tabled1" style="border-collapse:collapse;" cellspacing="0"
+                               cellpadding="0">
+                            <!--<tr height="40" bgcolor="#E1F4F0">
+                                <td width="130" class="tdys1"><div align="right" style="color:#555555">状态：</div></td>
+                                <td class="tdys1"><div align="left"><?=$flowinfor['nstatustext']?></div></td>
+                            </tr>-->
+                            <!--<tr height="40" bgcolor="#E1F4F0">
+                                <td width="130" class="tdys1" colspan="2" style="background: #EFEFEF;"></td>
+                            </tr>-->
+                            <!--处理流程start-->
+                            <?php
+			//判断  不显示处理界面的处理流程  0/1 否/是
+			if($da['arr']['isgbcllc']==0){?>
+                            <tr height="40">
+                                <td class="tdys1">
+                                    <div align="right" style="color:#555555;width:100px">处理流程：</div>
+                                </td>
+                                <td class="tdys1">
+                                    <div align="left" style="padding:5px 0px"><?=$flowinfor['flowcoursestr']?></div>
+                                </td>
+                            </tr>
+                            <!--处理流程end-->
+                            <?php
+			}
+			//判断是否可撤回
+			if($da['arr']['ischehui']>0){
+                            ?>
+                            <!--	<tr height="40">
+                                    <td class="tdys1"><div align="right" style="color:#555555">撤回：</div></td>
+                                    <td class="tdys1"><div align="left"><input class="webbtn" onclick="c.chehui(this)"  value="撤回上步处理" type="button"></div></td>
+                                </tr>-->
+                            <?php
+			}
+			//判断是否可审核
+			if($flowinfor['ischeck']==1){
+				$cheikbo = true;
+			?>
+                            <!--<tr height="40">
+                                <td class="tdys1"><div align="right" style="color:#555555"><font color=red>*</font>处理人：</div></td>
+                                <td class="tdys1"><div align="left"><?=$flowinfor['nowcourse']['name']?>(<?=$flowinfor['nowcourse']['nowcheckname']?>)</div></td>
+                            </tr>-->
+                            <?php
+			foreach($flowinfor['checkfields'] as $chef=>$chefv){
+
+                            if($chefv['showinpus']==1){
+                            ?>
+                            <tr height="40" id="degreediv">
+                                <td class="tdys1">
+                                    <div align="right" style="color:#555555"><font color=red>*</font><span
+                                            fieidscheck="<?=$chef?>"><?=$chefv['name']?></span>：
+                                    </div>
+                                </td>
+                                <td class="tdys1">
+                                    <div align="left"><?=$chefv['inputstr']?></div>
+                                </td>
+                            </tr>
+                            <?php
+			}else if($chefv['showinpus']==2){
+				echo '<tr style="display:none">
+                            <td><span fieidscheck="'.$chef.'">'.$chefv['name'].'</span></td>
+                            </tr>';
+                            }}
+                            //是否可转办显示
+                            if($flowinfor['iszhuanban']==1){
+                            ?>
+
+                            <tr style="display:none" id="zhuangdiv">
+                                <td class="tdys1">
+                                    <div align="right" style="color:#555555">转给：</div>
+                                </td>
+                                <td class="tdys1" style="padding:5px">
+                                    <div align="left">
+                                        <table width="98%" cellpadding="0" border="0">
+                                            <tr>
+                                                <td width="100%"><input placeholder="" class="inputs" style="width:98%"
+                                                                        id="zhuanbanname" readonly type="text"
+                                                                        name="zhuanbanname"><input name="zhuanbannameid"
+                                                                                                   id="zhuanbanname_id"
+                                                                                                   type="hidden"></td>
+                                                <td nowrap><a href="javascript:;"
+                                                              onclick="js.changeclear('zhuanbanname')"
+                                                              class="webbtn">×</a><a href="javascript:;"
+                                                                                     onclick="js.changeuser('zhuanbanname','changeuser')"
+                                                                                     class="webbtn">选择</a></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                            <?php }?>
+
+
+                            <tr>
+                                <td class="tdys1" style="width: 120px;">
+                                    <div align="right" style="color:#555555">意见：</div>
+                                </td>
+                                <td class="tdys1" style="padding:5px">
+                                    <div align="left"><textarea class="textarea" name="check_explain"
+                                                                style="width:95%;height:300px"
+                                                                placeholder="请填写相关意见或审核结果"></textarea></div>
+                                </td>
+                            </tr>
+
+
+                            <!-- 是否可上传文件，这里进行判断 -->
+                            <?php
+				if($flowinfor['isuploadfile']==1){
+			?>
+                            <tr id="relatedfile">
+                                <td class="tdys1" nowrap>
+                                    <div align="right" style="color:#555555">相关文件</div>
+                                </td>
+                                <td class="tdys1" style="padding:5px">
+                                    <div align="left">
+                                        <input name="fileid" type="hidden">
+                                        <div id="filedivview" style="height:60px;overflow:auto;width:96%"
+                                             class="inputs"></div>
+                                        <div><input style="width:150px" onchange="f.change(this)" type="file"></div>
+                                        <div class="uploadLimited">
+                                            格式要求：支持xls、xlsx、doc、docx、ppt、pptx、pdf格式文档和jpg、png、jpeg格式图片；单个文档不超过50M，单张图片不超过5M，总文件不超过900M。
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <?php }?>
+
+                            <tr height="40">
+                                <td class="tdys1">
+                                    <div align="right" style="color:#555555"><font color=red>*</font>结果：</div>
+                                </td>
+                                <td class="tdys1">
+                                    <div align="left">
+                                        <?php
+				$s = '';
+				$tuiname = '';
+				foreach($flowinfor['courseact'] as $k=>$act){
+                                        if($k>0){
+                                        if($flowinfor['ischecksuccess']==1 && $k==1){//判断是否默认选择通过
+                                        $s.='<label><input name="check_status" checked="checked"
+                                                           onclick="c.changecheck_status(this)" type="radio"
+                                                           value="'.$k.'">'.$act[0].'</label> &nbsp; ';
+                                        }else{
+                                        $s.='<label><input name="check_status" onclick="c.changecheck_status(this)"
+                                                           type="radio" value="'.$k.'">'.$act[0].'</label> &nbsp; ';
+                                        }
+                                        }
+                                        if($k==2)$tuiname = $act[0];
+                                        }
+                                        echo $s;
+                                        ?>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <?php
+
+                                        if($flowinfor['ischange']==1){
+                                        ?>
+                            <tr id='nexthandlediv'>
+                                <td class="tdys1">
+                                    <div align="right" style="color:#555555"><font color=red>*</font>下一步处理人：</div>
+                                </td>
+                                <td class="tdys1" style="padding:5px">
+                                    <div align="left">
+                                        <table width="98%" cellpadding="0" border="0">
+                                            <tr>
+                                                <td width="100%"><input
+                                                        placeholder="选择下一步[<?=$flowinfor['nextcourse']['name']?>]处理人"
+                                                        class="inputs" style="width:98%" id="nextname" readonly
+                                                        type="text" name="nextname"><input name="nextnameid"
+                                                                                           id="nextname_id"
+                                                                                           type="hidden"></td>
+                                                <td nowrap><a href="javascript:;"
+                                                              onclick="js.changeuser('nextname','changeusercheck')"
+                                                              class="webbtn">选择</a></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                            <?php }?>
+
+
+                            <?php
+			//不通过退回
+			if($tuiname != ''){
+			?>
+                            <tr style="display:none" id="tuihuidiv">
+                                <!--	<?=$tuiname?>-->
+                                <td class="tdys1">
+                                    <div align="right" style="color:#555555"><font color=red>*</font>退回：</div>
+                                </td>
+                                <td class="tdys1" style="padding:5px">
+                                    <div align="left">
+                                        <input type="hidden" name="check_tuiid" tyle="width:200px" value="0"/>
+                                        退回到提交
+                                        <!--<select class="inputs" name="check_tuiid" style="width:200px"><option value="0">退回到提交人</option>-->
+                                        <?php
+				if($flowinfor['tuicourse']){
+					$tstr = '<optgroup label="退回到步骤">';
+                                        foreach($flowinfor['tuicourse'] as $k=>$trs){
+                                        $tstr.='
+                                        <option value="'.$trs['id'].'">'.$trs['name'].'('.$trs['checkname'].')</option>
+                                        ';
+                                        }
+                                        $tstr.='</optgroup>';
+                                        //echo $tstr;
+                                        }
+                                        ?>
+                                        </select>
+                                    </div>
+                                </td>
+                            </tr>
+                            <?php } ?>
+
+                            <tr>
+                                <td class="tdys1">&nbsp;</td>
+                                <td class="tdys1" style="padding:5px">
+                                    <div align="left"><input class="webbtn" onclick="check(0)" id="check_btn" value="提交"
+                                                             type="button">&nbsp;<span id="msgview"></span>&nbsp; &nbsp;
+                                        <label style="color:#888888"><input id="autocheckbox" checked type="checkbox">处理完自动关闭</label>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <?php }?>
+                        </table>
+                    </form>
+                </div>
+                <div class="blank10"></div>
+            </div>
+        </div>
+            <?php } ?>
+
+            <!--描述：项目归档    当库进程状态为出库和当前项目已经付款才能进行归档     并且项目还没归档-->
+            <?php
+			if($btntype=='gd' && $da['arr']['project_is_guidang']!=1 && $da['arr']['is_evaluation']==1 && $stype==''){
+				$flowinfor = $da['arr']['flowinfor'];
+		?>
+            <div class="mainTitle">
+                <div align="center" style="padding-bottom:5px"><b>归档处理</b></div>
+                <!--<span class="mtContent">归档处理</span>-->
+            </div>
+            <div class="ac" id="showrecord2">
+                <div class="container archiveRecord" style="width: 720px;">
+                    <div class="row">
+                        <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12 recordlList">
+                            <ul>
+                                <li>本项目立项文档于<input type="text" id="gyear" class="rContent" value=""/>年<input type="text"
+                                                                                                             id="gmonth"
+                                                                                                             class="rContent"
+                                                                                                             value=""/>月<input
+                                        type="text" id="gday" class="rContent" value=""/>日由<input type="text"
+                                                                                                  id="gpeople"
+                                                                                                  class="rContent"
+                                                                                                  value=""/>打印整
+                                </li>
+                                <li>理，移交学校综合档案室，</li>
+                                <li>记录如下：</li>
+                            </ul>
+                            <div class="archiveTables">
+                                <table class=" tableRyr" cellspacing="0" cellpadding="0">
+                                    <thead>
+                                    <tr>
+                                        <th>文档名称</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+										foreach($da['arr']['currentfiles'] as $k=>$v){
+                                    ?>
+                                    <tr>
+                                        <td align="center"><?=$v['filename']?></td>
+                                        <td align="center">
+                                            <a href="javascript:;"
+                                               onclick="return c.downshow(<?=$v['id']?>,'<?=$v['fileext']?>','')"
+                                               style="color:blue;cursor: pointer;">预览</a>
+                                            <a style="cursor: pointer;" name="file_a" data=<?=$v['id']?>
+                                                onclick="c.downloadone(<?=$v['id']?>)">下载</a>
+                                        </td>
+                                    </tr>
+                                    <?php } unset($k,$v);?>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tips">
+                                <textarea id="gremark" name="txtArea1" rows="" cols="" placeholder="备注信息"></textarea>
+                            </div>
+                            <div class="row btnPanel">
+                                <button class="btn_" onclick="c.gdsave()">提交</button>
+                            </div>
+                        </div>
+                        <div class="blank10"></div>
+                    </div>
+                </div>
+                <!-- 归档end-->
+                <?php } ?>
+
+                <?php } ?>
+            </div>
+            <!--项目归档end-->
+
+
+        <!--提交结项报告环节页面-->
+        <!--<div class="courseClsCheck">
+            <div class="checkHeader">成果信息</div>
+            <section class="serachPanel">
+                <div class="searchAc1">
+                    <ul>
+                        <li><span class="reviewContent stateContent">成果编号：</span></li>
+                        <li><input type="text" id="achievement_num_" name="achievement_num" class="form-control"
+                                   readonly></li>
+                    </ul>
+                </div>
+                <div class="searchAc1">
+                    <ul>
+                        <li><span class="reviewContent stateContent">成果形式：</span></li>
+                        <li><input type="text" id="achievement_type_" name="achievement_type" class="form-control "
+                                   readonly></li>
+                    </ul>
+                </div>
+                <div class="searchAc1">
+                    <ul>
+                        <li><span class="reviewContent stateContent">结项时间：</span></li>
+                        <li><input type="text" id="end_time_" name="end_time" class="form-control" readonly></li>
+                    </ul>
+                </div>
+                <div class="searchAc1">
+                    <ul>
+                        <li><span class="reviewContent stateContent">名称：</span></li>
+                        <li><input type="text" id="project_name_" name="project_name" class="form-control " readonly>
+                        </li>
+                    </ul>
+                </div>
+                <div class="searchAc1">
+                    <ul>
+                        <li><span class="reviewContent stateContent">作者：</span></li>
+                        <li><input type="text" id="project_author_" name="project_author" class="form-control "
+                                   readonly></li>
+                    </ul>
+                </div>
+                <div class="searchAc1">
+                    <ul>
+                        <li><span class="reviewContent stateContent">所在单位：</span></li>
+                        <li><input type="text" id="company_" name="company" class="form-control " readonly></li>
+                    </ul>
+                </div>
+                <div class="searchAc1">
+                    <ul>
+                        <li><span class="reviewContent stateContent">发表刊物：</span></li>
+                        <li><input type="text" id="publication_" name="publication" class="form-control"
+                                   style="width: 100%" readonly></li>
+                    </ul>
+                </div>
+                <div class="searchAc1">
+                    <ul>
+                        <li><span class="reviewContent stateContent">摘要：</span></li>
+                        <li><textarea id="roundup_" name="roundup" class="form-control" style="height: 66px"
+                                      readonly></textarea></li>
+                    </ul>
+                </div>
+            </section>
+            <div class="checkHeader" style="margin: 35px 0 0 0">附件资料</div>
+            <table id="results_table" cellpadding="0" cellspacing="0" class="results_table">
+                <thead>
+                <tr>
+                    <td>附件类型</td>
+                    <td>文件名称</td>
+                    <td>上传状态</td>
+                    <td>操作</td>
+                </tr>
+                </thead>
+                <tbody id="results_tbody">
+                <tr id="tr1">
+                    <td>结项报告书</td>
+                    <td><input placeholder="结项报告书" readonly id="input1"><span onclick="delUploadFile(1)">x</span></td>
+                    <td id="status_span1">未上传</td>
+                    <td>
+                        <a href="javascript:;" onclick="addfiles(1)" style="color: #3D8EDB;text-decoration: none">上传</a>
+                    </td>
+                </tr>
+                <tr id="tr2">
+                    <td>结项成果</td>
+                    <td><input placeholder="结项成果" readonly id="input2"><span onclick="delUploadFile(2)">x</span></td>
+                    <td id="status_span2">未上传</td>
+                    <td>
+                        <a href="javascript:;" onclick="addfiles(2)" style="color: #3D8EDB;text-decoration: none">上传</a>
+                    </td>
+                </tr>
+                <tr id="tr3">
+                    <td>结项论文资料</td>
+                    <td><input placeholder="发表的论文复印件(封面，目录，正面)" readonly id="input3"><span
+                            onclick="delUploadFile(3)">x</span></td>
+                    <td id="status_span3">未上传</td>
+                    <td>
+                        <a href="javascript:;" onclick="addfiles(3)" style="color: #3D8EDB;text-decoration: none">上传</a>
+                    </td>
+                </tr>
+                <tr id="tr4">
+                    <td>结项成果资料</td>
+                    <td><input placeholder="成果影响证明材料" readonly id="input4"><span onclick="delUploadFile(4)">x</span>
+                    </td>
+                    <td id="status_span4">未上传</td>
+                    <td>
+                        <a href="javascript:;" onclick="addfiles(4)" style="color: #3D8EDB;text-decoration: none">上传</a>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+            <table id="results_table2" cellpadding="0" cellspacing="0" class="results_table">
+                <thead>
+                <tr>
+                    <td>附件类型</td>
+                    <td>文件名称</td>
+                    <td>查看状态</td>
+                    <td>操作</td>
+                </tr>
+                </thead>
+                <tbody id="results_tbody2">
+                &lt;!&ndash;    <tr id="tr01">
+                        <td>结项报告书</td>
+                        <td><input  placeholder="结项报告书" readonly id="input01"></td>
+                        <td id="status_span01">未上传</td>
+                        <td>
+                            <a href="javascript:;" onclick="addfiles(1)" style="color: #3D8EDB;text-decoration: none" >上传</a>
+                        </td>
+                    </tr>
+                    <tr id="tr02">
+                        <td>结项成果</td>
+                        <td><input  placeholder="结项成果" readonly id="input02"></td>
+                        <td id="status_span02">未上传</td>
+                        <td>
+                            <a href="javascript:;" onclick="addfiles(2)" style="color: #3D8EDB;text-decoration: none" >上传</a>
+                        </td>
+                    </tr>
+                    <tr id="tr03">
+                        <td>结项论文资料</td>
+                        <td><input  placeholder="发表的论文复印件(封面，目录，正面)" readonly id="input03"></td>
+                        <td id="status_span03">未上传</td>
+                        <td>
+                            <a href="javascript:;" onclick="addfiles(3)" style="color: #3D8EDB;text-decoration: none" >上传</a>
+                        </td>
+                    </tr>
+                    <tr id="tr04">
+                        <td>结项成果资料</td>
+                        <td><input  placeholder="成果影响证明材料" readonly id="input04"></td>
+                        <td id="status_span04">未上传</td>
+                        <td>
+                            <a href="javascript:;" onclick="addfiles(4)" style="color: #3D8EDB;text-decoration: none" >上传</a>
+                        </td>
+                    </tr>&ndash;&gt;
+                </tbody>
+            </table>
+            <div class="courseClsFooter">
+                <button class="btn" onclick="jiexiangSubmit()">提交</button>
+                <button class="btn" onclick="closePage()">取消</button>
+            </div>
+        </div>-->
+    </div>
+</div>
+
+<?php
+if($stype=='' && $cheikbo){
+?>
+<script type="text/javascript" src="web/res/js/jquery-changeuser.js"></script>
+<link rel="stylesheet" type="text/css" href="mode/plugin/css/jquery-rockdatepicker.css"/>
+<script type="text/javascript" src="mode/plugin/jquery-rockdatepicker.js"></script>
+<script type="text/javascript" src="web/res/js/jquery-rockupload.js"></script>
+<?php }?>
+</body>
+</html>

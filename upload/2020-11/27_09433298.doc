@@ -1,0 +1,7 @@
+<br />
+<b>Warning</b>:  file_get_contents(http://localhost/ProjectLibrary/task.php?a=p&amp;num=project_coursetask&amp;mid=33&amp;stype=word&amp;adminid=1&amp;token=7gqz215n&amp;device=1606225409712): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ in <b>C:\PHPstudy\phpstudy_pro\WWW\sheke\02-Develop\v1\include\chajian\wordChajian.php</b> on line <b>29</b><br />
+Date: Wed, 25 Nov 2020 14:50:39 +0800
+MIME-Version: 1.0
+Content-Type: multipart/related;
+	bo

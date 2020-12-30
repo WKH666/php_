@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+<title>流程</title>
+<link rel="stylesheet" type="text/css" href="mode/weui/weui.min.css"/>
+<link rel="stylesheet" type="text/css" href="web/res/fontawesome/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="webmain/css/rui.css">
+<link rel="stylesheet" type="text/css" href="webmain/css/cssm.css">
+<link rel="shortcut icon" href="favicon.ico" />
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/js.js"></script>
+<script type="text/javascript" src="js/jswx.js"></script>
+<script type="text/javascript" src="js/base64-min.js"></script>
+<script type="text/javascript" src="mode/layer/layer.js"></script>
+<style type="text/css">
+		.processList {
+			display: block;
+		}
+		body{
+			background-color: #f1f1f1;
+		}
+		ul,
+		li,
+		body {
+			padding: 0;
+			margin: 0;
+		}
+		
+		.leftCont,
+		.rightCont {
+			display: inline-block;
+		}
+		
+		.tableT {
+			    display: table;
+		    width: 100%;
+		    height: 60px;
+		    overflow: hidden;
+		    border-bottom: 1px solid #eee;
+		    background-color: #fff;
+		    padding: 4% 0%;
+		    /* margin: 0% 5%; */
+		    margin-bottom: 2.3%;
+		}
+		
+		.tableC {
+			display: table-cell;
+			vertical-align: middle;
+		}
+		
+		.leftCont {
+			width: 74%;
+			padding-left: 4%;
+		}
+		
+		.rightCont {
+			width: 20%;
+			text-align: center;
+			color: #419af1;
+		}
+		
+		.btnSubmit {
+			border-style: none;
+			border-radius: 2px;
+			background-color: #419af1;
+			color: #FFFFFF;
+			margin-top: 2%;
+			padding: 2%;
+		}
+		
+		.rjd {
+			float: right;
+			display: inline-block;
+			width: 100%;
+			margin-bottom: 13%;
+		}
+		.grayContent{
+			color: #969696 !important;
+		}
+	</style>
+</head>
+
+
+<body>
+<?php if($web!='wxbro' && $web!='xinhu'){?>
+<div>
+	<div class="header" id="header_title"><span onclick="js.back()" class="header-back"></span></div>
+	<div class="blank50"></div>
+</div>
+<?php }?>
+	
+	<section class="processList">
+			<div class="containerE">
+				<ul>
+					<?php
+						
+						echo $html;
+						?>
+				</ul>
+			</div>
+		</section>
+
+</body>
+<script type="text/javascript">
+		function remind(sid, sLid) {
+	
+			var data = {
+				id: sid,
+				lid: sLid
+			};
+			$.ajax({
+				type: "?m=flow&a=remind&d=we",
+				url: "",
+				async: true,
+				data: data,
+				success: function(data) {
+					console.info(data);
+				},
+				error: function() {
+					console.error('the request error ');
+				}
+			});
+		}
+	</script>
+
+
+</html>

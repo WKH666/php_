@@ -1,0 +1,2 @@
+task/mode/p,[错误SQL]：《SELECT project_year,project_xingzhi,is_evaluation,project_ku,project_is_guidang FROM xinhu_project_researchbase WHERE id=16 LIMIT 1》----------原因：Unknown column 'project_year' in 'field list'
+URL：a=p&num=project_researchbase&mid=16&callback=opegs1608975142994_5547

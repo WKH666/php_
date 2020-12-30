@@ -1,0 +1,252 @@
+<div class="mainTitle"><br/></div>
+<p><br/></p>
+<style type="text/css">
+    .ys1 {
+        border: 1px solid #000000;
+    }
+
+    .ys2 {
+        border: 1px solid #000000;
+    }
+
+    .ke-edit {
+        height: 600px !important;
+    }
+</style>
+
+<table width="100%" bordercolor="#000000" border="0" class="ke-zeroborder">
+
+    <tbody>
+    <!--隐藏的字段-->
+    <input value='0' type="hidden" name="project_zhijigoucheng"/>
+    <!--<input value='0' type="hidden" name="project_fund_composition"/>-->
+    <!--<input value='0' type="hidden" name="project_self_raising"/>-->
+    <!--<input value='0' type="hidden" name="project_central_finance"/>-->
+    <!--<input value='0' type="hidden" name="project_provincial_finance"/>-->
+    <!--<input value='0' type="hidden" name="project_city_property"/>-->
+    <!--<input value='0' type="hidden" name="project_other"/>-->
+
+    <input value='123456@qq.com' type="hidden" name="email"/>
+    <input value='无' type="hidden" name="major"/>
+    <input value='0' type="hidden" name="project_sort"/>
+    <input value='无' type="hidden" name="project_approval"/>
+    <input value='无' type="hidden" name="project_funding"/>
+    <input value='库项目' type="hidden" name="project_xingzhi"/>
+
+    <tr>
+        <td colspan="2" align="center"><br/>
+            <p align="center"><strong><span style="font-size:30px;">广东科学技术职业学院</span><u> </u></strong></p>
+            <p align="center"><br/>
+                <strong><span style="font-size:30px;">行政综合类建设项目申报书</span></strong></p>
+        </td>
+    </tr>
+    <tr>
+        <td height="34" colspan="3" align="right">
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+        </td>
+    </tr>
+    <tr>
+        <td width="210" height="56" align="right"></td>
+        <td width="558" height="56" colspan="1" align="left"><span style="font-size:19px;">项目名称:</span><span style="font-size:19px;"><u>{project_name}</u></span></td>
+    </tr>
+    <!--<tr>-->
+        <!--<td width="210" height="49" align="right"></td>-->
+        <!--<td height="49" width="558" colspan="1" align="left"><span style="font-size:19px;">项目编号:</span><span style="font-size:19px;display: inline-block;width: 40%;border-bottom: 1px solid #000;"><u>{base_number}</u></span></td>-->
+    <!--</tr>-->
+    <!--<tr>-->
+        <!--<td height="34" colspan="3" align="right">-->
+            <!--<p>&nbsp;</p>-->
+        <!--</td>-->
+    <!--</tr>-->
+    <tr>
+        <td height="56" colspan="1" align="right"></td>
+        <td colspan="1" align="left"><span style="font-size:19px;"> 项目申报单位:</span><span style="font-size:19px;display: inline-block;width: 40%;border-bottom: 1px solid #000;"><u>{base_deptname}</u></span></td>
+    </tr>
+    <tr>
+        <td height="56" colspan="1" align="right"></td>
+        <td colspan="1" align="left"><span style="font-size:19px;float: left;margin-top: 3px;"> 业务主管部门:</span><span style="font-size:19px;"><u>{project_z_bumeng}</u></span></td>
+    </tr>
+    <tr>
+        <td height="56" colspan="1" align="right"></td>
+        <td colspan="1" align="left"><span style="font-size:19px;float: left;margin-top: 3px;"> 项目预算:</span><span style="font-size:19px;display: inline-block;width: 45%;border-bottom: 1px solid #000;"><u>{project_yushuan}</u></span></td>
+    </tr>
+    <tr>
+        <td height="56" colspan="1" align="right"></td>
+        <td colspan="1" align="left"><span style="font-size:19px;"> 项目申报日期:</span><span style="font-size:19px;"><!--<u> {apply_year} </u>年<u> {apply_month} </u>月<u> {apply_day} </u>日<-->{project_apply_time}</span>
+        </td>
+    </tr>
+    <tr>
+        <td height="56" colspan="1" align="right"></td>
+        <td colspan="1" width="558" align="left"><span style="font-size:19px;"> 项目实施年度:</span><span style="font-size:19px;"><u>{project_year}</u></span></td>
+    </tr>
+    <tr>
+        <td height="34" colspan="3" align="right">
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+        </td>
+    </tr>
+
+    </tbody>
+</table>
+
+<!--<p class="tCenter pad1 f20 bgColor1 marBot3">一、项目申报单位情况</p>-->
+<table width="100%" bordercolor="#000000" border="0" class="ke-zeroborder tbTxt">
+    <tbody>
+    <tr>
+        <td colspan="6" class="ys1 f20 tCenter pad1" style="background-color: #F1F1F1;">一、项目申报单位情况</td>
+    </tr>
+    <tr>
+        <td width="15%" height="34" align="center" class="ys1">项目名称</td>
+        <td colspan="5" class="ys2"><div class="projectName"></div></td>
+    </tr>
+    <tr>
+        <td width="15%" height="34" align="center" class="ys1">项目类别</td>
+        <td colspan="5" class="ys2">{project_select}</td>
+    </tr>
+    <tr>
+        <td width="20%" height="34" align="center" class="ys1">项目资金构成（元）</td>
+        <td width="16%" height="34" align="center" class="ys1">学校自筹</td>
+        <td width="16%" height="34" align="center" class="ys1">央财</td>
+        <td width="16%" height="34" align="center" class="ys1">省财</td>
+        <td width="16%" height="34" align="center" class="ys1">市财</td>
+        <td width="16%" height="34" align="center" class="ys1">其它</td>
+    </tr>
+    <tr>
+        <td width="20%" class="ys2" align="center">{project_fund_composition}</td>
+        <td width="16%" class="ys2" align="center">{project_self_raising}</td>
+        <td width="16%" class="ys2" align="center">{project_central_finance}</td>
+        <td width="16%" class="ys2" align="center">{project_provincial_finance}</td>
+        <td width="16%" class="ys2" align="center">{project_city_property}</td>
+        <td width="16%" class="ys2" align="center">{project_other}</td>
+    </tr>
+    <tr>
+        <td height="34" align="center" class="ys1">项目负责人</td>
+        <td class="ys2">{project_head}</td>
+        <td align="center" class="ys1">联系电话</td>
+        <td class="ys2">{project_head_phone}</td>
+        <td align="center" class="ys1">QQ号</td>
+        <td class="ys2">{project_qq_number}</td>
+    </tr>
+    </tbody>
+</table>
+<p><br/></p>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" id="tablesub0" class="ke-zeroborder tbTxt tCenter">
+    <tbody>
+    <tr>
+        <td width="10%" class="ys1 tdh40 ">序号</td>
+        <td class="ys1 tdh40">姓名</td>
+        <td class="ys1 tdh40">单位</td>
+        <td class="ys1 tdh40">职务/职称</td>
+        <td class="ys1 tdh40">工作分工</td>
+        <td class="ys1 tdh40">联系方式</td>
+        <td width="10%" class="ys1 tdh40">操作</td>
+    </tr>
+    <tr>
+        <td class="ys1">[xuhao0,0]</td>
+        <td class="ys1">[project_team_name0,0]</td>
+        <td class="ys1">[project_team_dept0,0]</td>
+        <td class="ys1">[project_team_post0,0]</td>
+        <td class="ys1">[project_team_work0,0]</td>
+        <td class="ys1">[project_team_phome0,0]</td>
+        <td class="ys1">{删,0}</td>
+    </tr>
+    <tr>
+        <td class="ys1">[xuhao0,1]</td>
+        <td class="ys1">[project_team_name0,1]</td>
+        <td class="ys1">[project_team_dept0,1]</td>
+        <td class="ys1">[project_team_post0,1]</td>
+        <td class="ys1">[project_team_work0,1]</td>
+        <td class="ys1">[project_team_phome0,1]</td>
+        <td class="ys1">{删,0}</td>
+    </tr>
+    <tr>
+        <td class="ys1">[xuhao0,2]</td>
+        <td class="ys1">[project_team_name0,2]</td>
+        <td class="ys1">[project_team_dept0,2]</td>
+        <td class="ys1">[project_team_post0,2]</td>
+        <td class="ys1">[project_team_work0,2]</td>
+        <td class="ys1">[project_team_phome0,2]</td>
+        <td class="ys1">{删,0}</td>
+    </tr>
+    <tr>
+        <td class="ys1">[xuhao0,3]</td>
+        <td class="ys1">[project_team_name0,3]</td>
+        <td class="ys1">[project_team_dept0,3]</td>
+        <td class="ys1">[project_team_post0,3]</td>
+        <td class="ys1">[project_team_work0,3]</td>
+        <td class="ys1">[project_team_phome0,3]</td>
+        <td class="ys1">{删,0}</td>
+    </tr>
+    <tr>
+        <td class="ys1">[xuhao0,4]</td>
+        <td class="ys1">[project_team_name0,4]</td>
+        <td class="ys1">[project_team_dept0,4]</td>
+        <td class="ys1">[project_team_post0,4]</td>
+        <td class="ys1">[project_team_work0,4]</td>
+        <td class="ys1">[project_team_phome0,4]</td>
+        <td class="ys1">{删,0}</td>
+    </tr>
+    </tbody>
+</table>
+<div class="cbtn_ btnAdd tdcont1 ">{新增,0}</div>
+<!--<div class="cbtn_ btnAdd tdcont1 ">{新增,0}</div><p><br /></p><p class="ys1 f20 tCenter ">二、项目基本情况</p><p><span class="disB tCenter borC marRig3 pad2 f16">2-1项目申请理由</span> </p>-->
+<!--（重点说明项目申报依据及必要性及紧迫性、规划时限等主要情况、主要经济技术指标、项目进度安排等）（不超过800字)-->
+<!--<p><span class="disB tCenter borC marRig3 pad2 f16">2-1项目申请理由</span>{project_details_one}</p><p><span class="disB tCenter borC marRig3 pad2 f16">2-2项目具体建设目标</span> </p>-->
+<!--要特别说明现有条件（人员、技术、设备、环境、用房）和要学校支持的条件。（1500字以内)-->
+<!--<p>{project_details_two}</p><p><span class="disB tCenter borC marRig3 pad2 f16">2-3分项列出主要建设内容</span> </p>-->
+<!--项目投资概预算及资金构成、资金筹措方案。（不超过1000字）-->
+<!--<p>{project_details_three}</p>-->
+<p><br/></p>
+<table width="100%" bordercolor="#000000" border="0" class="ke-zeroborder tbTxt">
+    <tbody>
+    <tr>
+        <td colspan="4" class="ys1 f20 tCenter pad1 " style="background-color: #F1F1F1;">二、项目基本情况</td>
+    </tr>
+    <tr>
+        <td width="7%" height="34" rowspan="2" align="right" class="ys1 f18" style="padding: 0% 2.5%;">项目建设背景和依据</td>
+        <td class="ys2">一、 项目建设背景和依据<font color="red" style="font-size: 13px;">（不超过800字，5号宋体，行距17，22行）</font></td>
+    </tr>
+    <tr>
+        <td class="ys2">{project_details_one}</td>
+    </tr>
+    <tr>
+        <td width="7%" height="34" rowspan="2" align="right" class="ys1 f18" style="padding: 0% 2.5%;">项目建设目标意义和可行性</td>
+        <td class="ys2">二、项目建设目标、意义和可行性<font color="red" style="font-size: 13px;">（1500字以内，5号宋体，行距17，40行，占满本页）</font></td>
+    </tr>
+    <tr>
+        <td class="ys2">{project_details_two}</td>
+    </tr>
+    <tr>
+        <td width="7%" height="34" rowspan="2" align="right" class="ys1 f18" style="padding: 0% 2.5%;">项目建设内容</td>
+        <td class="ys2">三、分项列出主要建设内容，项目概预算和资金构成（可附相关材料）<font color="red" style="font-size: 13px;">（不超过1000字）</font>
+        </td>
+    </tr>
+    <tr>
+        <td class="ys2">{project_details_three}</td>
+    </tr>
+    </tbody>
+</table>
+<p><br/></p>
+<p>相关文件</p>
+<p><br/></p>
+<p>{file_content}</p>
+<p><br/></p>
+<p><br/></p>
+<!--<p class="tCenter padBot2 f30 ">流程</p>-->
+<script type="text/javascript">
+    $(document).ready(function () {
+        //console.info($('input[name="project_name"]').parents('span:first').parent().parent().find('.inputs'));
+        $('input[name="project_name"]').parents('span:first').parent().parent().find('.inputs').on('input', function () {
+            $('.projectName').html($(this).val());
+        });
+        //$('input[name="project_name"]').parents('span').eq(8).attr('style','font-size:19px;display:inline-block; border-bottom: 1px solid #000;width: 40%;').find('.inputs').attr('style','width: 96%;font-size:18px;');
+        $('input[name="project_name"]').parents('span').eq(8).find('.inputs').attr('style', 'width: 96%;font-size:18px;');
+        $('input[name="project_name"]').parents('span:first').parent().parent().attr('style', 'font-size:19px;display:inline-block; border-bottom: 1px solid #000;width: 46%;').find('.inputs').attr('style', 'width: 96%;font-size:18px;');
+        $('#div_project_z_bumeng').parents('span')[0].attr('style', 'font-size:19px;display:inline-block;width:40%;    border-bottom: 1px solid #000;').find('.inputs').attr('style', 'width: 96%;font-size:18px;');
+        $('#div_project_year').parents('span')[0].attr('style', 'font-size:19px;display:inline-block;width:40%;    border-bottom: 1px solid #000;width: 40%;').find('.inputs').attr('style', 'font-size:18px;    width:97%;');
+        $('#div_project_apply_time').parents('span')[0].attr('style', 'font-size:19px;display:inline-block;width:40%;    border-bottom: 1px solid #000;width: 40%;').find('.inputs').attr('style', 'font-size:18px;    width: 97%;');
+    });
+</script>

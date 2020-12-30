@@ -1,0 +1,207 @@
+<style>
+    .checkHeader {
+        width: 100%;
+        height: 35px;
+        line-height: 35px;
+        background-color: #CDE3F1;
+        font-size: 14px;
+        border-radius: 5px;
+        padding-left: 5px;
+    }
+    .results_table{
+        width:100%;
+        margin-bottom: 30px;
+    }
+    .results_table thead tr td{
+        text-align: center;
+        background: #F2F2F2;
+        line-height: 30px;
+    }
+    .results_table tbody tr td{
+        text-align: center;
+        border: 1px solid #d1d1d1;
+        box-sizing: border-box;
+    }
+    .results_table tbody tr td:nth-child(2){
+        text-align: left;
+    }
+    .results_table tbody tr td:nth-child(2) input{
+        width: 95%;
+        border: none;
+    }
+    .results_table tbody tr td:nth-child(2) span{
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+    .results_table tbody tr td:nth-child(3){
+        color: #ffc552;
+    }
+
+    .results_table tbody tr td:nth-of-type(1){
+        text-align: center;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+</style>
+
+<strong>&nbsp;<span style="font-size:18px;">一、研究基地基本情况</span> </strong>
+<table style="width:100%;" cellpadding="2" cellspacing="0" border="1" bordercolor="#000000">
+    <tbody>
+    <tr>
+        <td>*研究基地名称 <br/></td>
+        <td colspan="3">{research_base}<br/></td>
+    </tr>
+    <tr>
+        <td>*研究领域 <br/></td>
+        <td colspan="3">{research_zone}<br/></td>
+    </tr>
+    <tr>
+        <td>*主要研究方向 <br/></td>
+        <td colspan="3">{research_point} <br/></td>
+    </tr>
+    <tr>
+        <td>*负责人 <br/></td>
+        <td>{in_charge_person} <br/></td>
+        <td>*联系电话 <br/></td>
+        <td>{in_charge_phone} <br/></td>
+    </tr>
+    <tr>
+        <td>*联系人 <br/></td>
+        <td>{contact_person} <br/></td>
+        <td>*联系电话 <br/></td>
+        <td>{contact_phone} <br/></td>
+    </tr>
+    <tr>
+        <td>*电子邮箱 <br/></td>
+        <td colspan="3">{email} <br/></td>
+    </tr>
+    </tbody>
+</table><br/><strong> <span style="font-size:18px;"> 二、项目主要参加人员 </span> </strong>
+<table style="width:100%;" cellpadding="2" cellspacing="0" border="1" bordercolor="#000000" id="tablesub0">
+    <tbody>
+    <tr>
+        <td rowspan="8">项目主要参加人员基本情况</td>
+        <td style="text-align:center;">姓名</td>
+        <td style="text-align:center;">出生年月</td>
+        <td style="text-align:center;">专业技术职务</td>
+        <td style="text-align:center;">研究专长</td>
+        <td style="text-align:center;">工作单位</td>
+        <td style="text-align:center;">负责内容</td>
+    </tr>
+    <tr>
+        <td>[name0,0] <br/></td>
+        <td>[birth_date0,0] <br/></td>
+        <td>[position0,0] <br/></td>
+        <td>[specialty0,0] <br/></td>
+        <td>[workplace0,0] <br/></td>
+        <td>[content0,0] <br/></td>
+    </tr>
+    <tr>
+        <td>[name0,1] <br/></td>
+        <td>[birth_date0,1] <br/></td>
+        <td>[position0,1] <br/></td>
+        <td>[specialty0,1] <br/></td>
+        <td>[workplace0,1] <br/></td>
+        <td>[content0,1] <br/></td>
+    </tr>
+    <tr>
+        <td>[name0,2] <br/></td>
+        <td>[birth_date0,2] <br/></td>
+        <td>[position0,2] <br/></td>
+        <td>[specialty0,2] <br/></td>
+        <td>[workplace0,2] <br/></td>
+        <td>[content0,2] <br/></td>
+    </tr>
+    <tr>
+        <td>[name0,3] <br/></td>
+        <td>[birth_date0,3] <br/></td>
+        <td>[position0,3] <br/></td>
+        <td>[specialty0,3] <br/></td>
+        <td>[workplace0,3] <br/></td>
+        <td>[content0,3] <br/></td>
+    </tr>
+    <tr>
+        <td>[name0,4] <br/></td>
+        <td>[birth_date0,4] <br/></td>
+        <td>[position0,4] <br/></td>
+        <td>[specialty0,4] <br/></td>
+        <td>[workplace0,4] <br/></td>
+        <td>[content0,4] <br/></td>
+    </tr>
+    <tr>
+        <td>[name0,5] <br/></td>
+        <td>[birth_date0,5] <br/></td>
+        <td>[position0,5] <br/></td>
+        <td>[specialty0,5] <br/></td>
+        <td>[workplace0,5] <br/></td>
+        <td>[content0,5] <br/></td>
+    </tr>
+    <tr>
+        <td>[name0,6] <br/></td>
+        <td>[birth_date0,6] <br/></td>
+        <td>[position0,6] <br/></td>
+        <td>[specialty0,6] <br/></td>
+        <td>[workplace0,6] <br/></td>
+        <td>[content0,6] <br/></td>
+    </tr>
+    </tbody>
+</table><strong> <span style="font-size:18px;"> 三、申请课题基本情况</span> </strong>
+<table style="width:100%;" cellpadding="2" cellspacing="0" border="1" bordercolor="#000000">
+    <tbody>
+    <tr>
+        <td>*课题名称 <br/></td>
+        <td colspan="3">{project_name} <br/></td>
+    </tr>
+    <tr>
+        <td>*研究关键词 <br/></td>
+        <td colspan="3">{research_keywords} <br/></td>
+    </tr>
+    <tr>
+        <td>*研究类型 <br/></td>
+        <td>{research_type} <br/></td>
+        <td colspan="2">A.基础研究 B.应用研究 C.综合研究 D.其他研究 <br/></td>
+    </tr>
+    <tr>
+        <td>*最终成果形式 <br/></td>
+        <td>{outcome_options} <br/></td>
+        <td colspan="2">A.专著 B.研究报告 C.论文集 D.其他 <br/></td>
+    </tr>
+    <tr>
+        <td>*预计完成时间 <br/></td>
+        <td>{etoc} <br/></td>
+        <td>*申请金额(万元) <br/></td>
+        <td>{application_amount} <br/></td>
+    </tr>
+    </tbody>
+</table>
+<!--<span>相关文件</span>{file_content}<br/>-->
+<!--附件上传-->
+<div class="checkHeader" style="margin: 35px 0 0 0;">附件资料</div>
+<table id="upload_table" cellpadding="0" cellspacing="0" class="results_table">
+    <thead>
+    <tr>
+        <td>附件类型</td>
+        <td>文件名称</td>
+        <td>上传状态</td>
+        <td>操作</td>
+    </tr>
+    </thead>
+    <tbody id="results_tbody">
+    <tr>
+        <td>申报书</td>
+        <td><input placeholder="支持扩展名：.doc .docx ，文件数最多一个，小于30M的文件" readonly  class="inputFile"><span>x</span></td>
+        <td >未上传</td>
+        <td>
+            <a href="javascript:;"  style="color: #3D8EDB;text-decoration: none">上传</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<script src="js/common.js"></script>
+<script src="js/jquery.js"></script>
+<link rel="stylesheet" type="text/css" href="mode/plugin/css/jquery-rockdatepicker.css"/>
+<script type="text/javascript" src="mode/plugin/jquery-rockdatepicker.js"></script>
+<script type="text/javascript" src="web/res/js/jquery-rockupload.js"></script>

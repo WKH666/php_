@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>网评项目</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<style type="text/css">
+		.col-md-3 button{
+			width: 90px;
+		}
+		select,input{
+			width: 200px!important;
+		}
+	</style>
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-3 form-group form-inline">
+				<label class="h5">项目类别
+				    <select class="form-control input-sm">
+				    	<option value="0">请选择</option>
+				    	<option value="1" selected="selected">实训类项目</option>
+				    	<option value="2">非实训类项目</option>
+				    </select>
+				</label>				 
+			</div>
+			<div class="col-md-3 form-group form-inline">		
+				<label class="h5">发起网评时间
+				    <select class="form-control input-sm">
+				    	<option value="0">请选择时间段</option>			   
+				    </select>
+				</label>	
+
+			</div>			
+			<div class="col-md-3 form-group form-inline">
+				<label class="h5">所属批次
+				   <input class="form-control input-sm" type="text"></input>
+				</label>
+			</div>		
+			<div class="col-md-3 btn-group">
+				<span class="col-sm-2"></span>
+				<label class="h5 col-sm-3"><button class="btn btn-default btn-sm">查询</button></label>
+				<span class="col-sm-2"></span>
+				<label class="h5 col-sm-3"><button class="btn btn-default btn-sm">重置</button></label>
+				<span class="col-sm-2"></span>
+			</div>
+		</div>
+		<div class="row">
+			<div style="border-top: solid #ccc 3px;margin-top: 20px;margin-bottom: 60px;"></div>
+		</div>
+		<div class="row">
+			<table class="table table-bordered table-hover table-responsive text-center">
+				<thead>
+					<tr class="active">
+						<td>序号</td>
+						<td>网评批次</td>
+						<td>项目类别</td>
+						<td>项目数量</td>
+						<td>网评状态</td>
+						<td>网评发起时间</td>
+						<td>操作</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>2017年一期申报</td>
+						<td>实训类项目</td>
+						<td>20</td>
+						<td>进行中</td>
+						<td>2017-09-09</td>
+						<td>
+							<a href="#">查看</a> |
+							<a href="#">下载汇总表</a> |
+							<a href="#">下载评分表</a></td>					
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>2017年二期申报</td>
+						<td>非实训类项目</td>
+						<td>10</td>
+						<td>已完成</td>
+						<td>2017-09-01</td>
+						<td>
+							<a href="#">查看</a> |
+							<a href="#">下载汇总表</a> |
+							<a href="#">下载评分表</a></td>					
+					</tr>
+					<tr>
+						<td>3</td>
+						<td>2016年一期申报</td>
+						<td>非实训类项目</td>
+						<td>65</td>
+						<td>已完成</td>
+						<td>2016-09-09</td>
+						<td>
+							<a href="#">查看</a> |
+							<a href="#">下载汇总表</a> |
+							<a href="#">下载评分表</a></td>					
+					</tr>
+				</tbody>
+			</table>			
+		</div>
+
+	</div>
+
+</body>
+</html>

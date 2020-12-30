@@ -1,0 +1,220 @@
+<style>
+    .checkHeader {
+        width: 100%;
+        height: 35px;
+        line-height: 35px;
+        background-color: #CDE3F1;
+        font-size: 14px;
+        border-radius: 5px;
+        padding-left: 5px;
+    }
+
+    .results_table{
+        width:100%;
+        margin-bottom: 30px;
+    }
+    .results_table thead tr td{
+        text-align: center;
+        background: #F2F2F2;
+        line-height: 30px;
+    }
+    .results_table tbody tr td{
+        text-align: center;
+        border: 1px solid #d1d1d1;
+        box-sizing: border-box;
+    }
+    .results_table tbody tr td:nth-child(2){
+        text-align: left;
+    }
+    .results_table tbody tr td:nth-child(2) input{
+        width: 95%;
+        border: none;
+    }
+    .results_table tbody tr td:nth-child(2) span{
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+    .results_table tbody tr td:nth-child(3){
+        color: #ffc552;
+    }
+
+    .results_table tbody tr td:nth-of-type(1){
+        text-align: center;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+</style>
+
+<table style="width:100%;" cellpadding="2" cellspacing="0" border="1" bordercolor="#000000">
+    <tbody>
+    <tr>
+        <td style="text-align:center;" colspan="3">*课题名称</td>
+        <td colspan="9">{course_name}</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;" colspan="3">*学科分类<br/></td>
+        <td colspan="9">{subject_classification}</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;" colspan="3">*关键词分类<span></span><br/></td>
+        <td colspan="4">{keyword_classification}</td>
+        <td style="text-align:center;" colspan="2"><p style="text-align:center;">*具体关键词</p>
+            <p style="text-align:center;">(不超过3个)</p></td>
+        <td style="text-align:center;" colspan="3">{specific_keywords}</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;" colspan="3">*预期成果形式<span> </span><br/></td>
+        <td colspan="9">{pre_achievement_type}<br/></td>
+    </tr>
+    <tr>
+        <td style="text-align:center;" colspan="3">*成果去向<br/></td>
+        <td colspan="9">{achievement_where}</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;" colspan="3">*字数<span> </span><br/></td>
+        <td style="text-align:center;" colspan="4">{words_num}</td>
+        <td style="text-align:center;" colspan="2">*预计完成时间</td>
+        <td style="text-align:center;" colspan="3">{expected_completion_time}</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;" colspan="3"><strong>*是否为学科共建课题</strong><br/></td>
+        <td style="text-align:left;" colspan="4">{together_build_course}</td>
+        <td style="text-align:center;" colspan="2"><strong>*是否同意自筹经费</strong><br/></td>
+        <td style="text-align:left;" colspan="3">{self_finance}</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;" colspan="3">*单位联系人<span> </span><br/></td>
+        <td style="text-align:center;" colspan="4">{contact_person}</td>
+        <td style="text-align:center;" colspan="2">*电话<br/></td>
+        <td style="text-align:center;" colspan="3">{tel_num}</td>
+    </tr>
+    <tr>
+        <td colspan="12" style="text-align:center;">课题负责人及课题组主要成员(一般不超过5人)简况<br/></td>
+    </tr>
+    <tr>
+        <td colspan="12" style="text-align:center;">课题负责人简况<br/></td>
+    </tr>
+    <tr><!--<td style="text-align:center;" rowspan="4">课题负责人<br /></td>-->
+        <td style="text-align:center;" colspan="3">*姓名</td>
+        <td style="text-align:center;" colspan="2">{leader_name}<br/></td>
+        <td style="text-align:center;" colspan="1">*性别</td>
+        <td style="text-align:center;" colspan="1">{leader_sex}<br/></td>
+        <td style="text-align:center;" colspan="3">*出生日期</td>
+        <td style="text-align:center;" colspan="2">{leader_birth}</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;" colspan="3">*所在单位</td>
+        <td style="text-align:center;" colspan="2">{leader_company}</td>
+        <td style="text-align:center;" colspan="1">*行政职务</td>
+        <td style="text-align:center;" colspan="1">{leader_politics_position}</td>
+        <td style="text-align:center;" colspan="3">*专业职称</td>
+        <td style="text-align:center;" colspan="2">{leader_major_position}</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;" colspan="3">*研究专长</td>
+        <td style="text-align:center;" colspan="2">{leader_research_expertise}</td>
+        <td style="text-align:center;" colspan="1">*学历</td>
+        <td style="text-align:center;" colspan="1">{leader_education}</td>
+        <td style="text-align:center;" colspan="3">*学位</td>
+        <td style="text-align:center;" colspan="2">{leader_academic_de}</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;" colspan="3">*通讯地址</td>
+        <td style="text-align:center;" colspan="4">{leader_address}</td>
+        <td style="text-align:center;" colspan="3">*邮政编码</td>
+        <td style="text-align:center;" colspan="2">{leader_postcode}</td>
+    </tr>
+    <tr>
+        <td colspan="12" style="text-align:center;">课题主要成员简况<br/></td>
+    </tr>
+    </tbody>
+</table>
+<table width="100%" border="1" cellpadding="2" cellspacing="0" id="tablesub0">
+    <tbody>
+    <tr>
+        <td style="text-align:center;">序号</td>
+        <td style="text-align:center;">姓名</td>
+        <td style="text-align:center;">单位</td>
+        <td style="text-align:center;">职称</td>
+        <td style="text-align:center;">承担任务</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;">[xuhao0,0]</td>
+        <td style="text-align:center;">[name0,0]</td>
+        <td style="text-align:center;">[company0,0]</td>
+        <td style="text-align:center;">[position0,0]</td>
+        <td style="text-align:center;">[task0,0]</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;">[xuhao0,1]</td>
+        <td style="text-align:center;"><span>[name0,1]</span></td>
+        <td style="text-align:center;"><span>[company0,1]</span></td>
+        <td style="text-align:center;"><span>[position0,1]</span></td>
+        <td style="text-align:center;"><span>[task0,1]</span></td>
+    </tr>
+    <tr>
+        <td style="text-align:center;">[xuhao0,2]</td>
+        <td style="text-align:center;"><span>[name0,2]</span></td>
+        <td style="text-align:center;"><span>[company0,2]</span></td>
+        <td style="text-align:center;"><span>[position0,2]</span></td>
+        <td style="text-align:center;"><span>[task0,2]</span></td>
+    </tr>
+    <tr>
+        <td style="text-align:center;">[xuhao0,3]</td>
+        <td style="text-align:center;"><span>[name0,3]</span></td>
+        <td style="text-align:center;"><span>[company0,3]</span></td>
+        <td style="text-align:center;"><span>[position0,3]</span></td>
+        <td style="text-align:center;"><span>[task0,3]</span></td>
+    </tr>
+    <tr>
+        <td style="text-align:center;">[xuhao0,4]</td>
+        <td style="text-align:center;"><span>[name0,4]</span></td>
+        <td style="text-align:center;"><span>[company0,4]</span></td>
+        <td style="text-align:center;"><span>[position0,4]</span></td>
+        <td style="text-align:center;"><span>[task0,4]</span></td>
+    </tr>
+    </tbody>
+</table>
+<p><strong><span style="font-size:14px;"><br/></span></strong></p>
+<!--    <strong><span style="font-size:14px;">文件上传</span></strong>
+</p><p>{file_content}</p><p><br/></p><p><br/></p><br/><br/>-->
+<!--附件上传-->
+
+
+<div class="checkHeader" style="margin: 35px 0 0 0">附件资料</div>
+<table id="upload_table" cellpadding="0" cellspacing="0" class="results_table">
+    <thead>
+    <tr>
+        <td>附件类型</td>
+        <td>文件名称</td>
+        <td>上传状态</td>
+        <td>操作</td>
+    </tr>
+    </thead>
+    <tbody id="results_tbody">
+    <tr>
+        <td>申报书</td>
+        <td><input placeholder="支持扩展名：.doc .docx ，文件数最多一个，小于30M的文件" readonly id="ktfile5" class="inputFile"><span onclick="delUploadFile(5,0,'ktfile5')">x</span></td>
+        <td id="ktfile5status">未上传</td>
+        <td>
+            <a href="javascript:;"  onclick="addfiles(5,'ktfile5')" style="color: #3D8EDB;text-decoration: none;">上传</a>
+        </td>
+    </tr>
+    <tr>
+        <td>课题设计论证(活页)</td>
+        <td><input placeholder="支持扩展名：.doc .docx ，文件数最多一个，小于30M的文件" readonly id="ktfile6" class="inputFile"><span onclick="delUploadFile(6,0,'ktfile6')">x</span></td>
+        <td id="ktfile6status">未上传</td>
+        <td>
+            <a href="javascript:;" onclick="addfiles(6,'ktfile6')" style="color: #3D8EDB;text-decoration: none;">上传</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<script src="js/common.js"></script>
+<script src="js/jquery.js"></script>
+<link rel="stylesheet" type="text/css" href="mode/plugin/css/jquery-rockdatepicker.css"/>
+<script type="text/javascript" src="mode/plugin/jquery-rockdatepicker.js"></script>
+<script type="text/javascript" src="web/res/js/jquery-rockupload.js"></script>

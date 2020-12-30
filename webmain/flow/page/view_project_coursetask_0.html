@@ -1,0 +1,387 @@
+<style>
+    .gdDivs {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        margin-top: 35px;
+        padding: 0 25px 0 25px
+    }
+
+    .gdInputDiv span{
+        font-size: 14px;
+        color: #666666;
+    }
+    .gdInputDiv label{
+        width: 210px;
+        font-size: 15px;
+        border: 3px solid #f2f2f2;
+        border-radius: 5px;
+    }
+    .gdInputDiv label input{
+        border: 0;
+        width: 100%;
+    }
+
+    .courseClsFooter {
+        width: 100%;
+        height: 60px;
+        margin-top: 50px;
+        margin-bottom: 30px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .courseClsFooter button {
+        margin-left: 15px;
+        width: 55px;
+    }
+
+    .courseClsFooter button:first-child {
+        background-color: #009966;
+        color: white;
+    }
+
+    .courseClsFooter button:last-child {
+        background-color: #f3f3f3;
+    }
+
+    .checkHeader {
+        width: 100%;
+        height: 35px;
+        line-height: 35px;
+        background-color: #CDE3F1;
+        font-size: 14px;
+        border-radius: 5px;
+        padding-left: 5px;
+    }
+
+    .results_table {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+
+    thead {
+        width: 100%;
+    }
+
+    .results_table thead tr td {
+        text-align: center;
+        background: #F2F2F2;
+        line-height: 30px;
+    }
+
+    .results_table tbody tr td {
+        text-align: center;
+        border: 1px solid #d1d1d1;
+        box-sizing: border-box;
+    }
+
+    .results_table tbody tr td:nth-child(2) {
+        text-align: left;
+    }
+
+    .results_table tbody tr td:nth-child(2) input {
+        width: 95%;
+        border: none;
+    }
+
+    .results_table tbody tr td:nth-child(2) span {
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+    .results_table tbody tr td:nth-child(3) {
+        color: #ffc552;
+    }
+
+    .results_table tbody tr td:nth-of-type(1) {
+        text-align: center;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+</style>
+<table style="width:100%;" cellpadding="2" cellspacing="0" border="1" bordercolor="#000000">
+    <tbody>
+    <tr>
+        <td style="text-align:center;" colspan="3">课题名称</td>
+        <td colspan="9">{course_name}</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;" colspan="3">学科分类<br/></td>
+        <td colspan="9">{subject_classification}</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;" colspan="3">关键词分类<span></span><br/></td>
+        <td colspan="4">{keyword_classification}</td>
+        <td style="text-align:center;" colspan="2"><p style="text-align:center;">具体关键词</p>
+            <p style="text-align:center;">(不超过3个)</p></td>
+        <td style="text-align:center;" colspan="3">{specific_keywords}</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;" colspan="3">预期成果形式<span> </span><br/></td>
+        <td colspan="9">{pre_achievement_type}<br/></td>
+    </tr>
+    <tr>
+        <td style="text-align:center;" colspan="3">成果去向<br/></td>
+        <td colspan="9">{achievement_where}</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;" colspan="3">字数<span> </span><br/></td>
+        <td style="text-align:center;" colspan="4">{words_num}</td>
+        <td style="text-align:center;" colspan="2">预计完成时间</td>
+        <td style="text-align:center;" colspan="3">{expected_completion_time}</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;" colspan="3"><strong>是否为学科共建课题</strong><br/></td>
+        <td style="text-align:center;" colspan="4">{together_build_course}</td>
+        <td style="text-align:center;" colspan="2"><strong>是否同意自筹经费</strong><br/></td>
+        <td style="text-align:center;" colspan="3">{self_finance}</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;" colspan="3">单位联系人<span> </span><br/></td>
+        <td style="text-align:center;" colspan="4">{contact_person}</td>
+        <td style="text-align:center;" colspan="2">电话<br/></td>
+        <td style="text-align:center;" colspan="3">{tel_num}</td>
+    </tr>
+    <tr>
+        <td colspan="12" style="text-align:center;">课题负责人及课题组主要成员(一般不超过5人)简况<br/></td>
+    </tr>
+    <tr>
+        <td colspan="12" style="text-align:center;">课题负责人简况<br/></td>
+    </tr>
+    <tr><!--<td style="text-align:center;" rowspan="4">课题负责人<br /></td>-->
+        <td style="text-align:center;" colspan="3">姓名</td>
+        <td style="text-align:center;" colspan="2">{leader_name}<br/></td>
+        <td style="text-align:center;" colspan="1">性别</td>
+        <td style="text-align:center;" colspan="1">{leader_sex}<br/></td>
+        <td style="text-align:center;" colspan="3">出生日期</td>
+        <td style="text-align:center;" colspan="2">{leader_birth}</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;" colspan="3">所在单位</td>
+        <td style="text-align:center;" colspan="2">{leader_company}</td>
+        <td style="text-align:center;" colspan="1">行政职务</td>
+        <td style="text-align:center;" colspan="1">{leader_politics_position}</td>
+        <td style="text-align:center;" colspan="3">专业职称</td>
+        <td style="text-align:center;" colspan="2">{leader_major_position}</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;" colspan="3">研究专长</td>
+        <td style="text-align:center;" colspan="2">{leader_research_expertise}</td>
+        <td style="text-align:center;" colspan="1">学历</td>
+        <td style="text-align:center;" colspan="1">{leader_education}</td>
+        <td style="text-align:center;" colspan="3">学位</td>
+        <td style="text-align:center;" colspan="2">{leader_academic_de}</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;" colspan="3">通讯地址</td>
+        <td style="text-align:center;" colspan="4">{leader_address}</td>
+        <td style="text-align:center;" colspan="3">邮政编码</td>
+        <td style="text-align:center;" colspan="2">{leader_postcode}</td>
+    </tr>
+    </tbody>
+</table>
+<table width="100%" border="1" cellpadding="2" cellspacing="0" id="tablesub0">
+    <tbody>
+    <tr>
+        <td colspan="12" style="text-align:center;">课题主要成员简况<br/></td>
+    </tr>
+    <tr></tr>
+    </tbody>
+</table><span>{subdata0}</span><br/>
+
+<!--<p>相关文件</p><p>{file_content}</p><p><br/></p><p><br/></p><br/>-->
+
+<!--成果信息-->
+<div class="courseClsCheck" style="display: none">
+    <div class="checkHeader">成果信息</div>
+    <section class="serachPanel">
+        <div class="searchAc1">
+            <ul>
+                <li><span class="reviewContent stateContent">成果编号：</span></li>
+                <li><input type="text" id="achievement_num_" name="achievement_num" class="form-control"
+                           readonly></li>
+            </ul>
+        </div>
+        <div class="searchAc1">
+            <ul>
+                <li><span class="reviewContent stateContent">成果形式：</span></li>
+                <li><input type="text" id="achievement_type_" name="achievement_type" class="form-control "
+                           readonly></li>
+            </ul>
+        </div>
+        <div class="searchAc1">
+            <ul>
+                <li><span class="reviewContent stateContent">结项时间：</span></li>
+                <li><input type="text" id="end_time_" name="end_time" class="form-control" readonly></li>
+            </ul>
+        </div>
+        <div class="searchAc1">
+            <ul>
+                <li><span class="reviewContent stateContent">名称：</span></li>
+                <li><input type="text" id="project_name_" name="project_name" class="form-control " readonly>
+                </li>
+            </ul>
+        </div>
+        <div class="searchAc1">
+            <ul>
+                <li><span class="reviewContent stateContent">作者：</span></li>
+                <li><input type="text" id="project_author_" name="project_author" class="form-control "
+                           readonly></li>
+            </ul>
+        </div>
+        <div class="searchAc1">
+            <ul>
+                <li><span class="reviewContent stateContent">所在单位：</span></li>
+                <li><input type="text" id="company_" name="company" class="form-control " readonly></li>
+            </ul>
+        </div>
+        <div class="searchAc1">
+            <ul>
+                <li><span class="reviewContent stateContent">发表刊物：</span></li>
+                <li><input type="text" id="publication_" name="publication" class="form-control"
+                           style="width: 100%" readonly></li>
+            </ul>
+        </div>
+        <div class="searchAc1">
+            <ul>
+                <li><span class="reviewContent stateContent">摘要：</span></li>
+                <li><textarea id="roundup_" name="roundup" class="form-control" style="height: 66px"
+                              readonly></textarea></li>
+            </ul>
+        </div>
+    </section>
+</div>
+
+<!--课题归档环节页面的项目信息-->
+<div class="gdProjectDiv" style="width: 100%;display: none">
+    <div class="checkHeader" style="margin: 35px 0 0 0">项目信息</div>
+    <div class="gdDivs">
+        <div class="gdInputDiv">
+            <span>项目名称：</span>
+            <label><input name="gdproject_name" id="gdproject_name" readonly/></label>
+        </div>
+        <div class="gdInputDiv">
+            <span>学科分类：</span>
+            <label><input name="gdclassic_type" id="gdclassic_type" readonly/></label>
+        </div>
+    </div>
+</div>
+<div class="checkHeader" style="margin: 35px 0 0 0">附件资料</div>
+<!--归档资料上传-->
+<table id="gdupload_table" cellpadding="0" cellspacing="0" class="results_table" style="display: none">
+    <thead>
+    <tr>
+        <td>附件类型</td>
+        <td>文件名称</td>
+        <td>上传状态</td>
+        <td>操作</td>
+    </tr>
+    </thead>
+    <tbody id="gduploads_tbody">
+    <tr>
+        <td>归档资料</td>
+        <td><input placeholder="支持zip | rar上传" readonly id="ktgdfile"><span
+                onclick="delUploadFile(7,0,'ktgdfile')">x</span></td>
+        <td id="ktgdfilestatus">未上传</td>
+        <td>
+            <a href="javascript:;" onclick="addfiles(7,'ktgdfile',1)"
+               style="color: #3D8EDB;text-decoration: none">上传</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<!--查看已上传的附件-->
+<table id="read_table" cellpadding="0" cellspacing="0" class="results_table">
+    <thead>
+    <tr>
+        <td>附件类型</td>
+        <td>文件名称</td>
+        <td>查看状态</td>
+        <td>操作</td>
+    </tr>
+    </thead>
+    <tbody id="results_tbody">
+
+    </tbody>
+</table>
+<!--附件进行上传-->
+<table id="upload_table" cellpadding="0" cellspacing="0" class="results_table" style="display: none">
+    <thead>
+    <tr>
+        <td>附件类型</td>
+        <td>文件名称</td>
+        <td>上传状态</td>
+        <td>操作</td>
+    </tr>
+    </thead>
+    <tbody id="uploads_tbody">
+    <tr>
+        <td>结项报告书</td>
+        <td><input placeholder="结项报告书" readonly id="ktfile1"><span onclick="delUploadFile(1,0,'ktfile1')">x</span></td>
+        <td id="ktfile1status">未上传</td>
+        <td>
+            <a href="javascript:;" onclick="addfiles(1,'ktfile1')" style="color: #3D8EDB;text-decoration: none">上传</a>
+        </td>
+    </tr>
+    <tr>
+        <td>结项成果</td>
+        <td><input placeholder="结项成果" readonly id="ktfile2"><span onclick="delUploadFile(2,0,'ktfile2')">x</span></td>
+        <td id="ktfile2status">未上传</td>
+        <td>
+            <a href="javascript:;" onclick="addfiles(2,'ktfile2')" style="color: #3D8EDB;text-decoration: none">上传</a>
+        </td>
+    </tr>
+    <tr>
+        <td>结项论文资料</td>
+        <td><input placeholder="发表的论文复印件(封面，目录，正面)" readonly id="ktfile3"><span
+                onclick="delUploadFile(3,0,'ktfile3')">x</span></td>
+        <td id="ktfile3status">未上传</td>
+        <td>
+            <a href="javascript:;" onclick="addfiles(3,'ktfile3')" style="color: #3D8EDB;text-decoration: none">上传</a>
+        </td>
+    </tr>
+    <tr>
+        <td>结项成果资料</td>
+        <td><input placeholder="成果影响证明材料" readonly id="ktfile4"><span onclick="delUploadFile(4,0,'ktfile4')">x</span>
+        </td>
+        <td id="ktfile4status">未上传</td>
+        <td>
+            <a href="javascript:;" onclick="addfiles(4,'ktfile4')" style="color: #3D8EDB;text-decoration: none">上传</a>
+        </td>
+    </tr>
+
+    </tbody>
+</table>
+<!--结项报告填写审核-->
+<div class="courseCheckDiv" style="display: none">
+    <div class="checkHeader" style="margin: 35px 0 0 0">审核信息</div>
+    <div style="margin-top: 30px;">
+        <p style="color: red;font-size: 14px;">审核提醒:填写审核必须先仔细查看附件详细的资料文档</p>
+        <div style="display: flex;margin-top: 15px;">
+            <p>审核结果:</p>
+            <label style="margin-left: 15px;"><input type="radio" name="check_result" value="result_success" checked>通过</label>
+            <label style="margin-left: 30px;"><input type="radio" name="check_result" value="result_return">退回</label>
+            <label style="margin-left: 30px;"><input type="radio" name="check_result" value="result_false">未通过</label>
+        </div>
+        <div style="display: flex;margin-top: 15px;">
+            <p>审核意见:</p>
+            <textarea name="result_suggest"
+                      style="height: 100px;width: 450px;margin-left: 15px;border-color: #d1d1d1;border-radius: 6px;"
+                      placeholder="请输入备注"></textarea>
+        </div>
+    </div>
+</div>
+<!--结项报告,项目归档提交-->
+<div class="courseClsFooter" style="display: none">
+    <button class="btn" onclick="jiexiangSubmit()">提交</button>
+    <button class="btn" onclick="closePage()">取消</button>
+</div>
+
+
+<script src="js/common.js"></script>
+<script src="js/jquery.js"></script>
+<script type="text/javascript" src="mode/layer/layer.js"></script>

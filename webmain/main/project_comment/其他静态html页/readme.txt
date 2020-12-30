@@ -1,0 +1,1 @@
+看到系统使用了bootstrap，故新增的两个页面使用bootstrap重写了，有少量自定义样式，自行决定使用bootstrap版或非bootstrap版。

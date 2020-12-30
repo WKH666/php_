@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<!--<meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><?=$da['title']?></title>
+<link rel="stylesheet" type="text/css" href="mode/bootstrap3.3/css/bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" href="<?=$da['p']?>/css/css.css"/>
+<link rel="shortcut icon" href="favicon.ico" />
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery.1.9.1.min.js"></script>
+<script type="text/javascript" src="mode/bootstrap3.3/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/js.js"></script>
+<script type="text/javascript" src="js/base64-min.js"></script>
+<script type="text/javascript" src="<?=$da['p']?>/<?=$da['d']?><?=$da['m']?>/<?=$da['m']?>script.js"></script>
+<style>
+.lmaisft{width:450px;border-radius:5px;text-align:left; background-color:#C4E0F4;background-color: #E1E1E1;/*background: rgba(255,255,255,0.3);*/}
+.yuning{position:absolute;left:-50px;top:-30px;opacity:0.3;filter:alpha(opacity=30);}
+</style>
+
+</head>
+  
+<body style="background-image: url(images/banner.jpg);">
+<div id="yumpng" style="position:absolute;left:0px;top:0px;width:100%;height:500px; overflow:hidden">
+</div>
+<div align="center" style="position:absolute;width:100%">
+	<div id="topheih" class="blank40" ></div>
+	<div class="ltoplog" style="display: none;"><img style="border-radius:50px;border:1px #ffffff solid; background:white" src="images/logo.png" id="imglogo" align="absmiddle" height="100" width="100"><b style="font-size:22px"></b></div>
+	<div class="blank30"></div>
+	<div class="lmaisft">
+		
+		<form style="padding:20px;padding-left:80px" name="myform">
+			<img src="images/logo.png" style="width: 100px;margin-left: 103px;"  width="85%">
+			<div style="font-size:20px;text-align: center;width: 300px;"><?=$da['title']?></div>
+			<div class="blank10"></div>
+			<div>
+				<div><input type="text" style="height:40px;width:300px" class="input" onKeyUp="if(event.keyCode==13)get('adminpasss').focus()" value="<?=$da['ca_adminuser']?>"  placeholder="请输入用户名" name="adminuser" ></div>
+			</div>
+
+			<div class="blank30"></div>
+			<div>
+				<div><input  style="height:40px;width:300px" class="input"  onKeyUp="if(event.keyCode==13)loginsubmit()" value="<?php if($da['ca_rempass']=='1')echo $da['ca_adminpass'];?>"  name="adminpass" id="adminpasss" type="password" placeholder="请输入密码"></div>
+			</div>
+			
+			<div class="blank30"></div>
+			<div>
+				<div>
+					<input style="height:40px;width:200px" class="input"  name="verifycode" id="verifycode" type="text" placeholder="验证码">
+					<img style="height:40px;width:96px;margin-top: -2px;border: 1px #cccccc solid;" id="captcha_img" src='http://javascript:void(0);' alt='请重新刷新' title='看不清,点击验证码更换'/>
+				</div>
+			</div>
+
+			<div class="blank10"></div>
+			<div align="left" style="margin-top: 25px;">
+				<div>
+					<span id="msgview" ></span>
+				</div>
+				 <div class="checkbox">
+				 	<button type="button"   onClick="loginsubmit()" style="padding:10px 135px;margin: auto;" class="webbtn" name="button">登录</button>&nbsp;
+				 </div>
+			</div>
+			<div class="blank10"></div>
+			<div style="margin-right:50px">
+				<a href="?m=login&a=forget_password" style="float: left;color:dodgerblue;">忘记密码</a>
+				<a href="?m=login&a=register" style="float: right;color:dodgerblue;">注册账号</a>
+			</div>
+			<div class="blank10"></div>
+		</form>
+		
+		
+	</div>
+ <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" style="margin-top:12%;width:500px;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">尊敬的用户</h4>
+				</div>
+				<div class="modal-body">
+					由于您的浏览器版本过低，可能会影响您的体验，请使用浏览器的急速模式或高版本浏览器。<br> <br> <a
+						href="http://www.chromeliulanqi.com/Chrome_Latest_Setup.exe">点击下载谷歌浏览器</a>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+
+
+	<div class="blank20"></div>
+	<div align="center" style="height:30px;line-height:30px;color:#fff">
+		Copyright &copy;<?=date('Y')?> <?=$da['title']?>v<?=VERSION?> 
+		
+	</div>
+
+</div>
+</body>
+</html>

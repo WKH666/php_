@@ -1,0 +1,2 @@
+task/mode/p,[错误SQL]：《SELECT id,`mid`,filename,filepath,filesizecn,filesize,fileext,optname FROM xinhu_file WHERE `mtype`='flow_log' and `mid` in() order by `id`》----------原因：You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') order by `id`' at line 1
+URL：a=p&num=project_researchbase&mid=16&callback=opegs1608975142994_5547

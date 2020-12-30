@@ -1,0 +1,623 @@
+<?php if(!defined('HOST'))die('not access');?>
+	<link rel="stylesheet" type="text/css" href="webmain/css/app.css">
+<link rel="stylesheet" type="text/css" href="webmain/css/task_tpl_mode_p.css">
+<script src="webmain/flow/input/inputjs/input.js"></script>
+<script src="mode/plugin/jquery-rockbase.js"></script>
+<script src="web/res/js/jquery-rockupload.js"></script>
+<script >
+$(document).ready(function(){
+	{params};
+	var id = params.id;
+	if(!id)id = 0;
+	var submitfields = 'mid,upldate_status,remark,file_ids,carryover_yeas';
+	if(adminid=='1')submitfields+=',type';
+	var h = $.bootsform({
+		window:false,rand:'{rand}',tablename:'mf_status_log',
+		url:js.getajaxurl('save','project_manage','main'),
+		editrecord:'true',modenum:'mf_status_log',
+		params:{int_filestype:'status,type,sort',add_otherfields:'update_time={now}'},
+		submitfields:submitfields,
+		success:function(){
+			if(id==0)js.msg('success','成功更新：'+h.form.user.value+'');
+			closenowtabs();
+			try{adminusermanage.reload();}catch(e){}
+		},
+		load:function(a){
+			
+		}
+	});
+	h.forminit();
+	
+	$('#mid_{rand}').val(params.mid);
+	/**
+	 * 获取查询条件
+	 */
+	js.ajax(js.getajaxurl('getstatuscondition','project_manage','main'),{},function(ds){
+		//项目状态
+		$.each(ds, function(k,v) {
+			$("#upldate_status_{rand}").append("<option value='"+v.name+"'>"+v.name+"</option>");
+		});
+	},'post,json');
+});
+
+</script>
+
+<div align="center">
+	<div class="mainTitle">
+			<span class="mtContent">广东科学技术职业学院“十三•五”规划项目预备库申报书</span>
+		</div>
+		<div class="delbDetail container">
+			<div class="row">
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 delbContent ">
+					<div class=" delbUE">
+						<ul>
+							<li>项目名称</li>
+							<li class=" delbNm"><input type="text" class="txtInput1" name="txtDelbName" id="mtxtDelbName" value=""></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 delbContent ">
+					<div class=" delbUE">
+						<ul>
+							<li>项目类别</li>
+							<li class=" delbNm">
+								<select name="" class=" selCe">
+									<option value="">请选择</option>
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+								</select>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 delbContent ">
+					<div class=" delbUE">
+						<ul>
+							<li>项目编号</li>
+							<li class=" delbNm"><input type="text" class="txtInput1" name="txtDelbNumber" id="mtxtDelbNumber" value=""></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 delbContent ">
+					<div class=" delbUE">
+						<ul>
+							<li>业主主管部门</li>
+							<li class=" delbNm">
+								<select name="" class=" selCe">
+									<option value="">请选择</option>
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+								</select>
+
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 delbContent delbProName">
+					<div class=" delbUE">
+						<ul>
+							<li>项目实施年度</li>
+							<li class=" delbNm"><input type="text" class="txtInput1" name="txtDateCont" id="mtxtDateCont" value=""></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 delbContent delbProName">
+					<div class=" delbUE">
+						<ul>
+							<li>项目申报时间</li>
+							<li class=" delbNm"><input type="text" readonly="readonly" name="" class="form-control txtInput1 " id="reservation" value=""></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 delbContent ">
+					<div class=" delbUE">
+						<ul>
+							<li>项目申报单位</li>
+							<li class=" delbNm">
+								<select name="" class=" selCe">
+									<option value="">请选择</option>
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+								</select>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="mainTitle">
+			<span class="mtContent">一、项目申报单位情况</span>
+		</div>
+		<div class="unitCaseDetail container">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 unitDetail">
+					<table class="tbUnitDetail tableRyr" cellspacing="0" cellpadding="0">
+						<tbody>
+							<tr>
+								<td>项目名称</td>
+								<td colspan="3" class="unitName"><input type="text" class="txtInput2" id="mtxtUnitName" /></td>
+							</tr>
+							<tr>
+								<td>项目申报单位</td>
+								<td colspan="3" class="proUnit"><input type="text" class="txtInput2" id="mtxtProUnit" /></td>
+							</tr>
+							<tr>
+								<td>项目负责人</td>
+								<td class="proLeader"><input type="text" class="txtInput2" id="mtxtProLeader" /></td>
+								<td>项目负责人联系电话</td>
+								<td class="leaderPhone"><input type="text" class="txtInput2" id="mtxtLeaderPhone" /></td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="tbody">
+						<table class="tbMember tableRyr" cellspacing="" cellpadding="">
+							<thead>
+								<tr>
+									<th width="300" colspan="5">项目组成员</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>姓名</td>
+									<td>单位</td>
+									<td>职务/职称</td>
+									<td>工作分工</td>
+									<td>联系方式</td>
+								</tr>
+								<tr>
+									<td><input type="text" class="txtInput2" name="" id="mMemberName" value="" /></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberDelcate" value="" /></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberJob" value="" /></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberWork" value="" /></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberContact" value="" /></td>
+								</tr>
+
+								<tr>
+									<td><input type="text" class="txtInput2" name="" id="mMemberName" value="" /></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberDelcate" value="" /></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberJob" value="" /></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberWork" value="" /></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberContact" value="" /></td>
+								</tr>
+
+								<tr>
+									<td><input type="text" class="txtInput2" name="" id="mMemberName" value="" /></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberDelcate" value="" /></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberJob" value="" /></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberWork" value="" /></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberContact" value="" /></td>
+								</tr>
+
+								<tr>
+									<td><input type="text" class="txtInput2" name="" id="mMemberName" value="" /></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberDelcate" value="" /></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberJob" value="" /></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberWork" value="" /></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberContact" value="" /></td>
+								</tr>
+
+								<tr>
+									<td><input type="text" class="txtInput2" name="" id="mMemberName" value="" /></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberDelcate" value="" /></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberJob" value="" /></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberWork" value="" /></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberContact" value="" /></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<div class="mainTitle">
+			<span class="mtContent">二、项目基本情况</span>
+		</div>
+		<div class="basicCaseDetail container">
+			<div class="row">
+				<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12 applicationReason">
+					<div class="basicCaseTitle applicationReasonTitle">
+						2-1项目申请理由
+					</div>
+					<div class="applicationReasonContent basicCaseContent">
+						<textarea name="txtArea" rows="" cols=""></textarea>
+					</div>
+				</div>
+				<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12 applicationTarget">
+					<div class="basicCaseTitle applicationTargetTitle">
+						2-2 项目具体建设目标
+					</div>
+					<div class="applicationTargetContent basicCaseContent">
+						<textarea name="txtArea" rows="" cols=""></textarea>
+
+					</div>
+				</div>
+				<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12 applicationContent">
+					<div class="basicCaseTitle applicationContentTitle">
+						2-3 分项列出主要建设内容
+					</div>
+					<div class="applicationContentTxt basicCaseContent">
+						<textarea name="txtArea" rows="" cols=""></textarea>
+
+					</div>
+				</div>
+			</div>
+
+			<div class="row upPanel">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="upLoadify">
+						<span class="leftContent">附件材料</span>
+						<div id="fileUpload" class="uploadify" style="height: 30px; width: 120px;"><object id="SWFUpload_0" type="application/x-shockwave-flash" data="../../plugins/uploadify/uploadify.swf?preventswfcaching=1491449077663" width="120" height="30" class="swfupload" style="position: absolute; z-index: 1;"><param name="wmode" value="transparent"><param name="movie" value="../../plugins/uploadify/uploadify.swf?preventswfcaching=1491449077663"><param name="quality" value="high"><param name="menu" value="false"><param name="allowScriptAccess" value="always"><param name="flashvars" value="movieName=SWFUpload_0&amp;uploadURL=%2FAdminLTE-2.3.11%2Fpages%2FprojectDeclaration%2F..%2F..%2Fplugins%2Fuploadify%2Fuploadify.php&amp;useQueryString=false&amp;requeueOnError=false&amp;httpSuccess=&amp;assumeSuccessTimeout=30&amp;params=&amp;filePostName=Filedata&amp;fileTypes=*.gif%3B%20*.jpg%3B%20*.png%3B*.doc%3B*.docx%3B*.xls%3B*.xlsx%3B*.ppt%3B*.pptx%3B*.pdf%3B*.txt%3B*.JPEG&amp;fileTypesDescription=All%20Files&amp;fileSizeLimit=0&amp;fileUploadLimit=0&amp;fileQueueLimit=999&amp;debugEnabled=false&amp;buttonImageURL=%2FAdminLTE-2.3.11%2Fpages%2FprojectDeclaration%2F&amp;buttonWidth=120&amp;buttonHeight=30&amp;buttonText=&amp;buttonTextTopPadding=0&amp;buttonTextLeftPadding=0&amp;buttonTextStyle=color%3A%20%23000000%3B%20font-size%3A%2016pt%3B&amp;buttonAction=-110&amp;buttonDisabled=false&amp;buttonCursor=-2"></object>
+							<div id="fileUpload-button" class="uploadify-button btn_ btnUpload" style="height: 30px; line-height: 30px; width: 120px;"><span class="uploadify-button-text">点击上传</span></div>
+						</div>
+						<div id="fileUpload-queue" class="uploadify-queue"></div><span class="rightContent">支持后缀名.doc  .docx  .xls   .xlsx  .ppt   .pptx  .pdf .txt  .zip .rar .jpg .png  .jpeg 的文件上传。</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="mainTitle">
+			<span class="mtContent">三、单位初审意见</span>
+		</div>
+		<div class="container unitOpinion charSec">
+			<div class="row">
+				<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12 ">
+					<div class="txtOpinion">
+						<textarea name="txtArea1" rows="5" cols=""></textarea>
+					</div>
+				</div>
+				<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12 ">
+					<ul>
+						<li class="optionCont">审核结果</li>
+						<li>
+							<select name="" class=" selCe">
+								<option value="">请选择</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+							</select>
+						</li>
+					</ul>
+				</div>
+				<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12 ">
+					<ul>
+						<li class="optionCont">紧急程度</li>
+						<li>
+							<select name="" class=" selCe">
+								<option value="">请选择</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+							</select>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="mainTitle">
+			<span class="mtContent">四、项目库管理办公室初审处理意见 </span>
+		</div>
+		<div class="officeOption container charSec">
+			<div class="row">
+				<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12 ">
+					<ul>
+						<li class="optionCheckbox"><input type="checkbox" name="" id="" value="" /></li>
+						<li>内容缺项或格式有误，退回修改，意见如下：</li>
+					</ul>
+				</div>
+				<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12 ">
+					<div class="txtAreaErrorOption">
+						<textarea name="txtArea1" rows="" cols=""></textarea>
+					</div>
+				</div>
+				<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12 ">
+					<ul>
+						<li class="optionCheckbox"><input type="checkbox" name="" id="" value="" /></li>
+						<li>形式审查合格，送相关业务部门筛选。</li>
+					</ul>
+				</div>
+				<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12 confirmOption">
+					<ul>
+						<li class="optionSel">职能部门</li>
+						<li>
+							<select name="" class=" selCe">
+								<option value="">请选择</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+							</select>
+						</li>
+					</ul>
+
+				</div>
+				<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12 confirmOption">
+					<ul>
+						<li class="optionSel">审核负责人</li>
+						<li>
+							<select name="" class=" selCe">
+								<option value="">请选择</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+							</select>
+						</li>
+					</ul>
+
+				</div>
+			</div>
+		</div>
+		<div class="mainTitle">
+			<span class="mtContent">五、职能部门专家工作小组筛选推荐意见 </span>
+		</div>
+		<div class="expertRecommendation container">
+			<div class="row">
+				<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12 recommendationList">
+					<ul>
+						<li>根据<span class="rContent">2019</span>年<span class="rContent">7</span>月<span class="rContent">12</span>日专家评审推荐会结果，该项目排名顺序为：</li>
+						<li> 教学类项目/非教学类项目<span class="rContent">2</span>名（本类项目总数 <span class="rContent">2</span>个）。</li>
+						<li>参加初审的专家名单如下：</li>
+					</ul>
+				</div>
+				<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12 recommendationTable">
+					<table class=" tableRyr" cellspacing="0" cellpadding="0">
+						<thead>
+							<tr>
+								<th>编号</th>
+								<th>姓名</th>
+								<th>所在单位</th>
+								<th>职称/职务</th>
+								<th>签名</th>
+								<th>备注</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><input type="text" class="txtInput2" name="" id="mMemberName" value=""></td>
+								<td><input type="text" class="txtInput2" name="" id="mMemberDelcate" value=""></td>
+								<td><input type="text" class="txtInput2" name="" id="mMemberJob" value=""></td>
+								<td><input type="text" class="txtInput2" name="" id="mMemberWork" value=""></td>
+								<td><input type="text" class="txtInput2" name="" id="mMemberContact" value=""></td>
+								<td><input type="text" class="txtInput2" name="" id="mMemberContact" value=""></td>
+							</tr>
+							<tr>
+								<td><input type="text" class="txtInput2" name="" id="mMemberName" value=""></td>
+								<td><input type="text" class="txtInput2" name="" id="mMemberDelcate" value=""></td>
+								<td><input type="text" class="txtInput2" name="" id="mMemberJob" value=""></td>
+								<td><input type="text" class="txtInput2" name="" id="mMemberWork" value=""></td>
+								<td><input type="text" class="txtInput2" name="" id="mMemberContact" value=""></td>
+								<td><input type="text" class="txtInput2" name="" id="mMemberContact" value=""></td>
+							</tr>
+							<tr>
+								<td><input type="text" class="txtInput2" name="" id="mMemberName" value=""></td>
+								<td><input type="text" class="txtInput2" name="" id="mMemberDelcate" value=""></td>
+								<td><input type="text" class="txtInput2" name="" id="mMemberJob" value=""></td>
+								<td><input type="text" class="txtInput2" name="" id="mMemberWork" value=""></td>
+								<td><input type="text" class="txtInput2" name="" id="mMemberContact" value=""></td>
+								<td><input type="text" class="txtInput2" name="" id="mMemberContact" value=""></td>
+							</tr>
+							<tr>
+								<td><input type="text" class="txtInput2" name="" id="mMemberName" value=""></td>
+								<td><input type="text" class="txtInput2" name="" id="mMemberDelcate" value=""></td>
+								<td><input type="text" class="txtInput2" name="" id="mMemberJob" value=""></td>
+								<td><input type="text" class="txtInput2" name="" id="mMemberWork" value=""></td>
+								<td><input type="text" class="txtInput2" name="" id="mMemberContact" value=""></td>
+								<td><input type="text" class="txtInput2" name="" id="mMemberContact" value=""></td>
+							</tr>
+
+						</tbody>
+					</table>
+				</div>
+				<div class="row upPanel">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<div class="upLoadify">
+							<span class="leftContent">附件材料</span>
+							<div id="fileUpload" class="uploadify" style="height: 30px; width: 120px;"><object id="SWFUpload_0" type="application/x-shockwave-flash" data="../../plugins/uploadify/uploadify.swf?preventswfcaching=1491449077663" width="120" height="30" class="swfupload" style="position: absolute; z-index: 1;"><param name="wmode" value="transparent"><param name="movie" value="../../plugins/uploadify/uploadify.swf?preventswfcaching=1491449077663"><param name="quality" value="high"><param name="menu" value="false"><param name="allowScriptAccess" value="always"><param name="flashvars" value="movieName=SWFUpload_0&amp;uploadURL=%2FAdminLTE-2.3.11%2Fpages%2FprojectDeclaration%2F..%2F..%2Fplugins%2Fuploadify%2Fuploadify.php&amp;useQueryString=false&amp;requeueOnError=false&amp;httpSuccess=&amp;assumeSuccessTimeout=30&amp;params=&amp;filePostName=Filedata&amp;fileTypes=*.gif%3B%20*.jpg%3B%20*.png%3B*.doc%3B*.docx%3B*.xls%3B*.xlsx%3B*.ppt%3B*.pptx%3B*.pdf%3B*.txt%3B*.JPEG&amp;fileTypesDescription=All%20Files&amp;fileSizeLimit=0&amp;fileUploadLimit=0&amp;fileQueueLimit=999&amp;debugEnabled=false&amp;buttonImageURL=%2FAdminLTE-2.3.11%2Fpages%2FprojectDeclaration%2F&amp;buttonWidth=120&amp;buttonHeight=30&amp;buttonText=&amp;buttonTextTopPadding=0&amp;buttonTextLeftPadding=0&amp;buttonTextStyle=color%3A%20%23000000%3B%20font-size%3A%2016pt%3B&amp;buttonAction=-110&amp;buttonDisabled=false&amp;buttonCursor=-2"></object>
+								<div id="fileUpload-button" class="uploadify-button btn_ btnUpload" style="height: 30px; line-height: 30px; width: 120px;"><span class="uploadify-button-text">点击上传</span></div>
+							</div>
+							<div id="fileUpload-queue" class="uploadify-queue"></div><span class="rightContent">支持后缀名.doc  .docx  .xls   .xlsx  .ppt   .pptx  .pdf .txt  .zip .rar .jpg .png  .jpeg 的文件上传。</span>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12 charSec reviewResults ">
+					<ul>
+						<li class="resultsSel selContent">职能部门评审结果</li>
+						<li class="resultsSel">
+							<select name="" class=" selCe">
+								<option value="">请选择</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+							</select>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="mainTitle">
+			<span class="mtContent">六、校级专家组论证意见</span>
+		</div>
+		<div class="argumentOpinion container">
+			<div class="row">
+				<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12 ">
+					<div>
+						<textarea name="txtArea1" rows="" cols=""></textarea>
+					</div>
+				</div>
+				<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12 expertList">
+					<div class="expertTable">
+						<span class="expertDesc">参加专家名单如下：</span>
+						<table class=" tableRyr" cellspacing="0" cellpadding="0">
+							<thead>
+								<tr>
+									<th>编号</th>
+									<th>姓名</th>
+									<th>所在单位</th>
+									<th>职称/职务</th>
+									<th>签名</th>
+									<th>备注</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><input type="text" class="txtInput2" name="" id="mMemberName" value=""></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberDelcate" value=""></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberJob" value=""></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberWork" value=""></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberContact" value=""></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberContact" value=""></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberContact" value=""></td>
+								</tr>
+								<tr>
+									<td><input type="text" class="txtInput2" name="" id="mMemberName" value=""></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberDelcate" value=""></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberJob" value=""></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberWork" value=""></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberContact" value=""></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberContact" value=""></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberContact" value=""></td>
+								</tr>
+								<tr>
+									<td><input type="text" class="txtInput2" name="" id="mMemberName" value=""></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberContact" value=""></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberDelcate" value=""></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberJob" value=""></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberWork" value=""></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberContact" value=""></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberContact" value=""></td>
+								</tr>
+								<tr>
+									<td><input type="text" class="txtInput2" name="" id="mMemberName" value=""></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberContact" value=""></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberDelcate" value=""></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberJob" value=""></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberWork" value=""></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberContact" value=""></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberContact" value=""></td>
+								</tr>
+
+							</tbody>
+						</table>
+						<div class="addExpert">
+							<button class="btn_">新增专家组成员</button>
+						</div>
+					</div>
+				</div>
+				<div class="row upPanel">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<div class="upLoadify">
+							<span class="leftContent">附件材料</span>
+							<div id="fileUpload" class="uploadify" style="height: 30px; width: 120px;"><object id="SWFUpload_0" type="application/x-shockwave-flash" data="../../plugins/uploadify/uploadify.swf?preventswfcaching=1491449077663" width="120" height="30" class="swfupload" style="position: absolute; z-index: 1;"><param name="wmode" value="transparent"><param name="movie" value="../../plugins/uploadify/uploadify.swf?preventswfcaching=1491449077663"><param name="quality" value="high"><param name="menu" value="false"><param name="allowScriptAccess" value="always"><param name="flashvars" value="movieName=SWFUpload_0&amp;uploadURL=%2FAdminLTE-2.3.11%2Fpages%2FprojectDeclaration%2F..%2F..%2Fplugins%2Fuploadify%2Fuploadify.php&amp;useQueryString=false&amp;requeueOnError=false&amp;httpSuccess=&amp;assumeSuccessTimeout=30&amp;params=&amp;filePostName=Filedata&amp;fileTypes=*.gif%3B%20*.jpg%3B%20*.png%3B*.doc%3B*.docx%3B*.xls%3B*.xlsx%3B*.ppt%3B*.pptx%3B*.pdf%3B*.txt%3B*.JPEG&amp;fileTypesDescription=All%20Files&amp;fileSizeLimit=0&amp;fileUploadLimit=0&amp;fileQueueLimit=999&amp;debugEnabled=false&amp;buttonImageURL=%2FAdminLTE-2.3.11%2Fpages%2FprojectDeclaration%2F&amp;buttonWidth=120&amp;buttonHeight=30&amp;buttonText=&amp;buttonTextTopPadding=0&amp;buttonTextLeftPadding=0&amp;buttonTextStyle=color%3A%20%23000000%3B%20font-size%3A%2016pt%3B&amp;buttonAction=-110&amp;buttonDisabled=false&amp;buttonCursor=-2"></object>
+								<div id="fileUpload-button" class="uploadify-button btn_ btnUpload" style="height: 30px; line-height: 30px; width: 120px;"><span class="uploadify-button-text">点击上传</span></div>
+							</div>
+							<div id="fileUpload-queue" class="uploadify-queue"></div><span class="rightContent">支持后缀名.doc  .docx  .xls   .xlsx  .ppt   .pptx  .pdf .txt  .zip .rar .jpg .png  .jpeg 的文件上传。</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12 charSec expertResults ">
+					<ul>
+						<li class="resultsSel selContent">专家论证结果</li>
+						<li class="resultsSel">
+							<select name="" class=" selCe">
+								<option value="">请选择</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+							</select>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="mainTitle">
+			<span class="mtContent">七、校长办公会审批结果 </span>
+		</div>
+		<div class="officeApprovalResults container">
+			<div class="row">
+				<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12 approvalList">
+					<ul>
+						<li>经<span class="rContent">2019</span>年<span class="rContent">7</span>月<span class="rContent">12</span>日第<span class="rContent">12</span>次校长办公会审议，同意专家</li>
+						<li>组对本项目的排名顺序（见附件）并列入校级重大建设项目侯建库。</li>
+						<li>请关注学校财务预算下达通知。</li>
+					</ul>
+				</div>
+				<div class="row upPanel">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<div class="upLoadify">
+							<span class="leftContent">附件材料</span>
+							<div id="fileUpload" class="uploadify" style="height: 30px; width: 120px;"><object id="SWFUpload_0" type="application/x-shockwave-flash" data="../../plugins/uploadify/uploadify.swf?preventswfcaching=1491449077663" width="120" height="30" class="swfupload" style="position: absolute; z-index: 1;"><param name="wmode" value="transparent"><param name="movie" value="../../plugins/uploadify/uploadify.swf?preventswfcaching=1491449077663"><param name="quality" value="high"><param name="menu" value="false"><param name="allowScriptAccess" value="always"><param name="flashvars" value="movieName=SWFUpload_0&amp;uploadURL=%2FAdminLTE-2.3.11%2Fpages%2FprojectDeclaration%2F..%2F..%2Fplugins%2Fuploadify%2Fuploadify.php&amp;useQueryString=false&amp;requeueOnError=false&amp;httpSuccess=&amp;assumeSuccessTimeout=30&amp;params=&amp;filePostName=Filedata&amp;fileTypes=*.gif%3B%20*.jpg%3B%20*.png%3B*.doc%3B*.docx%3B*.xls%3B*.xlsx%3B*.ppt%3B*.pptx%3B*.pdf%3B*.txt%3B*.JPEG&amp;fileTypesDescription=All%20Files&amp;fileSizeLimit=0&amp;fileUploadLimit=0&amp;fileQueueLimit=999&amp;debugEnabled=false&amp;buttonImageURL=%2FAdminLTE-2.3.11%2Fpages%2FprojectDeclaration%2F&amp;buttonWidth=120&amp;buttonHeight=30&amp;buttonText=&amp;buttonTextTopPadding=0&amp;buttonTextLeftPadding=0&amp;buttonTextStyle=color%3A%20%23000000%3B%20font-size%3A%2016pt%3B&amp;buttonAction=-110&amp;buttonDisabled=false&amp;buttonCursor=-2"></object>
+								<div id="fileUpload-button" class="uploadify-button btn_ btnUpload" style="height: 30px; line-height: 30px; width: 120px;"><span class="uploadify-button-text">点击上传</span></div>
+							</div>
+							<div id="fileUpload-queue" class="uploadify-queue"></div><span class="rightContent">支持后缀名.doc  .docx  .xls   .xlsx  .ppt   .pptx  .pdf .txt  .zip .rar .jpg .png  .jpeg 的文件上传。</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="mainTitle">
+			<span class="mtContent">八、归档记录</span>
+		</div>
+		<div class="container archiveRecord">
+			<div class="row">
+				<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12 recordlList">
+					<ul>
+						<li>本项目立项文档于<span class="rContent">2019</span>年<span class="rContent">7</span>月<span class="rContent">12</span>日由<span class="rContent">12</span>打印整</li>
+						<li>理，移交学校综合档案室，</li>
+						<li>记录如下：</li>
+					</ul>
+					<div class="archiveTables">
+						<table class=" tableRyr" cellspacing="0" cellpadding="0">
+							<thead>
+								<tr>
+									<th>文档名称</th>
+									<th>文档分类</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><input type="text" class="txtInput2" name="" id="mMemberName" value=""></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberDelcate" value=""></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberJob" value=""></td>
+								</tr>
+								<tr>
+									<td><input type="text" class="txtInput2" name="" id="mMemberName" value=""></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberDelcate" value=""></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberWork" value=""></td>
+								</tr>
+								<tr>
+									<td><input type="text" class="txtInput2" name="" id="mMemberName" value=""></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberContact" value=""></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberJob" value=""></td>
+								</tr>
+								<tr>
+									<td><input type="text" class="txtInput2" name="" id="mMemberName" value=""></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberDelcate" value=""></td>
+									<td><input type="text" class="txtInput2" name="" id="mMemberJob" value=""></td>
+								</tr>
+
+							</tbody>
+						</table>
+
+					</div>
+					<div class="tips">
+						<textarea name="txtArea1" rows="" cols=""></textarea>
+
+					</div>
+					<div class="row btnPanel">
+						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 saveBtn_">
+							<button class="btn_ ">保存</button>
+						</div>
+						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 cancelBtn_">
+							<button class="btn_ ">取消</button>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+</div>

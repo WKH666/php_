@@ -1,0 +1,195 @@
+<div class="tableCecl ">
+	<table border="1" class="tInfo" cellspacing="0" cellpadding="0">
+		<tbody>
+			<tr>
+				<th colspan="2" style="border: 1px solid #e5e5e5;">一、项目申报单位情况</th>
+			</tr>
+		</tbody>
+		<tbody>
+			<tr>
+				<td>申请人</td>
+				<td>{base_name}</td>
+			</tr>
+			<tr>
+				<td>项目名称</td>
+				<td>{project_name}</td>
+			</tr>
+			<tr>
+				<td>项目编号</td>
+				<td>{project_number}</td>
+			</tr>
+			<tr>
+				<td>项目申报单位</td>
+				<td>{base_deptname}</td>
+			</tr>
+			<tr>
+				<td>项目实施年度</td>
+				<td>{project_year}</td>
+			</tr>
+			<tr>
+				<td>项目申报时间</td>
+				<td>{project_apply_time}</td>
+			</tr>
+			<tr>
+				<td>项目负责人</td>
+				<td>{project_head}</td>
+			</tr>
+			<tr>
+				<td>项目负责人联系电话</td>
+				<td>{project_head_phone}</td>
+			</tr>
+		</tbody>
+	</table>
+	<table border="1" class="tPerson" cellspacing="0" cellpadding="0">
+		<thead>
+			<tr>
+				<th colspan="1"  style="border: 1px solid #e5e5e5;">项目组成员</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td  style="border: 1px solid #e5e5e5;">{subdata0}</td>
+			</tr>
+		</tbody>
+	</table>
+	<table border="1" class="tDetail" cellspacing="0" cellpadding="0">
+		<tbody>
+			<tr>
+				<th  style="border: 1px solid #e5e5e5;">二、项目基本情况</th>
+			</tr>
+		</tbody>
+		<tbody>
+			<tr>
+				<td  style="border: 1px solid #e5e5e5;">
+					<p>一、项目申请理由（重点说明项目申报依据及必要性及紧迫性、规划时限等主要情况、主要经济技术指标、项目进度安排等）</p>
+					<p>{project_details_one}</p>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<p>二、项目具体建设目标、意义、范围、内容、可行性（环境、人员、技术等条件）、及相关技术材料。要特别说明现有条件（人员、技术、设备、环境、用房）和要学校支持的条件。</p>
+					<p>{project_details_two}</p>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<p>三、分项列出主要建设内容，项目投资概预算及资金构成、资金筹措方案。</p>
+					<p>{project_details_three}</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<table border="1" class="tAudit" cellspacing="0" cellpadding="0">
+		<tbody>
+			<tr>
+				<th  style="border: 1px solid #e5e5e5;">三、单位初审意见</th>
+			</tr>
+		</tbody>
+		<tbody>
+			<tr>
+				<td>
+					<p>{upper_lead_explain}</p>
+					<p align="right">单位负责人（签章）: {upper_lead_head}</p>
+					<p align="right">{upper_lead_year}年 {upper_lead_month}月 {upper_lead_day}日 </p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<table border="1" class="tManagerAudit" cellspacing="0" cellpadding="0">
+		<tbody>
+			<tr>
+				<th  style="border: 1px solid #e5e5e5;">四、项目库管理办公室初审处理意见</th>
+			</tr>
+		</tbody>
+		<tbody>
+			<tr>
+				<td>
+					<p><span></span> 内容缺项或格式有误，退回修改，意见如下：</p>
+					<p>{no_project_office_statusname}</p>
+					<p>{no_project_office_explain}</p>
+					<p><span></span> 形式审查合格，送相关业务部门筛选。</p>
+					<p>{project_office_statusname}</p>
+					<p>{project_office_explain}</p>
+					<p align="right">负责人（签章）: {project_office_head}{no_project_office_head}</p>
+					<p align="right">{upper_lead_year}年 {upper_lead_month}月 {upper_lead_day}日</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+		<table border="1" class="tProAudit" cellspacing="0" cellpadding="0">
+		<tbody>
+			<tr>
+				<th  style="border: 1px solid #e5e5e5;">五、职能部门专家工作小组筛选推荐意见</th>
+			</tr>
+		</tbody>
+		<tbody>
+			<tr>
+				<td>
+					<p>根据{zhineng_year}年{zhineng_month}月{zhineng_day}日专家评审推荐会结果，该项目排名顺序为：{project_z_paixu}</p>
+					<p>{project_select}{project_z_sum}名（本类项目总数{project_z_count}个）。</p>
+					<p>参加初审的专家名单如下：</p>
+				</td>
+				
+			</tr>
+			<tr>
+				<td>
+					{z_table_all}
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<p>查看相关文档</p>
+					<p>{zhineng_file}</p>
+				</td>
+				
+			</tr>
+		</tbody>
+	</table>
+	<table border="1" class="tSchAudit" cellspacing="0" cellpadding="0">
+		<tbody>
+			<tr>
+				<th  style="border: 1px solid #e5e5e5;">六、校级专家组论证意见</th>
+			</tr>
+		</tbody>
+		<tbody>
+			<tr>
+				<td>
+					<p>{xiaoban_shengpi_yijian}</p>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					{x_table_all}
+				
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<p>相关文档</p>
+					<p>{xiangban_file}</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<table border="1" class="tSchAudit" cellspacing="0" cellpadding="0">
+		<tbody>
+			<tr>
+				<th  style="border: 1px solid #e5e5e5;">七、校长办公会审批结果</th>
+			</tr>
+		</tbody>
+		<tbody>
+			<tr>
+				<td>
+					<p>{x_year}年{x_month}月{x_day}日第{project_x_cishu}次校长办公会审议，同意专家组对本项目的排名顺序（见附件）并列入校级重大建设项目侯建库。请关注学校财务预算下达通知 。</p>
+				</br>
+				<p>{x_file}</p>
+				</td>
+			</tr>
+			
+		</tbody>
+	</table>
+	<div></div>
+</div>

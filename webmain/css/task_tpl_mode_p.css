@@ -1,0 +1,167 @@
+@charset "utf-8";
+
+/****************************************布局************************************/
+
+.delbDetail .delbContent .delbUE ul li {
+	float: left;
+	list-style: none;
+	font-size: 18px;
+	width: 200px;
+	text-align: right;
+	height: 25px\9;
+}
+
+.sliderBar {
+	width: 4% !important;
+	cursor: pointer;
+}
+
+.delbDetail .delbContent .delbUE .delbNm {
+	margin-left: 2%;
+	text-align: left;
+}
+
+
+/*申报情况*/
+
+.unitCaseTitle {
+	margin-top: 0% !important;
+}
+
+.unitCaseDetail {}
+
+.unitCaseDetail .tbUnitDetail td,
+.unitCaseDetail .tbMember td,
+th {
+	width: 300px;
+	height: 50px;
+	text-align: center;
+}
+
+.unitCaseDetail .tbMember {
+	margin-top: 1%;
+}
+/*项目基本情况*/
+ .basicCaseDetail .basicCaseTitle {
+	text-align: center;
+	font-size: 14px;
+	border: 1px solid #EEEEEE;
+	padding: 1% 0%;
+	margin-top: 1%;
+}
+
+ .basicCaseDetail .basicCaseContent .txtArea {
+    width: 100%;
+    height: 340px;
+    margin-bottom: 1%;
+    resize: none;
+    background-color: #f9f9f9;
+    border: 1px solid #eeeeee;
+}
+/*单位初审意见*/
+.unitOpinion ul li{
+    text-align: right;
+    width: 200px;
+    height: 40px\9;
+    height: 40px;
+    line-height: 40px;
+    
+}
+.unitOpinion .optionCont{
+  	 width: 75px;
+	margin-left: -3%;
+    padding-right: 0%;
+    margin-right: 2%;
+}
+/*办公室初审处理意见*/
+.officeOption ul li{
+    text-align: left;
+    width: 360px;
+    height: 40px\9;
+    height: 40px;
+    line-height: 40px;
+}
+.officeOption .optionCheckbox{
+    width: 21px;
+    margin-left: -3%;
+}
+.officeOption .optionSel{
+    width: 100px;
+    margin-left: -3%;
+}
+.officeOption .selCe{
+	width: 200px;
+}
+/*职能部门专家工作小组筛选推荐意见 */
+.expertRecommendation ul li{
+	list-style: none;
+    font-size: 18px;
+    margin-bottom: 2%;
+    padding-left: 20%;
+}
+
+.expertRecommendation .recommendationTable{
+	margin-bottom: 2%;
+}
+.expertRecommendation .reviewResults .resultsSel{
+    padding: 0%;
+    margin-top: 2%;
+}
+.expertRecommendation .reviewResults .resultsSel select{
+	width: 200px;
+	margin-left: 2%;
+}
+.expertRecommendation .reviewResults .selContent{
+	margin-left: -3%;
+}
+/*校级专家组论证意见*/
+.argumentOpinion .expertList{
+	margin: 1% 0%;
+}
+.argumentOpinion .expertList .expertTable .expertDesc{
+	font-size: 18px;
+	display: inline-block;
+	margin-bottom: 1%;
+}
+.argumentOpinion .addExpert{
+	margin: 1% 0%;
+}
+.argumentOpinion .expertResults .resultsSel{
+    padding: 0%;
+    margin-top: 2%;
+}
+.argumentOpinion .expertResults .resultsSel select{
+	width: 200px;
+	margin-left: 2%;
+}
+.argumentOpinion .expertResults .selContent{
+	margin-left: -3%;
+}
+/*校长办公会审批结果 */
+.approvalList ul li{
+    list-style: none;
+    font-size: 18px;
+    margin-bottom: 2%;
+    padding-left: 20%;
+}
+/*归档记录*/
+.recordlList ul li{
+    list-style: none;
+    font-size: 18px;
+    margin-bottom: 2%;
+    padding-left: 7%;
+}
+.archiveRecord .tips{
+	margin-top: 2%;
+    padding: 0% 6.5%;
+}
+.archiveRecord .archiveTables table{
+	margin: auto;
+}
+.archiveRecord .btnPanel{
+	margin: 2% 0%;
+}
+.archiveRecord .saveBtn_{
+	text-align: right;
+}
+/****************************************布局************************************/

@@ -1,0 +1,411 @@
+<?php
+class project_commentClassAction extends Action
+{
+	
+	private static $insertsuccessnum=0;//添加成功条数
+	private $insertsuccesslastid = '';//插入成功的lastid
+	
+	/**
+	 * 获取指标详情
+	 */
+	public function getnormdetail($norm_id,$lx=0){
+		$norm_info = m('m_dafen')->getone('id='.$norm_id, $fields='dafen_model_name as name,dafen_model_num as num,mtype');
+		//var_dump($norm_info);
+		if($lx==0)$norm_info['info'] = $this->getmoreoption($norm_id);
+		return json_encode($norm_info);
+	}
+	
+	/**
+	 * 多级打分项信息获取（递归函数）
+	 */
+	public function getmoreoption($norm_id,$pid=0){
+		$option_info = m('m_option')->getall("mid=$norm_id and pid=$pid",'*','sort,id desc');
+		foreach ($option_info as $k => $v) {
+			//$option_info[$k] = array('option_msg'=>$v['option_msg'],'option_fenzhi'=>$v['option_fenzhi'],'option_range'=>$v['option_range'],'sort'=>$v['sort']);
+			$option_info[$k] = array('id'=>$v['id'],'option_msg'=>$v['option_msg'],'option_fenzhi'=>$v['option_fenzhi'],'minscore'=>unserialize($v['option_range'])[0],'maxscore'=>unserialize($v['option_range'])[1],'sort'=>$v['sort']);
+			$moreinfo = $this->getmoreoption($norm_id,$v['id']);
+			if(!empty($moreinfo)) $option_info[$k]['info'] = $this->getmoreoption($norm_id,$v['id']);
+		}
+		unset($k,$v);
+		return $option_info;
+	}
+	
+	/**
+	 * 测试返回
+	 */
+	public function gettestAjax(){
+		$norm_id = $this->rock->request('norm_id');
+		//var_dump($this->getmoreoption($norm_id));exit;
+		echo json_encode($this->getmoreoption($norm_id));exit;
+		echo $this->getnormdetail($norm_id);
+		//return $this->returnjson($this->getnormdetail($norm_id));
+	}
+	
+	
+	/**
+	 * 新增指标接口
+	 */
+	public function addnormAjax(){
+		$norm_name = $this->rock->post('name');//指标名
+		$mtype = $this->rock->post('mtype');//项目类型
+		@$norm_info = $this->rock->post('info');//指标内容
+		//print_r($norm_info2);exit;
+		//$norm_info = (array)json_decode($this->rock->request('info'));//指标内容(json)
+		//var_dump($norm_info);exit;
+		$user_id = $this->adminid;//操作人id
+		$requestTime = date('Y-m-d H:i:s',time());//获取接口请求时间
+		$res_id = m('m_dafen')->insert(array(
+			'dafen_model_name'=>$norm_name,
+			'dafen_model_num'=>'SX'.date('YmdHis').rand(0,1000),
+			'mtype'=>$mtype,
+			'user_id'=>$user_id,
+			'operating_time'=>$requestTime
+		));
+		if($this->insertsuccesslastid=$this->saveNormInfo($res_id,0,$norm_info)){
+			$reinfo = array('插入成功条数:'.self::$insertsuccessnum,'插入成功的lastid:'.$this->insertsuccesslastid);
+			$this->returnjson(array('id' => $reinfo,'success' => true,'msg' => '新增成功'));
+		}else{
+			$this->returnjson(array('id' => '','success' => false,'msg' => '新增失败'));
+		}
+	}
+	
+	/**
+	 * 批量存储指标内容(递归)
+	 */
+	public function saveNormInfo($norm_id,$pid,$norm_info){
+		$rs = array();//定义空数组
+		$res_id=false;//最后插入的信息
+		foreach ($norm_info as $k => $v) {
+			$rs['mid']=$norm_id;
+			$rs['pid']=$pid;
+			$rs['option_msg']=$v['option_msg'];
+			if($pid!=0)$rs['option_range']=serialize(array($v['minscore'],$v['maxscore']));//序列化数组
+			if($pid==0)$rs['option_fenzhi']=$v['option_fenzhi'];
+			$rs['sort']=$v['sort'];
+			$rs['level']=$v['level'];
+			$res_id = m('m_option')->insert($rs);
+			if(!$res_id)return false;else self::$insertsuccessnum++;
+			if(!empty($v['info'])){
+				$this->saveNormInfo($norm_id,$res_id,$v['info']);
+			}
+		}
+		unset($k,$v);
+		return $res_id;
+	}
+	
+	
+	/**
+	 * 指标列表
+	 */
+	public function normlistAjax(){
+		$normName=$this->rock->request('norm_name');
+		$where='';
+		if($normName!="") $where.=" and dafen_model_name like '%$normName%'";
+		$table = '[Q]m_dafen';
+		$fields = '*';
+		$where = "dafen_status=0 $where";
+		$order = 'operating_time desc';
+		$this->getlist($table, $fields, $where, $order);
+	}
+	
+	/**
+	 * 公共的列表获取方法
+	 */
+	public function getlist($table,$fields,$where,$order,$childtable=''){
+		$beforea = $this->request('storebeforeaction');//数据权限处理函数
+		$aftera = $this->request('storeafteraction');//操作权限处理函数
+		if($beforea != ''){//数据权限处理
+			if(method_exists($this, $beforea)){
+				$where .= $this->$beforea();
+			}
+		}
+		$arr = $this->limitRows($table,$fields,$where,$order);
+		$arr['totalCount'] = $arr['total'];
+		unset($arr['sql'],$arr['total']);
+		//echo $arr['sql'];exit;
+		//if($arr['totalCount'] == 0) exit('暂无数据');
+		if(method_exists($this, $aftera)){//操作菜单权限处理
+			$narr	= $this->$aftera($childtable,$arr['rows']);
+			if(is_array($narr)){
+				foreach($narr as $kv=>$vv)$arr['rows'][$kv]=$vv;
+			}
+		}
+		$this->returnjson($arr);
+	}
+	
+	/**
+	 * 指标列表操作获取
+	 */
+	public function normlistafter($table,$rows){
+		foreach($rows as $k=>$rs){
+			$rows[$k]['caoz']='';
+			$rows[$k]['caoz'].= '<a onclick="norm_look('.$rs['id'].')">查看</a>';
+			$rows[$k]['caoz'].= '<span style="padding:5px;">|</span>';
+			$rows[$k]['caoz'].= '<a onclick="norm_edit('.$rs['id'].')">编辑</a>';
+			$rows[$k]['caoz'].= '<span style="padding:5px;">|</span>';
+			$rows[$k]['caoz'].= '<a onclick="norm_del('.$rs['id'].')">删除</a>';
+		}
+		return $rows;
+	}
+	
+	/**
+	 * 指标详情返回
+	 */
+	public function getnormdetailAjax(){
+		$norm_id = $this->rock->request('norm_id');//指标id
+		$this->returnjson(array('success'=>true,'data'=>$this->getnormdetail($norm_id)));
+	}
+	
+	
+	/**
+	 * 删除指标
+	 */
+	public function normdelAjax(){
+		$norm_id = $this->rock->request('norm_id');//指标id
+		$delnorm = m('m_dafen')->update(array('dafen_status'=>1),"id=$norm_id");
+		if($delnorm)$this->returnjson(array('id'=>$delnorm,'success'=>true,'msg'=>'删除成功'));
+		else $this->returnjson(array('id'=>$delnorm,'success'=>false,'msg'=>'删除失败'));
+	}
+	
+	
+	/**
+	 * 编辑指标
+	 */
+	public function normeditAjax(){
+		$norm_id = $this->rock->post('norm_id');//指标id
+		$norm_name = $this->rock->post('name');//指标名
+		$mtype = $this->rock->post('mtype');//项目类型
+		@$norm_control = $this->rock->post('edit_control');//指标编辑操作数组
+		
+		//更新指标表
+		$updafen = m('m_dafen')->update(array(
+			'dafen_model_name'=>$norm_name,
+			'mtype'=>$mtype,
+			'user_id'=>$this->adminid,
+			'operating_time'=>date('Y-m-d H:i:s')
+		),"id=$norm_id");
+		//echo m('m_dafen')->getLastSql();
+		
+		//对打分信息表内容操作
+		if(!empty($norm_control['addinfo'])){//判断是否有新增
+			$this->saveNormInfo($norm_id, 0, $norm_control['addinfo']);
+		}
+		if(!empty($norm_control['editinfo'])){//判断是否有更新
+			$this->saveOptionInfo($norm_id,0,$norm_control['editinfo']);
+		}
+		if(!empty($norm_control['delinfo'])){//判断是否有删除
+			foreach ($norm_control['delinfo'] as $k => $v) {
+				$del_ids = m('m_option')->delete("id=$v");
+			}
+			unset($k,$v);
+		}
+		
+		if($updafen)$this->returnjson(array('id'=>$updafen,'success'=>true,'msg'=>'编辑成功'));
+		else $this->returnjson(array('id'=>$updafen,'success'=>false,'msg'=>'编辑失败'));
+	}
+	
+	/**
+	 * 更新打分信息表内容（批量更新打分详细信息内容(递归)）
+	 */
+	public function saveOptionInfo($norm_id,$pid,$option_info){
+		$rs = array();//定义空数组
+		$sub_pid=0;//传给下一组的pid
+		foreach ($option_info as $k => $v) {
+			$rs['option_msg']=$v['option_msg'];
+			if(array_key_exists('minscore',$v) && array_key_exists('maxscore',$v)) $rs['option_range']=serialize(array($v['minscore'],$v['maxscore']));//序列化数组
+			if(array_key_exists('option_fenzhi',$v)) $rs['option_fenzhi']=$v['option_fenzhi'];
+			$rs['sort']=$v['sort'];
+			$rs['level']=$v['level'];
+			if((int)$v['id']==0){//添加
+				$rs['mid']=$norm_id;
+				$rs['pid']=$pid;
+				$sub_pid = m('m_option')->insert($rs);
+			}else{//修改
+				$sub_pid=$v['id'];
+				$res_id = m('m_option')->update($rs,'id='.$v['id']);
+			}
+			if(!empty($v['info'])) $this->saveOptionInfo($norm_id,$sub_pid,$v['info']);
+		}
+		unset($k,$v);
+		return $res_id;
+	}
+	
+	
+	/**
+	 * 根据ids获取选择了的项目信息
+	 */
+	public function getprojectlistAjax(){
+		$projectIds = $this->post('project_ids');//项目ids
+		$mtype = $this->post('mtype');//项目类型
+		$table = '`[Q]flow_bill` a left join `[Q]admin` b on a.uid=b.id left join `whole_projects` c on a.mid=c.id left join `[Q]flow_course` fc on fc.id=a.nowcourseid';
+		$fields = 'a.table as mtype,a.modeid,a.optid,a.nowcheckname,a.status as bill_status,a.allcheckid,a.nowcheckid,a.nowcourseid,a.optid,b.name,b.deptname,c.id,c.num,c.project_name,c.status as cst,c.isturn,c.optname,c.project_head,c.project_apply_time,c.project_select,c.project_xingzhi,c.project_ku,c.isturn,fc.name as flowname,c.exigence_status,c.process_state,c.project_is_guidang,c.project_number,c.project_yushuan';
+		$where = "c.id in ($projectIds) and a.table='$mtype'";
+		$order = '';
+		$this->getlist($table, $fields, $where, $order);
+		//$arr = m('project_sx_apply')->getall("id in ($projectIds)");
+		//$this->returnjson($arr);
+	}
+	
+<<<<<<< .mine
+	
+	//获取批次中打分模板表进行校验数据是否正确
+	public function score_modelAjax(){
+		$pci=$_POST('pic');//批次ID
+		$mid=$_POST('mid');//项目ID
+		$mtype=$_POST('mtype');//项目模块
+		$datafrom=$_POST('datafrom');
+		$uid=$this->adminid;
+		$user_zongfen=0;//初始化总分
+		if(is_numeric($pci) ||　is_array($datafrom)){
+			//参数错误	
+			//返回
+		}
+		
+		$pic_message=m('m_batch')->getone('id='.$pci);//查找批次
+		$expert=m('m_pua_reation')->getone('id='.$pci.' and u_id='.$uid);//查找当前用户是否在改批次中
+		$expert_pxmdf=m('m_pxmdf')->getone('pici_id='.$pci.' and uid='.$uid.' and xid='.$mid.' and mtype='.$mtype);//查找当前用户在当前项目中的打分情况
+		
+		if(empty($pic_message)) {
+			//批次号错误
+			//返回
+		}
+		//缺少判断时间 当前时间小于开始时间 未开始 当前时间大于开始时间 网评已结束
+		if(empty($expert) || empty($expert_pxmdf)){
+			//你无权对改项目网评
+			//返回
+		
+		}else if($expert_pxmdf['mode']){
+			//请勿重复提交数据
+			//返回
+			
+		}
+		
+		
+		$json_mode=$pic_message['model'];
+		$json_mode='{"name":"广东科学技术职业学院立项建设评审指标体系","num":"1","info":[{"option_msg":"基地类型","option_fenzhi":"15","option_range":"","sort":"1","info":[{"option_msg":"具有专业发展和技术先进性的新建专业项目","option_fenzhi":null,"minscore":"1","maxscore":"5","option_range":["1","5"],"sort":"0"},{"option_msg":"品牌专业等重大专业建设项目以及省级实训基地、省公共实训中心、重点实验室等重点建设项目","option_fenzhi":null,"minscore":"6","maxscore":"10","option_range":["6","10"],"sort":"0"}]},{"option_msg":"建设资金及预算","option_fenzhi":"20","option_range":"","sort":"2","info":[{"option_msg":"资金投入不够明确，预算安排不够合理。","option_fenzhi":null,"minscore":"1","maxscore":"4","option_range":["1","4"],"sort":"0"},{"option_msg":"已有项目专项建设资金；资金投入明确，有详细的计划和具体的实施办法，预算安排合理。","option_fenzhi":null,"minscore":"10","maxscore":"15","option_range":["10","15"],"sort":"0"}]},{"option_msg":"建设场地需求规划","option_fenzhi":"10","option_range":"","sort":"3","info":[{"option_msg":"未有建设场地或不明确。","option_fenzhi":null,"minscore":"1","maxscore":"2","option_range":["1","2"],"sort":"0"},{"option_msg":"已有建设场地，规划合理。","option_fenzhi":null,"minscore":"3","maxscore":"5","option_range":["3","5"],"sort":"0"}]},{"option_msg":"建设依据","option_fenzhi":"10","option_range":"","sort":"4","info":[{"option_msg":"不符合品牌专业等重点专业建设发展的要求，实践教学任务不明确。没有前瞻性，与区域产业发展需求和\\r\\n\\r\\n   \\r\\n\\r\\n行业发展趋势结合度不高。","option_fenzhi":null,"minscore":"1","maxscore":"4","option_range":["1","4"],"sort":"0"},{"option_msg":"符合品牌专业等重点专业建设发展的要求，符合专业教学计划于大纲的要求，实践教学任务明确。项目建\\r\\n\\r\\n   \\r\\n\\r\\n设有一定的前瞻性，能与区域产业发展需求和行业发展趋势结合。","option_fenzhi":null,"minscore":"1","maxscore":"2","option_range":["1","2"],"sort":"0"},{"option_msg":"符合品牌专业等重点专业建设发展的要求，符合专业教学计划于大纲的要求，实践教学任务明确。项目具\\r\\n\\r\\n   \\r\\n\\r\\n有前瞻性，紧密解饿区域产业发展需求和兴业发展趋势","option_fenzhi":null,"minscore":"1","maxscore":"2","option_range":["1","2"],"sort":"0"}]},{"option_msg":"建设目标","option_fenzhi":"10","option_range":"","sort":"5","info":[{"option_msg":"二级标题","option_fenzhi":null,"minscore":"0","maxscore":"2","option_range":["0","2"],"sort":"0"},{"option_msg":"实践教学目标不明确，专业共享性和整合度不好，预期使用率低，无岗位技能培养特色。","option_fenzhi":null,"minscore":"0","maxscore":"2","option_range":["0","2"],"sort":"0"},{"option_msg":"有明确的实践教学目标，有很好的专业共享性和整合度，预期使用率高，能较好满足岗位技能培养需求","option_fenzhi":null,"minscore":"0","maxscore":"2","option_range":["0","2"],"sort":"0"}]},{"option_msg":"建设思路与措施","option_fenzhi":"10","option_range":"","sort":"6","info":[{"option_msg":"建设思路不清晰，建设要求不明确，设备选型不恰当，技术路线不合理、不可行，建设思路不明确。","option_fenzhi":null,"minscore":"0","maxscore":"2","option_range":["0","2"],"sort":"0"},{"option_msg":"建设思路清晰，建设要求比较明确，设备选型基本恰当，技术路线合理、可行，建设思想明确","option_fenzhi":null,"minscore":"0","maxscore":"2","option_range":["0","2"],"sort":"0"},{"option_msg":"建设思路清晰，建设要求明确，设备选型恰当，技术路线先进，建设思路创新","option_fenzhi":null,"minscore":"0","maxscore":"2","option_range":["0","2"],"sort":"0"}]},{"option_msg":"项目实施的预期使用成效","option_fenzhi":"15","option_range":"","sort":"7","info":[{"option_msg":"设备和资源开放共享度低。","option_fenzhi":null,"minscore":"0","maxscore":"2","option_range":["0","2"],"sort":"0"},{"option_msg":"设备和资源开放共享度高。","option_fenzhi":null,"minscore":"0","maxscore":"2","option_range":["0","2"],"sort":"0"},{"option_msg":"项目常丹科研任务不明确，培养学生创新能力不强","option_fenzhi":null,"minscore":"0","maxscore":"2","option_range":["0","2"],"sort":"0"},{"option_msg":"项目能承担一定的科研任务，并且能培养学生一定的创新能力。","option_fenzhi":null,"minscore":"0","maxscore":"2","option_range":["0","2"],"sort":"0"},{"option_msg":"不能承担专业课程实践教学任务，设备利用率低，实验实训项目开出率较低。","option_fenzhi":null,"minscore":"0","maxscore":"2","option_range":["0","2"],"sort":"0"},{"option_msg":"能基本承担专业主干课程实践教学任务，能较好利用设备，使用率达到50%以上。","option_fenzhi":null,"minscore":"0","maxscore":"2","option_range":["0","2"],"sort":"0"},{"option_msg":"能完全承担专业主干课程实践教学任务，能承担学生综合性自主实践训练，设备利用充\\r\\n\\r\\n \\r\\n\\r\\n分，使用率  达到80%以上。","option_fenzhi":null,"minscore":"0","maxscore":"2","option_range":["0","2"],"sort":"0"}]},{"option_msg":"项目实施的预期使用成效","option_fenzhi":"10","option_range":"","sort":"8","info":[{"option_msg":"设备和资源开放共享项目可实施性不强，有一定的安全或环境影响隐患","option_fenzhi":null,"minscore":"0","maxscore":"2","option_range":["0","2"],"sort":"0"},{"option_msg":"项目可实施性强，没有安全或环境影响隐患。","option_fenzhi":null,"minscore":"0","maxscore":"6","option_range":["0","6"],"sort":"0"}]}]}';
+		$json_d_mode=json_decode($json_mode);
+		
+		foreach($json_d_mode['info'] as $k=>$value){
+			if($value['option_fenzhi']>=$datafrom[$k]){
+				$value['u_dafeng']=$datafrom[$k];
+				$user_zongfen=$user_zongfen+$datafrom[$k];
+			}else{
+				//操作错误
+				//返回
+				
+			}
+		} 
+		
+		//将结果转化为json
+		$u_dafeng_json=json_encode($json_d_mode);
+		$arr['model']=$u_dafeng_json;//专家打分明细
+		$arr['user_zongfen']=$user_zongfen;//总分
+		$arr['operating_time']=date("Y-m-d H:i:s");
+		m('m_pxmdf')->update($arr,'pici_id='.$pci.' and uid='.$uid.' and xid='.$mid.' and mtype='.$mtype);
+		
+		
+	}
+	
+=======
+	
+	/**
+	 * 发起网评保存草稿
+	 */
+	public function savecommentdraftAjax(){
+		$id = $this->post('id');//id如果id为0则是新增,大于0则为编辑
+		$pici_name = $this->post('pici_name');//批次名称
+		$pici_start_time = $this->post('pici_start_time');//开始时间
+		$pici_end_time = $this->post('pici_end_time');//结束时间
+		$pici_norm_id = $this->post('pici_norm_id');//指标id
+		$expert_ids = $this->post('expert_ids');//专家ids
+		$project_ids = $this->post('project_ids');//项目ids
+		$mtype = $this->post('mtype');//项目类型
+		$operating_time = date('Y-m-d H:i:s',time());//操作时间
+		
+		$msg='';$info=array();
+		//保存草稿必须填写批次名称和选择指标，否则列表无法显示
+		if($pici_name=='')$msg='批次名称不能为空';
+		if($pici_norm_id=='')$msg='请选择指标';
+		
+		if($msg==''){
+			$data = array(
+				'pici_name'=>$pici_name,
+				'pici_start_time'=>$pici_start_time,
+				'pici_end_time'=>$pici_end_time,
+				'user_id'=>$this->adminid,
+				'operating_time'=>$operating_time,
+				'pici_norm_id'=>$pici_norm_id,
+				'expert_ids'=>serialize(explode(',', $expert_ids)),
+				'project_ids'=>serialize(explode(',', $project_ids)),
+				'mtype'=>$mtype,
+				'is_draft'=>1,
+			);
+			//如果id=0则是添加，id大于0则为编辑
+			if($id==0){
+				$reinfo=m('m_batch')->insert($data);
+			}else{
+				$reinfo=m('m_batch')->update($data,"id=$id");
+			}
+			if($reinfo){
+				$info =array('id' => $reinfo,'success' => true,'msg' => '保存成功');
+			}else{
+				$info =array('id' => $reinfo,'success' => false,'msg' => '保存失败');
+			}
+		}else{
+			$info =array('id' => '','success' => false,'msg' => $msg);
+		}
+		
+		$this->returnjson($info);
+	}
+
+
+	/**
+	 * 获取网评信息
+	 */
+	public function loadcommentAjax(){
+		$id = $this->request('id');//网评信息id
+		$data = m('m_batch')->getone("id=$id");
+		//echo m('m_batch')->getLastSql();
+		$mtype=$data['mtype'];
+		$expertIds=$data['expert_ids']=implode(',', unserialize($data['expert_ids']));
+		$projectIds=$data['project_ids']=implode(',', unserialize($data['project_ids']));
+		$data['norm_name']=m('m_dafen')->getone('id='.$data['pici_norm_id'])['dafen_model_name'];
+		$data['expert_arr']= m('admin')->getall("id in ($expertIds)");
+		
+		$table = '`[Q]flow_bill` a left join `[Q]admin` b on a.uid=b.id left join `whole_projects` c on a.mid=c.id left join `[Q]flow_course` fc on fc.id=a.nowcourseid';
+		$fields = 'a.table as mtype,a.modeid,a.optid,a.nowcheckname,a.status as bill_status,a.allcheckid,a.nowcheckid,a.nowcourseid,a.optid,b.name,b.deptname,c.id,c.num,c.project_name,c.status as cst,c.isturn,c.optname,c.project_head,c.project_apply_time,c.project_select,c.project_xingzhi,c.project_ku,c.isturn,fc.name as flowname,c.exigence_status,c.process_state,c.project_is_guidang,c.project_number,c.project_yushuan';
+		$where = "c.id in ($projectIds) and a.table='$mtype'";
+		$order = '';
+		$project_arr = $this->limitRows($table,$fields,$where,$order);
+		unset($project_arr['sql'],$project_arr['total']);
+		//echo $project_arr['sql'];
+		$data['project_arr']= $project_arr['rows'];
+		if($data) $data['pass']='';
+		$arr['data'] = $data;
+		$this->returnjson($arr);
+	}
+	
+	/**
+	 * 网评项目列表
+	 */
+	public function commentlistAjax(){
+		$projectIds = $this->post('project_ids');//项目ids
+		$mtype = $this->post('mtype');//项目类型
+		$table = '`[Q]m_batch`';
+		$fields = '*';
+		$where = "1=1";
+		$order = 'operating_time desc';
+		$this->getlist($table, $fields, $where, $order);
+	}
+	
+	
+	/**
+	 * 指标信息返回
+	 */
+	public function getnormAjax(){
+		$norm_id = $this->rock->request('norm_id');//指标id
+		$norm_info = m('m_dafen')->getone('id='.$norm_id, $fields='dafen_model_name as name,dafen_model_num as num,mtype');
+		$this->returnjson($norm_info);
+	}
+>>>>>>> .r22737
+}

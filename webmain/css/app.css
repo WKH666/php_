@@ -1,0 +1,684 @@
+@charset "utf-8";
+/*搜索框背景颜色 start*/
+.selBackGround{
+	background-color: #FFFCED;
+	border: 1px solid #D6C8A2;
+	padding-top: 1%;
+	/*margin: 2% 0%;*/
+	margin-bottom: 15px;
+	margin-top: 15px;
+}
+/*搜索框背景颜色 end*/
+/*下滑线输入框 start*/
+ul{
+	margin: 0%;
+	padding: 0%;
+}
+.rContent{
+	display: inline-block;
+	width: 80px;
+	text-align: center;
+	border-style: none;
+	border-bottom: 1px solid #888;
+	font-size: 18px;
+	font-family: arial;
+}
+/*下滑线输入框 end*/
+/*文本框*/
+
+.txtPanel {
+	width: 170px !important;
+	display: inline-block;
+}
+
+.txtPanelDate {
+	width: 250px !important;
+	display: inline-block;
+}
+
+#reservation {
+	background-color: #FFFFFF;
+}
+
+.txtInput1 {
+	width: 100%;
+	height: 26px;
+	height: 26px\9;
+	font-size: 14px;
+	border-radius: 5px;
+	border-style: none;
+	border: 1px solid #EEEEEE;
+	text-indent: 5%;
+}
+
+.txtInput2 {
+	width: 100%;
+	height: 50px;
+	height: 50px\9;
+	line-height: 50px\9;
+	border-style: none;
+	font-size: 18px;
+	text-indent: 2%;
+}
+
+/*按钮样式 start*/
+
+.btn_ {
+   /*原型按钮样式 -*/
+	border-style: none;
+    background-color: #419af1;
+    color: #FFFFFF;
+    border: 1px solid #D6DED3;
+    width: 100px;
+    height: 33px;
+    border-radius: 5px;
+    background-image: none;
+}
+.cbtn_{
+	/*框架按钮样式 -*/
+    color: #ffffff;
+    /*opacity: 0.8;*/
+    background-color: #419af1;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+.abtn_ {
+	margin: 4%;
+}
+.btnPanel1{
+	text-align: center;
+	margin: 1% 0%;
+}
+.bgGray{
+	background-color: #b5b5b5 !important;
+	margin-left: 2%;
+	color:#fff !important;}
+.btnPanel{
+	text-align: center;
+	margin-top: 2%;
+}
+
+.datesss {
+    background: url(mode/icons/date.png) no-repeat right;
+    cursor: pointer;
+}
+/*按钮样式 end*/
+/*文本域 start*/
+textarea[name='txtArea']{
+	border-color:#EEEEEE ;
+	resize: none;
+	width: 100%;
+	height: 300px\9;
+	height: 300px;
+    font-size: 18px;
+    border: 1px solid #EEEEEE \9;
+}
+textarea[name='txtArea1']{
+	border-color:#EEEEEE ;
+	resize: none;
+	width: 100%;
+	height: 200px\9;
+	height: 200px;
+    font-size: 18px;
+    border: 1px solid #EEEEEE \9;
+}
+
+textarea[name='txtArea2']{
+	border-color:#EEEEEE ;
+	resize: none;
+	width: 100%;
+	height: 100px\9;
+	height: 100px;
+    font-size: 16px;
+    border: 1px solid #EEEEEE \9;
+}
+/*文本域 end*/
+
+/*标题 start*/
+
+.headerTitle {
+	/*原型上的标题颜色  --- 兼容IE背景渐变颜色*/
+	/*display: table;
+	width: 90%;
+	height: 30px;
+	background: linear-gradient(to bottom, #A1D5BF, #6FBFA3);
+	background: -moz-linear-gradient(top, #A1D5BF 0%, #ffffff 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #A1D5BF), color-stop(100%, #6FBFA3));
+	background: -webkit-linear-gradient(top, #A1D5BF 0%, #6FBFA3 100%);
+	background: -o-linear-gradient(top, #A1D5BF 0%, #6FBFA3 100%);
+	background: -ms-linear-gradient(top, #A1D5BF 0%, #6FBFA3 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#A1D5BF', endColorstr='#6FBFA3', GradientType=0);
+	margin: 1% auto;*/
+	
+	
+	/*符合框架标题颜色*/
+    font-family: inherit;
+    font-size: 18px;
+    color: #FFFFFF;
+    width: 83%;
+    padding: 0.5% 0%;
+    margin: auto;
+    background-color: #244D81;
+}
+/*兼容IE滤镜*/
+/*:root .headerTitle {
+	filter: none;
+}*/
+
+.headerTitle>div {
+	/*原型上的标题颜色  --- 兼容IE背景渐变颜色*/
+	/*display: table-cell;
+	vertical-align: middle;*/
+}
+
+.headerTitle div .titleContent {
+	display: block;
+	text-indent: 1%;
+	font-size: 15px;
+	/*原型上的标题颜色  --- 兼容IE背景渐变颜色*/
+	/*margin: .5% 0%;*/
+	text-align: center;
+}
+
+
+/*标题 end*/
+
+
+/*表格 start*/
+
+.tbBody {
+	padding: 0% 5%;
+}
+
+.tableRyr {
+	background-color: #FFFFFF;
+}
+
+.tableRyr td {
+	border: 1px solid #EEEEEE;
+	background-color: #FFFFFF;
+}
+
+.tableRyr thead,
+th {
+	background-color: #efefef;
+	border: 1px solid #EEEEEE;
+}
+
+
+/*表格 end*/
+
+
+/*上传 start*/
+
+.upPanel {
+	margin-top: 2%;
+}
+
+.upPanel .upLoadify {
+	background-color: #F6F6F6;
+	border: 1px solid #D6DED3;
+	position: relative;
+}
+
+.uploadify {
+	position: relative;
+	display: inline-block !important;
+	margin: 1% 1%;
+}
+
+.uploadify-queue {
+	margin-bottom: 0%;
+}
+
+.upPanel .upLoadify .leftContent {
+	font-size: 18px;
+	margin-left: 13px;
+	color: #28A080;
+}
+
+.upPanel .upLoadify .rightContent {
+	color: #ff0000;
+	position: absolute;
+	top: 17px;
+	left: 240px;
+}
+
+
+/*上传 end*/
+
+
+/*下拉框 start*/
+.selCe {
+	width: 100%;
+	height: 26px;
+	height: 26px\9;
+	font-size: 14px;
+}
+.selSearch {
+	width: 170px;
+	height: 34px;
+	line-height: 34px;
+/*	padding: 6px 0;*/
+	border-radius: 5px;
+	border: 1px solid #ccc;
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+	-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	padding-left: 8px;
+}
+.selSearchBgeee{
+	cursor: not-allowed;background-color:#eee ;
+}
+
+/*下拉框 end*/
+
+
+/*审核结果 start*/
+
+.resultContentPanel {}
+
+.resultContentPanel .resultOfDepartment {
+	font-size: 25px;
+	margin: 3% 0%;
+}
+
+.resultContentPanel .sign {
+	text-align: right;
+	padding-right: 5%;
+}
+
+.resultContentPanel .signTime {
+	text-align: right;
+	margin-top: 2%;
+	margin-bottom: 4%;
+}
+
+
+/*审核结果 end*/
+
+/*上传 start*/
+
+.upPanel {
+	margin-top: 2%;
+}
+
+.upPanel .upLoadify {
+	background-color: #F6F6F6;
+	border: 1px solid #D6DED3;
+	position: relative;
+}
+
+.uploadify {
+	position: relative;
+	display: inline-block !important;
+	margin: 1% 1%;
+}
+
+.uploadify-queue {
+	margin-bottom: 0%;
+}
+
+.upPanel .upLoadify .leftContent {
+	font-size: 18px;
+	margin-left: 13px;
+	color: #28A080;
+}
+
+.upPanel .upLoadify .rightContent {
+	color: #ff0000;
+	position: absolute;
+	top: 17px;
+	left: 240px;
+}
+
+
+/*上传 end*/
+
+/*li start*/
+.charSec ul li{
+    float: left;
+    list-style: none;
+    font-size: 18px;
+    
+    
+}
+/*li end*/
+
+/*****************************个别样式添加*******************************/
+/*添加申报*/
+.tbTxt input[type='text']{
+	/*border-style:none;*/
+}
+
+.tbTxt input[name^="xuhao0"]{
+	border-style:none;
+}
+.tdh40{
+	height: 40px;
+}
+.tCenter{
+	text-align: center;	
+}
+.tdcont1 a{
+	color: #FFFFFF !important;
+}
+.btnAdd{
+	display: inline-block;	
+	width: 46px;
+	margin-top: 2%;
+}
+.tbgGreen{
+	background-color: #f1f1f1;
+}
+.padBot2{
+	padding-bottom: 2%;
+}
+.pad2{
+	padding: 2% 0%;
+}
+.pad1{
+	padding: 1% 0%;
+	
+}
+.marH1{
+	margin: 0% 1%;
+}
+.marS2{
+	margin: 2% 0%;
+}
+.marRig10{
+	margin-right: 10px;
+}
+.marRig3{
+	margin-right: 3px;
+	
+}
+.marBot3{
+	margin-bottom: 2%;
+}
+.f30{
+	font-size: 30px !important;
+	
+}
+.f20{
+	font-size: 20px !important;
+}
+.f18{
+	font-size: 18px !important;
+}
+.f16{
+	font-size: 16px !important;
+	
+}
+.disB{
+	display: block;
+}
+.borC{
+	border: 1px solid #CCCCCC;
+}
+.bgColor1{
+	 background-color: #419af1;
+     color: #fff;
+    font-size: 15px;
+}
+/*****************************媒体查询添加*******************************/
+/**/
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+	.retimeker{
+		float: none !important;
+	    margin-right: 0% !important;
+	}
+	.timepicker{
+		float: right;
+	}
+}
+
+/****************************流程说明**************************************/
+		
+		
+		.hidden {
+			visibility: hidden;
+		}
+		.step-1 {
+			background: url(../../images/pendingAudit-g.png) no-repeat center center;
+			background-size: 60%;
+		}
+		
+		.step-1-done {
+			background: url(../../images/pendingAudit.png) no-repeat center center;
+			background-size: 60%;
+			border-color: #419AF1 !important;
+		}
+		
+		.step-2 {
+			background: url(../../images/Audit-g.png) no-repeat center center;
+			background-size: 60%;
+		}
+		
+		.step-2-done {
+			background: url(../../images/Audit.png) no-repeat center center;
+			background-size: 60%;
+			border-color: #419AF1 !important;
+		}
+		
+		.step-3 {
+			background: url(../../images/auditPass-g.png) no-repeat center center;
+			background-size: 60% ;
+		}
+		
+		.step-3-done {
+			background: url(../../images/auditPass.png) no-repeat center center;
+			background-size: 60%;
+			border-color: #419AF1 !important;
+		}
+		
+		
+		.containTad {
+			/*border: 1px solid #e2e2e2;*/
+			width: 100%;
+			margin: 0 auto;
+			font: 12px/1.5 tahoma, arial, "Hiragino Sans GB", simsun, sans-serif;
+			color: #333;
+			min-width: 990px;
+			padding-top: 35px;
+		}
+		
+		.containTad .detailTitle {
+			font-size: 18px;
+			background-color: #efefef;
+			height: 38px;
+			line-height: 38px;
+			border-bottom: 1px solid #e2e2e2;
+		}
+		
+		.containTad .detailTitle .indent {
+			text-align: center;
+			display: block;
+		}
+		
+		.containTad .progressbar {
+			position: relative;
+		}
+		
+		.containTad .progressbar .detailProgressbar {
+			padding-bottom: 22px;
+		}
+		
+		.containTad .progressbar .detailProgressbar li {
+			float: left;
+			width: 33.33%;
+			text-align: center;
+			position: relative;
+		}
+		
+		.arrow {
+			position: absolute;
+			bottom: -22px;
+			left: 47%;
+			width: 0;
+			height: 0;
+			border: 13px solid #fff;
+			z-index: -1;
+			border-bottom-width: 13px;
+			border-bottom-color: #EFEFEF;
+		}
+		
+		.step {
+			width: 100px;
+			height: 100px;
+			display: inline-block;
+			border: 3px solid #818181;
+			border-radius: 100%;
+			background-color: #FFFFFF;
+		}
+		
+		.step-done {
+			width: 100px;
+			height: 100px;
+			display: inline-block;
+			border: 3px solid #419af1;
+			border-radius: 100%;
+			background-color: #FFFFFF;
+		}
+		
+		.hr_ {
+			display: inline-block;
+			height: 10px;
+			width: 28%;
+			border-bottom: 10px dotted #818181;
+			position: absolute;
+			z-index: -1;
+		}
+		
+		.leftHR {
+			top: 38px;
+			left: 21%;
+		}
+		
+		.rightHR {
+			top: 38px;
+			left: 53%;
+		}
+		
+		.hr-done_ {
+			display: inline-block;
+			height: 10px;
+			width: 28%;
+			border-bottom: 10px dotted #419af1;
+			position: absolute;
+			top: 38px;
+			left: 21%;
+			z-index: -1;
+		}
+		
+		.containTad .panelPackage {
+			background-color: #EFEFEF;
+			position: relative;
+			border-radius: 3px;
+			margin: 20px 11% 20px 11%;
+		}
+		
+		.containTad .panelPackage .packageTitle {
+			font-size: 18px;
+			border-bottom: 1px solid #e7e7e7;
+			font-family: "Hiragino Sans GB", "Microsoft YaHei";
+			margin: 0;
+			padding: 14px 0 14px 20px;
+			position: relative;
+		}
+		
+		.containTad .panelPackage .packageTitle .title-text {
+			font-weight: 400;
+			font-family: "Microsoft Yahei";
+			font-size: 16px;
+		}
+		
+		.containTad .panelPackage .packageStatus {
+			padding: 18px 0 0 0;
+		}
+		
+		.containTad .panelPackage .packageStatus .statusBox {
+			position: relative;
+			overflow: hidden;
+		}
+		
+		.containTad .panelPackage .packageStatus .statusBox:before {
+			content: " ";
+			background-color: #f3f3f3;
+			display: block;
+			position: absolute;
+			top: -2px;
+			left: 20px;
+			width: 10px;
+			height: 4px;
+		}
+		
+		.containTad .panelPackage .packageStatus .statusBox .statusList {
+			margin-left: 12px;
+			margin-top: 0px;
+			padding-left: 10px;
+			list-style: none;
+			font-size: 12px;
+		}
+		
+		.containTad .panelPackage .packageStatus .statusBox .statusList li {
+			margin-bottom: -2px;
+			height: auto;
+			min-height: 30px;
+			border-left: 1px solid #d9d9d9;
+			font-size: 14px;
+		}
+		
+		.containTad .panelPackage .packageStatus .statusBox .statusList li:before {
+			content: '';
+			border: 3px solid #f3f3f3;
+			background-color: #d9d9d9;
+			display: inline-block;
+			width: 5px;
+			height: 5px;
+			border-radius: 5px;
+			margin-left: -6px;
+			margin-right: 10px;
+			-webkit-box-sizing: initial;
+			-moz-box-sizing: initial;
+			box-sizing: initial;
+		}
+		
+		.containTad .panelPackage .packageStatus .statusBox .statusList .latest {
+			border: none;
+		}
+		
+		.containTad .panelPackage .packageStatus .statusBox .statusList .latest:before {
+			/*background-color: #419AF1;
+			border-color: #FFFFFF;*/
+		}
+		
+		.containTad .statusList .date {
+			width: 88px;
+			display: inline-block;
+			font-weight: 700;
+			margin-right: 8px;
+			font-family: Arial;
+		}
+		
+		.containTad .statusList .week {
+			width: 42px;
+			display: inline-block;
+			font-weight: 700;
+		}
+		.containTad .statusList .time {
+		    margin-right: 28px;
+	    	margin-left: 5px;
+	        width: 58px;
+            display: inline-block;
+		}
+		.containTad .statusList .text{
+			display: inline-block;
+		    vertical-align: text-top;
+		    line-height: 1.3em;
+		    width: 57%;
+		}

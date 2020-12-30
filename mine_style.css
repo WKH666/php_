@@ -1,0 +1,194 @@
+@charset "utf-8";
+
+/*整个项目的媒体查询*/
+
+
+/*框架在IPad的媒体查询 start*/
+
+
+/*  /pages/projectDeclaration/showProject.html  项目申报-查看项目 start*/
+
+@media only screen and (max-width: 992px) and (min-width: 767px) {
+	.review .reviewInput .stateContent{
+		text-align: left !important;
+	}
+}
+
+@media only screen and (max-width: 767px) {
+	.criteria .criteriaInput {
+		text-align: left !important;
+		padding-right: 0% !important;
+		padding-left: 13%;
+		margin-bottom: 1%;
+	}
+	.criteria .criteriaInput .stateContent {
+		width: 56px;
+		display: inline-block;
+	}
+}
+
+
+/*项目申报-查看项目 end*/
+
+
+/*  /pages/projectDeclaration/showProject.html  查看项目详情 start*/
+
+@media only screen and (max-width: 1062px) {
+	.projectView .proProcess .proProcessPanel .processPanel {
+		width: 100px !important;
+		padding: 0% 1%;
+	}
+}
+
+@media only screen and (max-width: 767px) {
+	.projectView .proProcess .proProcessPanel .processPanel {
+		width: 80px !important;
+		height: 85px !important;
+		padding: 10%;
+	}
+}
+
+@media only screen and (max-width: 600px) {
+	.projectView .proProcess .proProcessPanel {
+		width: calc(100%/4) !important;
+		padding: 0%;
+		margin-top: 2%;
+	}
+	.projectView .proProcess .proProcessPanel .processPanel {
+		width: 98px !important;
+	}
+}
+
+
+/*IPhone6 ip6*/
+
+@media only screen and (max-width: 375px) {
+	.projectView .proProcess .proProcessPanel {
+		width: calc(100%/3) !important;
+	}
+	.projectView .proProcess .proProcessPanel .processPanel {
+		width: 90px !important;
+	}
+}
+
+
+/*查看项目详情 end*/
+
+
+/* /pages/projectDeclaration/projectView.html  查看项目申报 Start*/
+
+@media only screen and (max-width: 991px) {
+	.declareBook .delbDetail .delbProName .delbUE ul li {
+		width: 138px !important;
+	}
+}
+
+@media only screen and (max-width: 767px) {
+	.declareBook .delbDetail .delbProName .delbUE ul li {
+		width: 220px !important;
+	}
+}
+
+@media only screen and (max-width: 560px) {
+	.declareBook .delbDetail .delbProName .delbUE ul li {
+		width: 131px !important;
+	}
+}
+
+
+/*IPhone6plus ip6plus*/
+
+@media only screen and (max-width: 414px) {
+	.headerTitle div .titleContent {
+		font-size: 13px;
+		margin: 0%;
+		text-align: center;
+	}
+	.headerTitle {
+		margin: 0%;
+		width: 100%;
+	}
+}
+
+
+/*IPhone6 ip6*/
+
+@media only screen and (max-width: 375px) {
+	.declareBook .delbDetail .delbProName .delbUE ul li {
+		width: 112px !important;
+	}
+	.headerTitle div .titleContent {
+		font-size: 13px;
+		margin: 0%;
+		text-align: center;
+	}
+	.headerTitle {
+		margin: 0%;
+		width: 100%;
+	}
+}
+
+
+/*IPhone5 ip5*/
+
+@media only screen and (max-width: 320px) {
+	.declareBook .delbDetail .delbProName .delbUE ul li {
+		width: 90px !important;
+		font-size: 12px !important;
+	}
+	.headerTitle div .titleContent {
+		font-size: 13px;
+		margin: 0%;
+		text-align: center;
+		font-size: 12px !important;
+	}
+	.headerTitle {
+		margin: 0%;
+		width: 100%;
+	}
+}
+
+
+/*查看项目申报 end*/
+
+
+/*上传控件 start*/
+
+@media only screen and (max-width:991px) {
+	.uploadify {
+		margin: 4% 1% !important;
+	}
+	.upPanel .upLoadify .rightContent {
+		top: 30px;
+	}
+}
+
+@media only screen and (max-width: 569px) {
+	.upPanel .upLoadify .rightContent {
+		top: 29px;
+	}
+	.uploadify {
+		margin: 8% 1% !important;
+	}
+	.addBtnPanel .abpArea .addBtn_ {
+		margin: 0% 3% !important;
+	}
+}
+/*IPhone6 ip6*/
+@media only screen and (max-width: 375px) {
+	.upPanel .upLoadify .rightContent {
+		top: 4px;
+	}
+	.uploadify {
+		margin: 15% 1% !important;
+	}
+	.addBtnPanel .abpArea .addBtn_ {
+		margin: 0% !important;
+	}
+}
+
+
+/*上传控件 end*/
+
+
+/*框架在IPad的媒体查询 end*/
